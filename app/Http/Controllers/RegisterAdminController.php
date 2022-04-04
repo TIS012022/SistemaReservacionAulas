@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-class RegisterController extends Controller
+class RegisterAdminController extends Controller
 {
-    
     public function create(){
-        return view('auth.register');
-        
+        return view('admin.registerAdmin');
     }
 
     public function store(){
@@ -20,13 +18,12 @@ class RegisterController extends Controller
             'ci' => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed',
-            'facultad' => 'required', 
-            'materias_grupos' => 'required',
+
         ]);
 
-        $user = User::create(request(['name','ci','email','password','facultad','materias_grupos']));
+        $user = User::create(request(['name','ci','email','password']));
 
         auth()->login($user);
-        return redirect()->to('/inicio');
+        return redirect()->to('/');
     }
 }

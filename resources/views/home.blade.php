@@ -4,6 +4,6 @@
 
 @section('content')
 
-    <h1 class="text-center">Bienvenido al sistema de asignacion de aulas </h1>
+    <h1 class="text-center">Bienvenido al sistema de asignacion de aulas Docente</h1>
 
 @endsection
