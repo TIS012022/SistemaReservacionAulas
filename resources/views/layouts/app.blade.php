@@ -15,12 +15,24 @@
        
        
           <ul class="navbar-nav">
+            @if(auth()->check())
+            <li class="nav-item active">
+              <p class="text-xl">Bienvenido <p>{{auth()->user()->name}}</p></p>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('login.destroy')}}">Logout</a>
+            </li>
+            
+                
+            @else
+                
             <li class="nav-item active">
               <a class="nav-link" href="{{route('login.index')}}">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route('register.index')}}">Register</a>
             </li>
+            @endif
           </ul>
         
       </nav>

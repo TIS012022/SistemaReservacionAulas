@@ -17,10 +17,25 @@ use App\Http\Controllers\SessionsController;
 
 Route::get('/', function () {
     return view('home');
-});
+}) ->middleware('auth');
+
+
+Route::post('/register', [App\Http\Controllers\RegisterController::class, 'store'])
+->name('register.store');
+
+Route::get('/register', [App\Http\Controllers\RegisterController::class, 'create'])
+->middleware('guest')
+->name('register.index');
 
 
 
-Route::get('/login', [App\Http\Controllers\SessionsController::class, 'create'])->name('login.index');
+Route::get('/login', [App\Http\Controllers\SessionsController::class, 'create'])
+->middleware('guest')
+->name('login.index');
 
-Route::get('/register', [App\Http\Controllers\RegisterController::class, 'create'])->name('register.index');
+Route::post('/login', [App\Http\Controllers\SessionsController::class, 'store'])
+->name('login.store');
+
+Route::get('/logout', [App\Http\Controllers\SessionsController::class, 'destroy'])
+->middleware('auth')
+->name('login.destroy');
