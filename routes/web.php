@@ -5,6 +5,7 @@ use app\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegisterAdminController;
+use App\Http\Controllers\Controller;
 
 
 /*
@@ -22,9 +23,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/inicio', function () {
-    return view('home');
-}) ->middleware('auth');
+Route::get('/docente', function () { 
+    return view('user\home');
+})->middleware('guest');
+
 
 Route::post('/register', [App\Http\Controllers\RegisterController::class, 'store'])
 ->name('register.store');
@@ -36,7 +38,7 @@ Route::get('/register', [App\Http\Controllers\RegisterController::class, 'create
 
 
 Route::post('/registerAdmin', [App\Http\Controllers\RegisterAdminController::class, 'store'])
-->name('admin.registerAdmin');
+->name('admin.registerAdminStore');
 
 Route::get('/registerAdmin', [App\Http\Controllers\RegisterAdminController::class, 'create'])
 ->middleware('guest')
@@ -55,6 +57,12 @@ Route::get('/logout', [App\Http\Controllers\SessionsController::class, 'destroy'
 ->name('login.destroy');
 
 
+
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])
 ->middleware('auth.admin')
 ->name('admin.index');
+
+Route::get('/docente', [App\Http\Controllers\UserController::class, 'index'])
+->middleware('auth')
+->name('user.index');
+

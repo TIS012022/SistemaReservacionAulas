@@ -20,7 +20,8 @@ class AdminAuth
             if(auth()->user()->role=='admin'){
             return $next($request);
             }
+            return redirect()->to('/docente');
         }
-        return redirect()->to('/login');
+       
     }
 }

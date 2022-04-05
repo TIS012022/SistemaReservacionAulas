@@ -43,9 +43,16 @@
             placeholder="Confimacion Password" id="password_confirmation" name="password_confirmation">
             
             <input type="text" class="border border-gray-200 focus:bg-white" 
-            placeholder="Facultad" id="facultad" name="facultad">
+            placeholder="Tipo de usuario" id="role" name="role">
 
-            @error('Facultad')
+            @error('role')
+            <p class="border border-red-500">{{$message}}</p>           
+            @enderror
+
+            <input type="text" class="border border-gray-200 focus:bg-white" 
+            placeholder="Departamento" id="departamento" name="departamento">
+
+            @error('Departamento')
             <p class="border border-red-500">{{$message}}</p>           
             @enderror
     

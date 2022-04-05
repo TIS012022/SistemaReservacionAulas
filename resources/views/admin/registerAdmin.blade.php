@@ -42,7 +42,12 @@
             <input type="password" class="border border-gray-200 focus:bg-white" 
             placeholder="Confimacion Password" id="password_confirmation" name="password_confirmation">
             
-            
+            <input type="text" class="border border-gray-200 focus:bg-white" 
+            placeholder="Tipo de usuario" id="role" name="role">
+
+            @error('role')
+            <p class="border border-red-500">{{$message}}</p>           
+            @enderror
     
             <button type="submit" class="btn btn-secondary">Send</button>
         </form>

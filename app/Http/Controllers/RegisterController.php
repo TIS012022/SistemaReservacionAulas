@@ -20,13 +20,15 @@ class RegisterController extends Controller
             'ci' => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed',
-            'facultad' => 'required', 
-            'materias_grupos' => 'required',
+            'role' => 'required',
+            'departamento' => 'required',
+            'materias_grupos' =>'required',
+
         ]);
 
-        $user = User::create(request(['name','ci','email','password','facultad','materias_grupos']));
+        $user = User::create(request(['name','ci','email','password', 'role', 'departamento', 'materias_grupos']));
 
         auth()->login($user);
-        return redirect()->to('/inicio');
+        return redirect()->to('/docente');
     }
 }
