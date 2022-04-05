@@ -23,9 +23,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/docente', function () { 
-    return view('user\home');
-})->middleware('guest');
 
 
 Route::post('/register', [App\Http\Controllers\RegisterController::class, 'store'])
@@ -63,6 +60,6 @@ Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])
 ->name('admin.index');
 
 Route::get('/docente', [App\Http\Controllers\UserController::class, 'index'])
-->middleware('auth')
+->middleware('auth.user')
 ->name('user.index');
 

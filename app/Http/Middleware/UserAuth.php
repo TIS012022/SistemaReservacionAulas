@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class AdminAuth
+class UserAuth
 {
     /**
      * Handle an incoming request.
@@ -17,14 +17,11 @@ class AdminAuth
     public function handle(Request $request, Closure $next)
     {
         if(auth()->check()){
-            if(auth()->user()->role=='admin'){
+            if(auth()->user()->role=='docente'){
             return $next($request);
             }
-            return redirect()->to('/docente');
-            
-            
+            return redirect()->to('/admin');
         }
         return redirect()->to('/');
-       
     }
 }
