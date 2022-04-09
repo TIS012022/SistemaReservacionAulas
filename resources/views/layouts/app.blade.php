@@ -10,11 +10,14 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">EGenius</a>
+    <nav class="navbar navbar-dark bg-danger">
+        <a class="navbar-brand" href="/" style="padding-left: 5%;">
+          <img src="{{asset('images/egenius.png')}}" width="30" height="50"  alt="">
+          <a style="padding-right: 70%; font-size: 20px; font-weight: bold;">  EGENIUS </a>
+        </a>
        
        
-          <ul class="navbar-nav">
+          <ul class="navbar-nav" style="padding-right: 5%">
             @if(auth()->check())
             <li class="nav-item active">
               <p class="text-xl">Bienvenido <p>{{auth()->user()->name}}</p></p>
@@ -26,15 +29,15 @@
                 
             @else
                 
-            <li class="nav-item active">
-              <a class="nav-link" href="{{route('login.index')}}">Login</a>
+            <li class="nav-item active" >
+              <a  class="btn btn-outline-light" href="{{route('login.index')}}">INICIA SESION</a>
             </li>
-            <li class="nav-item">
+          <!--  <li class="nav-item">
               <a class="nav-link" href="{{route('register.index')}}">Register</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route('admin.registerAdmin')}}">Register Admin</a>
-            </li>
+            </li>-->
             @endif
           </ul>
         
