@@ -10,17 +10,17 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-danger">
-        <a class="navbar-brand" href="/" style="padding-left: 5%;">
-          <img src="{{asset('images/egenius.png')}}" width="30" height="50"  alt="">
-          <a style="padding-right: 70%; font-size: 20px; font-weight: bold;">  EGENIUS </a>
-        </a>
+    <nav class="navbar navbar-dark bg-danger d-flex justify-content-between">
+        <div class="navbar-brand " style="padding-left:5%" href="/" >
+          <img src="{{asset('images/egenius.png')}}" width="35" height="50"  alt="">
+          <a style=" font-size: 20px; font-weight: bold; font-family: 'Times New Roman'; color:black">  EGENIUS </a>
+        </div>
        
        
-          <ul class="navbar-nav" style="padding-right: 5%">
+          <div class="navbar-nav" style="padding-right: 5%">
             @if(auth()->check())
             <li class="nav-item active">
-              <p class="text-xl">Bienvenido <p>{{auth()->user()->name}}</p></p>
+              <p class="text-xl" >Bienvenido <p>{{auth()->user()->name}}</p></p>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route('login.destroy')}}">Logout</a>
@@ -30,7 +30,7 @@
             @else
                 
             <li class="nav-item active" >
-              <a  class="btn btn-outline-light" href="{{route('login.index')}}">INICIA SESION</a>
+              <a  class="btn btn-outline-light" style="font-family: 'Times New Roman'; " href="{{route('login.index')}}">INICIA SESIÓN</a>
             </li>
           <!--  <li class="nav-item">
               <a class="nav-link" href="{{route('register.index')}}">Register</a>
@@ -39,7 +39,7 @@
               <a class="nav-link" href="{{route('admin.registerAdmin')}}">Register Admin</a>
             </li>-->
             @endif
-          </ul>
+          </div>
         
       </nav>
 
