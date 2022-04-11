@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Admin\ReservasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('frontend.index');
+// });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [FrontendController::class, 'index']);
+
+Route::resource('reservas', ReservasController::class);
