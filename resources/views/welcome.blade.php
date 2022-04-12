@@ -11,7 +11,7 @@
         background-size:cover;
         background-position:center;"
         class="d-flex justify-content-around">
-            <div style="float: left; font-size: 30px;; margin-top: 3%; ">
+            <div style="float: left; font-size: 30px; margin-top: 3%; ">
                 <p style="font-family: 'Times New Roman'; text-align: center;">Sistema de Gestion de Aulas</p>
                 <p style="font-family: 'Times New Roman'; text-align: center;">UMSS</p>
             </div>
@@ -25,6 +25,16 @@
             </div>
             
         </div>
-        <h1 class="text-center">Bienvenido</h1>
+        <div class="d-flex justify-content-around " style="display:flex; align-self: auto;">
+                <div style="float: left; font-size: 30px; text-align: center; margin-top: 5%; ">
+                    <p style="font-family: 'Times New Roman';">Realiza tu reserva de aula <br>cuando quieras y donde quieras</p>
+                    
+                    <img src="{{asset('images/egenius2.png')}}" width="300" height="200"  alt="" >
+                </div>
+                <div style="float: left; margin-top: 6%;">
+                    <img src="{{asset('images/imagen1.jpg')}}" width="500" height="300"  alt="">
+                </div>
+        </div>
+        
     </body>
 @endsection

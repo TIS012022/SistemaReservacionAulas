@@ -12,8 +12,8 @@
 <body>
     <nav class="navbar navbar-dark bg-danger d-flex justify-content-between">
         <div class="navbar-brand " style="padding-left:5%" href="/" >
-          <img src="{{asset('images/egenius.png')}}" width="35" height="50"  alt="">
-          <a style=" font-size: 20px; font-weight: bold; font-family: 'Times New Roman'; color:black">  EGENIUS </a>
+          <img src="{{asset('images/egenius.png')}}" width="35" height="50"  alt="" >
+          <a style=" font-size: 20px; font-weight: bold; font-family: 'Times New Roman'; color:black; text-decoration: none;" href="/">  EGENIUS </a>
         </div>
        
        
