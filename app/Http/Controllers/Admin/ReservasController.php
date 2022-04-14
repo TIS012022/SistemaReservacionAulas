@@ -15,7 +15,7 @@ class ReservasController extends Controller
      */
     public function index(Request $request)
     {
-        $reservas = Reservas::get();
+        $reservas = Reservas::orderBy('id', 'desc')->get();
         return view('admin.reservas.index', compact('reservas'));
     }
 
@@ -37,11 +37,15 @@ class ReservasController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre_docente' => 'required',
-        ]);
-  
-        Reservas::create($request->all());
+        // $request->validate([
+        //     'nombre_docente' => 'required',
+        // ]);
+        // Reservas::create($request->all());
+
+        $reserva = new Reservas();
+        $reserva->nombre_docente =$request->nombre_docente;
+        
+
    
         return redirect()->route('reservas.index')
                         ->with('success','Reservas se ah creado exitosamente.');
@@ -67,6 +71,9 @@ class ReservasController extends Controller
     public function edit(Reservas $reservas)
     {
         //
+        $reservas = Reservas::find($reservas);
+
+        return view('reservas.edit')->with('reservas', $reservas);
     }
 
     /**
@@ -79,6 +86,8 @@ class ReservasController extends Controller
     public function update(Request $request, Reservas $reservas)
     {
         //
+        $reservas = Reservas::find($reservas);
+
     }
 
     /**
