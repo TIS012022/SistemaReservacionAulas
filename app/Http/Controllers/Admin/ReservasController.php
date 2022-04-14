@@ -37,13 +37,13 @@ class ReservasController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nombre_docente' => 'required',
-        // ]);
-        // Reservas::create($request->all());
+        $request->validate([
+            'nombre_docente' => 'required',
+        ]);
+        Reservas::create($request->all());
 
-        $reserva = new Reservas();
-        $reserva->nombre_docente =$request->nombre_docente;
+        // $reserva = new Reservas();
+        // $reserva->nombre_docente =$request->nombre_docente;
         
 
    

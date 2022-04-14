@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="form-group row mt-3">
                                         <label for="title" class="col-md-3 form-control-label text-right">
                                             Cantidad:
@@ -111,7 +111,7 @@
                                             <input name="aula" type="text" class="form-control" placeholder=" Dia">
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 
                                 <div class="col-md-offset-4 col-md-10 text-center mt-3">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
