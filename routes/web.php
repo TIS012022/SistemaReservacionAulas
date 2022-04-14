@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\ReservasController;
 //     return view('frontend.index');
 // });
 
-// Auth::routes();
+Auth::routes();
 
 Route::get('/', [FrontendController::class, 'index']);
 
