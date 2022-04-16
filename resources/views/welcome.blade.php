@@ -25,7 +25,7 @@
 </head>
 
 <body class="antialiased">
-    <button type="button" class="btn btn-primary">Evil Genius SRL</button>
+    <h1 align="center">Hello World!</h1>
 </body>
 
 </html>

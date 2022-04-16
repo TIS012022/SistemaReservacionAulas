@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\SolicitudController;
 use Illuminate\Support\Facades\Route;
-
+// use App\Http\Controllers\ReservaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +17,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('layouts.dashboard.index');
 });
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Auth::routes();
+
+//seed database with data
+// Route::resource('aula', ReservaController::class);
+// Route::resource('materia', ReservaController::class);
+// Route::resource('grupo', ReservaController::class);
+
+Route::resource('solicitudes', SolicitudController::class, [
+  'names' => [
+    'index' => 'solicitudes',
+    'create' => 'solicitudes.create'
+  ]
+]);
+
+Route::resource('notificaciones', NotificacionController::class, [
+  'names' => [
+    'index' => 'notificaciones',
+    'create' => 'notificaciones.create'
+  ]
+]);
+// Route::resource('reservas', ReservaController::class);
