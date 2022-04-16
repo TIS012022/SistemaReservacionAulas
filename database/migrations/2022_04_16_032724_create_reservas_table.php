@@ -20,7 +20,7 @@ class CreateReservasTable extends Migration
             $table->date("hora_fin");
             $table->string("periodo");
             $table->string("dia");
-            $table->integer('solicitud');
+            $table->unsignedBigInteger('solicitud');
             $table->foreign('solicitud')->references('id')->on('solicitudes')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

@@ -18,7 +18,7 @@ class CreateNotificacionesTable extends Migration
             $table->string("email");
             $table->string("mensaje");
             $table->integer("dia");
-            $table->integer('solicitud');
+            $table->unsignedBigInteger('solicitud');
             $table->foreign('solicitud')->references('id')->on('solicitudes')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

@@ -23,10 +23,10 @@ class CreateSolicitudesTable extends Migration
             $table->text('periodo');
             $table->date('dia');
 
-            $table->integer('grupo');
-            $table->integer('aula');
-            $table->integer('materia');
-            $table->integer('docente');
+            $table->unsignedBigInteger('grupo');
+            $table->unsignedBigInteger('aula');
+            $table->unsignedBigInteger('materia');
+            $table->unsignedBigInteger('docente');
             $table->foreign('grupo')->references('id')->on('grupos')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('aula')->references('id')->on('aulas')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('materia')->references('id')->on('materias')->onUpdate('cascade')->onDelete('cascade');
