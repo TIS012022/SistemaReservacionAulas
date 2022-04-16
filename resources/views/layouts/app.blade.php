@@ -10,17 +10,23 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-danger d-flex justify-content-between">
+    <nav class="navbar navbar-light d-flex justify-content-between">
         <div class="navbar-brand " style="padding-left:5%" href="/" >
-          <img src="{{asset('images/egenius.png')}}" width="35" height="50"  alt="" >
-          <a style=" font-size: 20px; font-weight: bold; font-family: 'Times New Roman'; color:black; text-decoration: none;" href="/">  EGENIUS </a>
+          <a href="/">
+          <img src="{{asset('images/logo umss.png')}}" width="42" height="60"  alt="" >
+          </a>
         </div>
-       
+        
+        <div class="navbar-brand " style="padding-left:5%" href="/" >
+          <a href="/">
+          <img src="{{asset('images/logo fcyt.png')}}" width="50" height="60"  alt="" >
+          </a>
+        </div>
        
           <div class="navbar-nav" style="padding-right: 5%">
             @if(auth()->check())
             <li class="nav-item active">
-              <p class="text-xl" >Bienvenido <p>{{auth()->user()->name}}</p></p>
+              <p class="text-xl" >{{auth()->user()->name}}</p>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route('login.destroy')}}">Logout</a>
@@ -30,7 +36,7 @@
             @else
                 
             <li class="nav-item active" >
-              <a  class="btn btn-outline-light" style="font-family: 'Times New Roman'; " href="{{route('login.index')}}">INICIA SESIÓN</a>
+              <a  class="btn btn-dark" style="font-family: 'Times New Roman'; background-color: #1D3354;" href="{{route('login.index')}}">INICIA SESIÓN</a>
             </li>
           <!--  <li class="nav-item">
               <a class="nav-link" href="{{route('register.index')}}">Register</a>

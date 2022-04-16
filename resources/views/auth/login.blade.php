@@ -1,29 +1,56 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title') - Laravel App</title>
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+</head>
 
-@section('title','Login')
 
-@section('content')
+<body class="text-center" style="background-image: url(http://identidadgeek.com/wp-content/uploads/2008/08/87818-1.png);
 
-<div class ="block mx-auto my-12 p-8 bg-white">
-
-    <h1 class="text-center">Login</h1>
-
-    <form class="mt-4" method="POST" action="">
+background-size:cover;
+background-position: center center;
+background-attachment: fixed;
+background-repeat: no-repeat;
+display: flex;
+justify-content: center;
+align-items: center;">
+    <div style=" width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 30%;">
+    <form class="form-signin" method="POST" >
         @csrf
+        <div>
+            <h1 class="h3 mb-3 font-weight-normal" style="font-family: 'Times New Roman'; text-align: center; font-size: 40px;">Inicia sesión</h1>
+        </div>
+        <div style="padding-top: 8%">
+            <input style="font-family: 'Times New Roman';" type="email" id="email" name="email" class="form-control" placeholder="Correo electronico" required autofocus>
 
-        <input type="email" class="border border-gray-200 focus:bg-white" 
-        placeholder="Email" id="email" name="email">
-
-        <input type="password" class="border border-gray-200 focus:bg-white" 
-        placeholder="Password" id="password" name="password">
-
-        @error('message')
-
-        <p class="border border-red-500">{{$message}}</p>
+            <input style="font-family: 'Times New Roman';" type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
+        </div>
+        <div style="padding-top: 16%" >
             
-        @enderror
+            <input type="submit" value="Ingresar" class="btn btn-dark" 
+            style="font-family: 'Times New Roman'; background-color: #1D3354; width: 100%; font-size: 20px; "/>
+      
+        </div>
 
-        <button type="submit" class="btn btn-secondary">Send</button>
+
+        <div style="padding-top: 8%">
+            <a href="/" style=" text-decoration:none;font-family: 'Times New Roman'; text-align: center;">
+                <p  style="color:black;">&copy; Evil Genius S.R.L.</p>
+            </a>
+        </div>
     </form>
-</div>
-@endsection
+    </div>
+  </body>
