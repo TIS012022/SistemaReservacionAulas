@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\SolicitudController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend\FrontendController;
-use App\Http\Controllers\Admin\ReservasController;
+// use App\Http\Controllers\ReservaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,12 +15,22 @@ use App\Http\Controllers\Admin\ReservasController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('frontend.index');
-// });
+Route::get('/', function () {
+    return view('layouts.dashboard.index');
+});
+
+Route::get('/solicitudes', function () {
+  return view('admin.solicitudes.index');
+})->name("solicitudes");
+
 
 // Auth::routes();
 
-Route::get('/', [FrontendController::class, 'index']);
+//seed database with data
+// Route::resource('aula', ReservaController::class);
+// Route::resource('materia', ReservaController::class);
+// Route::resource('grupo', ReservaController::class);
 
-Route::resource('reservas', ReservasController::class);
+// Route::resource('solicitudes', SolicitudController::class);
+// Route::resource('reservas', ReservaController::class);
+// Route::resource('notificaciones', ReservaController::class);

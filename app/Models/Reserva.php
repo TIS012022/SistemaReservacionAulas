@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reservas extends Model
+class Reserva extends Model
 {
     use HasFactory;
+    protected $table = 'reservas';
     protected $fillable = [
-        'nombre_docente', 
-        'materia',
-        'grupo',
-        'aula',
+        "aula",
+        "hora_ini",
+        "hora_fin",
+        "periodo",
+        "dia",
+        'solicitud'
     ];
 }

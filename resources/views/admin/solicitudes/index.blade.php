@@ -1,9 +1,9 @@
-@extends('layouts.cms.app')
-@section('content')
+@extends('layouts.dashboard.index')
+@section('main-content')
 
 <div class="container">
     <div class="my-5">
-        <h2 class="my-3">LISTAS DE NOTIFICACIONES</h2>
+        <h2 class="my-3">LISTAS DE SOLICITUDES</h2>
         <div class="button-create">
             <a href="{{ url('reservas/create') }}">
                 <button class="btn btn-primary">Crear</button>
@@ -24,7 +24,7 @@
             </thead>
             <tbody>
 
-            @foreach ($reservas as $reserva)
+            {{-- @foreach ($reservas as $reserva)
                 <tr>
                     <th scope="row">{{ @$reserva->id }}</th>
                     <td>{{ @$reserva->nombre_docente }}</td>
@@ -41,7 +41,7 @@
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @endforeach --}}
             </tbody>
         </table>
         <label for="Seleccionar"></label>

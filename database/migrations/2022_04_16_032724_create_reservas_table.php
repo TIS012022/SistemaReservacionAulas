@@ -15,18 +15,13 @@ class CreateReservasTable extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-
-            $table->string('nombre_docente')->nullable();
-            $table->text('materia')->nullable();
-            $table->text('grupo')->nullable();
-            $table->text('aula')->nullable();
-            $table->integer('cantidad')->nullable();
-            $table->text('motivo')->nullable();
-            $table->date('hora_ini')->nullable();
-            $table->date('hora_fin')->nullable();
-            $table->text('periodo')->nullable();
-            $table->date('dia')->nullable();
-        
+            $table->string("aula");
+            $table->date("hora_ini");
+            $table->date("hora_fin");
+            $table->string("periodo");
+            $table->string("dia");
+            $table->integer('solicitud');
+            $table->foreign('solicitud')->references('id')->on('solicitudes')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Models\Reservas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Reserva;
 
-class ReservasController extends Controller
+class ReservaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class ReservasController extends Controller
      */
     public function index(Request $request)
     {
-        $reservas = Reservas::orderBy('id', 'desc')->get();
-        return view('admin.reservas.index', compact('reservas'));
+        // $reservas = Reservas::orderBy('id', 'desc')->get();
+        // return view('admin.reservas.index', compact('reservas'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ReservasController extends Controller
      */
     public function create()
     {
-        return view('admin.reservas.create');
+        // return view('admin.reservas.create');
     }
 
     /**
@@ -37,18 +37,18 @@ class ReservasController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre_docente' => 'required',
-        ]);
-        Reservas::create($request->all());
+        // $request->validate([
+        //     'nombre_docente' => 'required',
+        // ]);
+        // Reservas::create($request->all());
 
         // $reserva = new Reservas();
         // $reserva->nombre_docente =$request->nombre_docente;
         
 
    
-        return redirect()->route('reservas.index')
-                        ->with('success','Reservas se ah creado exitosamente.');
+        // return redirect()->route('reservas.index')
+        //                 ->with('success','Reservas se ah creado exitosamente.');
     }
 
     /**
@@ -57,7 +57,7 @@ class ReservasController extends Controller
      * @param  \App\Models\Reservas  $reservas
      * @return \Illuminate\Http\Response
      */
-    public function show(Reservas $reservas)
+    public function show(Reserva $reserva)
     {
         //
     }
@@ -68,38 +68,38 @@ class ReservasController extends Controller
      * @param  \App\Models\Reservas  $reservas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Reservas $reservas)
+    public function edit(Reserva $reserva)
     {
-        //
-        $reservas = Reservas::find($reservas);
+        // //
+        // $reservas = Reservas::find($reservas);
 
-        return view('reservas.edit')->with('reservas', $reservas);
+        // return view('reservas.edit')->with('reservas', $reservas);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reservas  $reservas
+     * @param  \App\Models\Reserva  $reserva
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reservas $reservas)
+    public function update(Request $request, Reserva $reserva)
     {
         //
-        $reservas = Reservas::find($reservas);
+        // $reservas = Reserva::find($reservas);
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Reservas  $reservas
+     * @param  \App\Models\Reserva  $reserva
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservas $reserva)
+    public function destroy(Reserva $reserva)
     {
-        $reserva->delete();
+        // $reserva->delete();
   
-        return redirect()->route('reservas.index');
+        // return redirect()->route('reservas.index');
     }
 }
