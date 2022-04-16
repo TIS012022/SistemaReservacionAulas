@@ -33,18 +33,41 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            @php
+                // $role = "docente";
+                $role = "admin";
+            @endphp
+            <div class="sidebar-brand-text mx-3">{{$role}}</div>
         </a>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item {{ Nav::isRoute('solicitudes') }}">
-            <a class="nav-link" href="{{ route('solicitudes') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>{{ __('Solicitudes') }}</span></a>
-        </li>
+        <!-- Nav Item - Solicitudes -->
+        @if ($role === "admin")
+            <li class="nav-item {{ Nav::isRoute('solicitudes') }}">
+                <a class="nav-link" href="{{ route('solicitudes') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Solicitudes') }}</span></a>
+            </li>
+        @endif
+
+        @if ($role === "docente")
+            <!-- Nav Item - Notificaciones -->
+            <li class="nav-item {{ Nav::isRoute('notificaciones') }}">
+                <a class="nav-link" href="{{ route('notificaciones') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Notificaciones') }}</span></a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('solicitudes.create') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Solicitar') }}</span></a>
+            </li>
+        @endif
+
+
 
         <!-- Divider -->
         {{-- <hr class="sidebar-divider">

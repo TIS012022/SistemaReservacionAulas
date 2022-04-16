@@ -14,7 +14,7 @@ class NotificacionController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.notificaciones.index');
     }
 
     /**

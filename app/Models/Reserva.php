@@ -17,4 +17,8 @@ class Reserva extends Model
         "dia",
         'solicitud'
     ];
+    public function solicitud()
+    {
+        return $this->belongsTo(Solicitud::class);
+    }
 }

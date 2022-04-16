@@ -15,6 +15,7 @@ class CreateSolicitudesTable extends Migration
     {
         Schema::create('solicitudes', function (Blueprint $table) {
             $table->id();
+            
             $table->integer('cantidad');
             $table->text('motivo');
             $table->date('hora_ini');

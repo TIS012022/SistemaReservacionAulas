@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\SolicitudController;
 use Illuminate\Support\Facades\Route;
@@ -16,12 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.dashboard.index');
+  return view('layouts.dashboard.index');
 });
 
-Route::get('/solicitudes', function () {
-  return view('admin.solicitudes.index');
-})->name("solicitudes");
 
 
 // Auth::routes();
@@ -31,6 +29,17 @@ Route::get('/solicitudes', function () {
 // Route::resource('materia', ReservaController::class);
 // Route::resource('grupo', ReservaController::class);
 
-// Route::resource('solicitudes', SolicitudController::class);
+Route::resource('solicitudes', SolicitudController::class, [
+  'names' => [
+    'index' => 'solicitudes',
+    'create' => 'solicitudes.create'
+  ]
+]);
+
+Route::resource('notificaciones', NotificacionController::class, [
+  'names' => [
+    'index' => 'notificaciones',
+    'create' => 'notificaciones.create'
+  ]
+]);
 // Route::resource('reservas', ReservaController::class);
-// Route::resource('notificaciones', ReservaController::class);

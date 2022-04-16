@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Reserva;
+use App\Models\Solicitud;
 
 class ReservaController extends Controller
 {
@@ -42,7 +43,7 @@ class ReservaController extends Controller
         // ]);
         // Reservas::create($request->all());
 
-        // $reserva = new Reservas();
+        // $reserva = new Reserva();
         // $reserva->nombre_docente =$request->nombre_docente;
         
 
@@ -59,7 +60,7 @@ class ReservaController extends Controller
      */
     public function show(Reserva $reserva)
     {
-        //
+
     }
 
     /**

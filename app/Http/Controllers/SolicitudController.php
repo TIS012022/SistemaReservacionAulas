@@ -14,7 +14,9 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        //
+        // $solicitudes = Solicitud::all();
+        // return view('admin.reservas.index', compact('solicitudes'));
+        return view('admin.solicitudes.index');
     }
 
     /**
@@ -24,7 +26,7 @@ class SolicitudController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.solicitudes.create');
     }
 
     /**

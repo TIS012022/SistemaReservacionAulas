@@ -1,6 +1,6 @@
 
-@extends('layouts.cms.app')
-@section('content')
+@extends('layouts.dashboard.index')
+@section('main-content')
     <div class="container">
         <div class="my-5">
             <div class="card">
@@ -8,7 +8,7 @@
                   Nueva Solicitud
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('reservas.store') }}" method="POST">
+                    <form method="POST">
                         @csrf
                         <div class="col">
                             <div class="row">
