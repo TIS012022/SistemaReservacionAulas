@@ -1,12 +1,19 @@
 <?php
 
+use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\SolicitudController;
 use Illuminate\Support\Facades\Route;
+
 use app\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\Controller;
 
+
+
+// use App\Http\Controllers\ReservaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +27,9 @@ use App\Http\Controllers\Controller;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('layouts.dashboard.index');
 });
+
 
 
 
@@ -62,4 +70,27 @@ Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])
 Route::get('/docente', [App\Http\Controllers\UserController::class, 'index'])
 ->middleware('auth.user')
 ->name('user.index');
+
+
+// Auth::routes();
+
+//seed database with data
+// Route::resource('aula', ReservaController::class);
+// Route::resource('materia', ReservaController::class);
+// Route::resource('grupo', ReservaController::class);
+
+Route::resource('solicitudes', SolicitudController::class, [
+  'names' => [
+    'index' => 'solicitudes',
+    'create' => 'solicitudes.create'
+  ]
+]);
+
+Route::resource('notificaciones', NotificacionController::class, [
+  'names' => [
+    'index' => 'notificaciones',
+    'create' => 'notificaciones.create'
+  ]
+]);
+// Route::resource('reservas', ReservaController::class);
 
