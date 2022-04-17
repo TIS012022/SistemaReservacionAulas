@@ -37,6 +37,12 @@ align-items: center;">
             <input style="font-family: 'Times New Roman';" type="email" id="email" name="email" class="form-control" placeholder="Correo electronico" required autofocus>
 
             <input style="font-family: 'Times New Roman';" type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
+
+            @error('message')
+
+                <p class="border border-red-500">{{$message}}</p>
+            
+            @enderror
         </div>
         <div style="padding-top: 16%" >
             
