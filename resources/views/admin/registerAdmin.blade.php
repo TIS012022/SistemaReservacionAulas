@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
-
-@section('title','Register')
+@section('title','registerAdmin')
 
 @section('content')
 
     <div class ="block mx-auto my-12 p-8 bg-white">
 
-        <h1 class="text-center">Register</h1>
+        <h1 class="text-center">Register Admin</h1>
     
         <form class="mt-4" method="POST" action="">
             @csrf
@@ -47,19 +46,6 @@
             placeholder="Tipo de usuario" id="role" name="role">
 
             @error('role')
-            <p class="border border-red-500">{{$message}}</p>           
-            @enderror
-
-            <input type="text" class="border border-gray-200 focus:bg-white" 
-            placeholder="Departamento" id="departamento" name="departamento">
-
-            @error('Departamento')
-            <p class="border border-red-500">{{$message}}</p>           
-            @enderror
-    
-            <textarea name="materias_grupos" id="materias_grupos" rows="10" cols="40">Escribe aquí las materias que dictas y sus respectivos grupos</textarea>
-    
-            @error('materias_grupos')
             <p class="border border-red-500">{{$message}}</p>           
             @enderror
     
