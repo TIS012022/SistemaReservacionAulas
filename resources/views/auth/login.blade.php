@@ -33,10 +33,12 @@ align-items: center;">
         <div>
             <h1 class="h3 mb-3 font-weight-normal" style="font-family: 'Times New Roman'; text-align: center; font-size: 40px;">Inicia sesión</h1>
         </div>
-        <div style="padding-top: 8%">
+        <div style="padding-top: 8%; width: 300px">
             <input style="font-family: 'Times New Roman';" type="email" id="email" name="email" class="form-control" placeholder="Correo electronico" required autofocus>
 
             <input style="font-family: 'Times New Roman';" type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
+            
+            
         </div>
         <div style="padding-top: 16%" >
             
@@ -51,6 +53,14 @@ align-items: center;">
                 <p  style="color:black;">&copy; Evil Genius S.R.L.</p>
             </a>
         </div>
+
+        <div>
+            @error('message')
+
+                <p class="alert alert-danger ">{{$message}}</p>
+            
+            @enderror
+            </div>
     </form>
     </div>
   </body>
