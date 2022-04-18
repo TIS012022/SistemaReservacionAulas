@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             GrupoSeeder::class,
             MateriaSeeder::class,
             UserSeeder::class,
+            SolicitudesSeeder::class,
         ]);
     }
 }

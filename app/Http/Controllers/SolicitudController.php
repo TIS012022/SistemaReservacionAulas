@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SolicitudController extends Controller
 {
@@ -16,7 +17,16 @@ class SolicitudController extends Controller
     {
         // $solicitudes = Solicitud::all();
         // return view('admin.reservas.index', compact('solicitudes'));
-        return view('admin.solicitudes.index');
+        $solicitudes = DB::table('solicitudes')
+            ->join('users', 'solicitudes.docente', '=', 'users.id')
+            // ->join('materias', 'materias.id', '=', 'solicitudes.id')
+            ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
+            // ->join('grupos', 'grupos.id', '=', 'solicitudes.id')
+            ->select('users.name', 'aulas.num_aula','solicitudes.*')
+            ->get();
+        // $solicitudes = solicitud::all(); 
+            
+        return view('admin.solicitudes.index', compact('solicitudes'));
     }
 
     /**
