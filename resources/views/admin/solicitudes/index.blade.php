@@ -3,45 +3,34 @@
 
 <div class="container">
     <div class="my-5">
-        <h2 class="my-3">LISTAS DE SOLICITUDES</h2>
-        <div class="button-create">
-            <a href="{{ url('reservas/create') }}">
-                <button class="btn btn-primary">Crear</button>
-            </a>
-        </div>
+        <h2 class="my-3">SOLICITUDES</h2>
 
-        <table class="table table-dark table-striped mt-4">
-            <thead> 
+        <table class="table table-primary table-striped mt-4">
+            <thead"> 
                 
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Materia</th>
-                <th scope="col">Grupo</th>
-                <th scope="col">Aula</th>
                 <th scope="col">Fecha</th>
+                <th scope="col">Nombre Docente</th>
+                <th scope="col">Motivos y Detalles</th>
+                <th scope="col">Cantidad Estudiantes</th>
+                <th scope="col">Aula</th>
+                <th scope="col">Hora de reserva</th>
                 <th scope="col">Acciones</th>
             </tr>
             </thead>
             <tbody>
-
-            {{-- @foreach ($reservas as $reserva)
+            
+             @foreach ($solicitudes as $solicitud)
                 <tr>
-                    <th scope="row">{{ @$reserva->id }}</th>
-                    <td>{{ @$reserva->nombre_docente }}</td>
-                    <td>{{ @$reserva->materia }}</td>
-                    <td>{{ @$reserva->grupo }}</td>
-                    <td>{{ @$reserva->aula }}</td>
-                    <td>
-                        <form action="{{ route('reservas.destroy',$reserva->id) }}" method="POST">
-                            <a href={{ url('reservas/create') }} class="btn btn-info">Editar</a> 
-                            @csrf
-                            @method('DELETE')
-              
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
+                    <td>{{ @$solicitud->dia }}</td>
+                    <td>{{ @$solicitud->name }}</td>
+                    <td>{{ @$solicitud->motivo }}</td>
+                    <td>{{ @$solicitud->cantidad }}</td>
+                    <td>{{ @$solicitud->num_aula }}</td>
+                    <td>{{ @$solicitud->hora_ini }} - {{ @$solicitud->hora_fin }}</td>
+                    
                 </tr>
-            @endforeach --}}
+            @endforeach
             </tbody>
         </table>
         <label for="Seleccionar"></label>
