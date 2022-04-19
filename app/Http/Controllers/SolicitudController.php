@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aula;
+use App\Models\Grupo;
+use App\Models\Materia;
 use App\Models\Solicitud;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\Redirect;
 
 class SolicitudController extends Controller
 {
@@ -36,7 +43,10 @@ class SolicitudController extends Controller
      */
     public function create()
     {
-        return view('admin.solicitudes.create');
+        $aulas = Aula::all();
+        $grupos = Grupo::all();
+        $materias = Materia::all();
+        return view('admin.solicitudes.create',compact('aulas','grupos', 'materias'));
     }
 
     /**
@@ -48,7 +58,15 @@ class SolicitudController extends Controller
     public function store(Request $request)
     {
         //
+        $solicitud = new Solicitud($request->all());
+        $solicitud -> docente = Auth::id();
+        //  dd($solicitud);
+        $solicitud->save();
+        
+        return Redirect()->route('notificaciones');
+
     }
+
 
     /**
      * Display the specified resource.
@@ -82,6 +100,12 @@ class SolicitudController extends Controller
     public function update(Request $request, Solicitud $solicitud)
     {
         //
+        $solicitud->fill($request->all());
+        $solicitud->save();
+
+        // alert()->success('Producto actualizado correctamente');
+
+        return redirect()->route('admin.solicitudes.index');
     }
 
     /**

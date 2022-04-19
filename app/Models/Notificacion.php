@@ -10,9 +10,9 @@ class Notificacion extends Model
     use HasFactory;
     protected $table = 'notificaciones';
     protected $fillable = [
-        "email",
-        "mensaje",
-        "dia",
+        'email',
+        'mensaje',
+        'dia',
         'solicitud'
     ];
 
@@ -20,4 +20,6 @@ class Notificacion extends Model
     {
         return $this->belongsTo(Solicitud::class);
     }
+
+  
 }

@@ -6,7 +6,7 @@
         <h2 class="my-3">SOLICITUDES</h2>
 
         <table class="table table-primary table-striped mt-4">
-            <thead"> 
+            <thead> 
                 
             <tr>
                 <th scope="col">Fecha</th>
