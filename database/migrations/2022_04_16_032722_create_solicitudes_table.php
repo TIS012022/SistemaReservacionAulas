@@ -18,8 +18,8 @@ class CreateSolicitudesTable extends Migration
             
             $table->integer('cantidad');
             $table->text('motivo');
-            $table->date('hora_ini');
-            $table->date('hora_fin');
+            $table->time('hora_ini');
+            $table->time('hora_fin');
             $table->text('periodo');
             $table->date('dia');
 

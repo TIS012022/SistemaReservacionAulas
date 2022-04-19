@@ -16,10 +16,10 @@ class CreateReservasTable extends Migration
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
             $table->string("aula");
-            $table->date("hora_ini");
-            $table->date("hora_fin");
+            $table->time("hora_ini");
+            $table->time("hora_fin");
             $table->string("periodo");
-            $table->string("dia");
+            $table->date("dia");
             $table->unsignedBigInteger('solicitud');
             $table->foreign('solicitud')->references('id')->on('solicitudes')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
