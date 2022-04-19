@@ -27,11 +27,8 @@ use App\Http\Controllers\Controller;
 */
 
 Route::get('/', function () {
-  return view('layouts.dashboard.index');
+  return view('welcome');
 });
-
-
-
 
 Route::post('/register', [App\Http\Controllers\RegisterController::class, 'store'])
 ->name('register.store');
@@ -39,7 +36,6 @@ Route::post('/register', [App\Http\Controllers\RegisterController::class, 'store
 Route::get('/register', [App\Http\Controllers\RegisterController::class, 'create'])
 ->middleware('guest')
 ->name('register.index');
-
 
 
 Route::post('/registerAdmin', [App\Http\Controllers\RegisterAdminController::class, 'store'])
@@ -71,6 +67,11 @@ Route::get('/docente', [App\Http\Controllers\UserController::class, 'index'])
 ->middleware('auth.user')
 ->name('user.index');
 
+Route::get('/auth', function () {
+  return view('layouts.dashboard.index');
+})->middleware('auth.user')
+->name('auth.user');
+
 
 // Auth::routes();
 
@@ -84,13 +85,12 @@ Route::resource('solicitudes', SolicitudController::class, [
     'index' => 'solicitudes',
     'create' => 'solicitudes.create'
   ]
-]);
+])->middleware('auth.user');
 
 Route::resource('notificaciones', NotificacionController::class, [
   'names' => [
     'index' => 'notificaciones',
     'create' => 'notificaciones.create'
   ]
-]);
-// Route::resource('reservas', ReservaController::class);
+])->middleware('auth.user');
 

@@ -16,11 +16,11 @@ class UserAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->check()){
-            if(auth()->user()->role=='docente'){
+        if (auth()->check()) {
+            // if(auth()->user()->role=='docente'){
             return $next($request);
-            }
-            return redirect()->to('/admin');
+            // }
+            // return redirect()->to('/admin');
         }
         return redirect()->to('/');
     }

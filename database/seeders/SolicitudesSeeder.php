@@ -17,8 +17,8 @@ class SolicitudesSeeder extends Seeder
         DB::table('solicitudes')->insert([
             'cantidad' => rand(100,200),
             'motivo' => "Examen 1er Parcial",
-            'hora_ini' => "14:15",
-            'hora_fin'=> "15:45",
+            'hora_ini' => "2022-04-18",
+            'hora_fin'=> "2022-04-18",
             'periodo' => "Uno",
             'dia' => "2022-04-16",
             'grupo' => rand(1,10),
