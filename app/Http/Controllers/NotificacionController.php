@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notificacion;
+use App\Models\Solicitud;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class NotificacionController extends Controller
@@ -14,7 +16,15 @@ class NotificacionController extends Controller
      */
     public function index()
     {
-        return view('admin.notificaciones.index');
+        $solicitudes = Solicitud::all();
+       
+        $notificaciones = Notificacion::get();
+
+        return view('admin.notificaciones.index', compact('notificaciones','solicitudes')); 
+
+    //    $noticifaciones = Notificacion::orderBy('id', 'desc')->get();
+    //     
+        // return view('admin.reservas.index', compact('reservas'));
     }
 
     /**
@@ -70,6 +80,12 @@ class NotificacionController extends Controller
     public function update(Request $request, Notificacion $notificacion)
     {
         //
+        $notificacion->fill($request->all());
+        $notificacion->save();
+
+        // alert()->success('Producto actualizado correctamente');
+
+        return redirect()->route('admin.notificaciones.index');
     }
 
     /**

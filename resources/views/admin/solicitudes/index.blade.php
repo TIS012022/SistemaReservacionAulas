@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.index')
+{{-- @extends('layouts.dashboard.index')
 @section('main-content')
 
 <div class="container">
@@ -38,4 +38,4 @@
     </div>
 </div>
 
-@endsection
+@endsection --}}

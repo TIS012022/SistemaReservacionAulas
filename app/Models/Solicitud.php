@@ -9,7 +9,18 @@ class Solicitud extends Model
 {
     use HasFactory;
     protected $table = 'solicitudes';
-    protected $fillable = ['cantidad', 'motivo', 'hora_ini', 'hora_fin', 'periodo', 'dia', 'grupo', 'aula', 'materia', 'docente'];
+    protected $fillable = ['cantidad', 
+                            'motivo',
+                            'hora_ini',
+                            'hora_fin',
+                            'periodo',
+                            'dia',
+                            'grupo_id',
+                            'aula_id',
+                            'materia_id',
+                            'docente_id'
+                            
+    ];
     
     public function notificaciones()
     {
@@ -20,4 +31,5 @@ class Solicitud extends Model
     {
         return $this->hasMany(Reserva::class);
     }
+   
 }

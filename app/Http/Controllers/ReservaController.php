@@ -60,7 +60,9 @@ class ReservaController extends Controller
      */
     public function show(Reserva $reserva)
     {
-
+        $solicitud = Solicitud::find($reserva);
+        $notificaciones = $solicitud->notificaciones();
+        $reservas = $solicitud->reserva();
     }
 
     /**
