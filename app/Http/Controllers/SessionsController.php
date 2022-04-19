@@ -18,17 +18,18 @@ class SessionsController extends Controller
                 'message' => 'El correo o la contraseña es incorrecta'
             ]);
         }else{
-            if( auth()->user()->role == 'admin'){
-                return redirect()->route('admin.index');
-            }else{
-                return redirect()->route('user.index');
-            }
+            return redirect()->route('auth.user');
+            // if( auth()->user()->role == 'admin'){
+            //     return redirect()->route('admin.index');
+            // }else{
+            //     return redirect()->route('user.index');
+            // }
         }
     }
     
     public function destroy(){
         auth()->logout();
-        
+        // return "quieres cerrar sesion";
         return redirect()->to('/');
     }
 }
