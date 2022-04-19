@@ -3,10 +3,10 @@
   <div class="card mt-3">
       <div class="card-header d-inline-flix">
             <h5>LISTA DE NOTIFICACIONES</h5>
-            <a href="{{url('solicitudes/create') }}"  class="btn btn-primary ml-auto">
+            {{-- <a href="{{url('solicitudes/create') }}"  class="btn btn-primary ml-auto">
                 <i class="fas fa-plus"></i>
                 Generar Solicitud
-            </a>
+            </a> --}}
       </div>
    </div>
 

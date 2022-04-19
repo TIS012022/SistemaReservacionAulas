@@ -20,8 +20,7 @@
                                         <div class="input-group">
                                                 <span class="input-group">
                                                     <button class="btn btn-primary" type="button">M</button>
-                                                    {{-- <input name="materia_id" type="name" class="form-control" placeholder="Materia"> --}}
-                                                    <select name="materia_id" class="custom-select">
+                                                    <select name="materia" class="custom-select">
                                                         <option selected>Seleccione Materia..</option>
                                                         @foreach ($materias as $item)
                                                             <option value="{{ $item->id }}">{{ $item->nombre}}</option>
@@ -41,7 +40,7 @@
                                             <span class="input-group">
                                                 <button class="btn btn-primary" type="button">G</button>
                                                 {{-- <input name="grupo_id" type="name" class="form-control" placeholder="Grupo"> --}}
-                                                <select name="grupo_id" class="custom-select">
+                                                <select name="grupo" class="custom-select">
                                                     <option selected>Seleccione N° grupo..</option>
                                                     @foreach ($grupos as $item)
                                                         <option value="{{ $item->id }}">{{ $item->numero}}</option>
@@ -75,7 +74,7 @@
                                          <span class="input-group">
                                             <button class="btn btn-primary" type="button">A</button>
                                             {{-- <input name="aula" type="name" class="form-control" placeholder="Aula"> --}}
-                                            <select name="aula_id" class="custom-select">
+                                            <select name="aula" class="custom-select">
                                                 <option selected>Seleccione N° Aula..</option>
                                                 @foreach ($aulas as $item)
                                                     <option value="{{ $item->id }}">{{ $item->num_aula}}</option>
@@ -143,19 +142,6 @@
                                                 </div>                             
                                         </div>
                                     </div>
-                                    {{-- <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="name" class="form-control-label">
-                                                    Docente:
-                                            </label>
-                                                <div class="input-group">
-                                                    <span class="input-group">
-                                                    <button class="btn btn-primary" type="button">D</button>
-                                                    <input name="docente_id" type="name" class="form-control" placeholder="N° Docente">
-                                                    </span>
-                                                </div>                             
-                                        </div>
-                                    </div> --}}
                                     <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name" class="form-control-label">
@@ -166,8 +152,7 @@
                                                     <button class="btn btn-primary" type="button">M</button>
                                                     {{-- <input name="motivo" type="text" class="form-control" aria-label="With textarea"> --}}
                                                     <textarea name="motivo" type="text" class="form-control" id=""  placeholder="Motivo"></textarea>
-    
-                                                </span>
+                                                    </span>
                                                 </div>                              
                                             </div>
                                     </div>

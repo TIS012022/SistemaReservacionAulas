@@ -15,10 +15,10 @@ class Solicitud extends Model
                             'hora_fin',
                             'periodo',
                             'dia',
-                            'grupo_id',
-                            'aula_id',
-                            'materia_id',
-                            'docente_id'
+                            'grupo',
+                            'aula',
+                            'materia',
+                            'docente'
                             
     ];
     

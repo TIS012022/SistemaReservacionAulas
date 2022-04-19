@@ -59,13 +59,11 @@ class SolicitudController extends Controller
     {
         //
         $solicitud = new Solicitud($request->all());
-        $solicitud -> docente_id = Auth::id();
+        $solicitud -> docente = Auth::id();
         //  dd($solicitud);
-        // Solicitud::create($solicitud);
-
-        // $solicitud->save();
-        return $solicitud;
-        // return Redirect()->route('notificaciones');
+        $solicitud->save();
+        
+        return Redirect()->route('notificaciones');
 
     }
 
