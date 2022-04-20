@@ -8,14 +8,18 @@
     <body> 
         <div style="background-image: url(https://static.vecteezy.com/system/resources/previews/004/511/333/large_2x/abstract-technological-background-business-futuristic-innovation-background-vector.jpg);
         width: 100%;
-        height: 558px;
+        height: 80%;
+        margin: 0 auto;
         background-size:cover;
+        background-repeat: no-repeat;
+        display: flex;
+        position: absolute;
         background-position:center;"
         class="d-flex justify-content-around">
             <div style="float: left;  margin-top: 10%; ">
                 <p style="font-family: 'Times New Roman'; text-align: center; font-size: 35px;">Sistema de Gestion de Aulas <br>UMSS </p>
 
-                <p style="font-family: 'Times New Roman'; text-align: center; font-size: 25px;">Realiza tu reserva de aula cuando <br>quieras y donde quieras</p>
+                <p style="font-family: 'Times New Roman'; text-align: center; font-size: 25px;">Nuestro sistema ofrece la posibilidad de realizar tus solicitudes de aula <br>de una manera mas sencilla y comoda... <br> Realiza tu solicitud cuando quieras y donde quieras!!!</p>
             </div>
             <div style="float: left; padding-top: 12%" >
                 <img src="{{asset('images/imagen1.jpg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:400px;">
@@ -23,7 +27,11 @@
             
         </div >
 
-        <div class="d-flex justify-content-sm-between" style="background-color: #1D3354;">
+        <div class="d-flex justify-content-sm-between" style="background-color: #1D3354;  display: flex; margin: 0 auto; 
+        position:fixed;
+        width: 100%;
+        height:100%;
+        top: 90%;">
             <div style="padding-left: 2%; padding-top: 1%;">
                 <p style="font-family: 'Times New Roman'; text-align:initial; color:white; ">
                     Facultad de Ciencias y Tecnologia (UMSS) <br> Cochabamba-Bolivia </p>
