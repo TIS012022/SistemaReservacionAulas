@@ -15,6 +15,7 @@ class Solicitud extends Model
                             'hora_fin',
                             'periodo',
                             'dia',
+                            'estado',
                             'grupo',
                             'aula',
                             'materia',

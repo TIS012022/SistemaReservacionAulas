@@ -1,62 +1,58 @@
 @extends('layouts.dashboard.index')
 @section('main-content')
-  <div class="card mt-3">
-      <div class="card-header d-inline-flix">
-            <h5>LISTA DE NOTIFICACIONES</h5>
-            {{-- <a href="{{url('solicitudes/create') }}"  class="btn btn-primary ml-auto">
-                <i class="fas fa-plus"></i>
-                Generar Solicitud
-            </a> --}}
-      </div>
-   </div>
+<h2>LISTA DE NOTIFICACIONES</h2>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table caption-top">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th># Solicitud</th>
+                    <th>Materia</th>
+                    <th>Aula</th>
+                    <th>Dia</th>
+                    <th>Horario</th>
+                    <th>Mensaje</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($notificaciones as $notificacion)
+                <tr>
+                    <td>{{ $loop->index + 1 }}</td>
+                    <td>{{ $notificacion->solicitud }}</td>
+                    <td>{{ $notificacion->codigo }} - {{ $notificacion->nombre }}</td>
+                    <td>{{ $notificacion->num_aula }}</td>
+                    <td>{{ $notificacion->dia }}</td>
+                    <td>{{ $notificacion->hora_ini }} - {{ $notificacion->hora_fin }}</td>
+                    <td>{{ $notificacion->mensaje }}</td>
+                    <td>{{ $notificacion->email }}</td>
+                    <td><i class="btn btn-primary bi bi-eye-fill" data-bs-toggle="modal" data-bs-target="#modalVer{{$loop->index}}"></i></td>
 
-   <div class="card-body">
-        <div class="row">
-            <div class="col-4">
-                <div class="form-group">
-                    <a class="navbar-brand">Listar</a>
-                    <select class="custom-select">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-8">
-                <div class="form-group">
-                    <a class="navbar-brand">Buscar</a>
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                </div>
-            </div>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table caption-top">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Email</th>
-                        <th>Ménsaje</th>
-                        <th>Diá</th>
-                        <th>Solicitud</th>
-                        <th>Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($solicitudes as $item)      
-                        
-                            <tr>
-                                <td>{{$item ->id}}</td>
-                                <td>{{$item->id}}</td>
-                                <td>{{$item ->motivo}}</td>
-                                <td>{{$item ->dia}}</td>
-                                <td>{{$item ->id}}</td>
-                                <td><button>Ver</button></td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-              </table>
-        </div>
+                    <div class="modal fade" id="modalVer{{$loop->index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Notificacion</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" readonly placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">{{$notificacion->mensaje}}</textarea>
+                                        <label for="floatingTextarea2">Mensaje</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
+</div>
 @endsection

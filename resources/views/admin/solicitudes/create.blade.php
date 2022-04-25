@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <form action="{{route('solicitudes.store')}}" method="POST">
                     @csrf
-                        <div class="card-bady">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">

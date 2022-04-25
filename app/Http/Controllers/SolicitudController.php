@@ -28,6 +28,7 @@ class SolicitudController extends Controller
             ->join('users', 'solicitudes.docente', '=', 'users.id')
             // ->join('materias', 'materias.id', '=', 'solicitudes.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
+            ->where('solicitudes.estado', '=', 'pendiente')
             // ->join('grupos', 'grupos.id', '=', 'solicitudes.id')
             ->select('users.name', 'aulas.num_aula','solicitudes.*')
             ->get();
@@ -60,6 +61,7 @@ class SolicitudController extends Controller
         //
         $solicitud = new Solicitud($request->all());
         $solicitud -> docente = Auth::id();
+        $solicitud -> estado = "pendiente";
         //  dd($solicitud);
         $solicitud->save();
         

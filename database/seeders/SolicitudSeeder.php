@@ -15,10 +15,12 @@ class SolicitudSeeder extends Seeder
     public function run()
     {
         $motivos = ["1er parcial", "2do parcial", "final", "2da instancia"];
+        $estados = ["pendiente", "aceptado", "rechazado", "sugerido"];
         for ($i=0; $i < 10; $i++) { 
             DB::table('solicitudes')->insert([
                 'cantidad' => rand(100,200),
                 'motivo' => $motivos[rand(0,3)],
+                'estado' => $estados[rand(0,3)],
                 'hora_ini' => date("H:i", strtotime("10:52PM")),
                 'hora_fin'=> date("H:i", strtotime("10:53PM")),
                 'periodo' => "Uno",
