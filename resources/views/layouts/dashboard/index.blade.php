@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -22,35 +23,40 @@
     <!-- Favicon -->
     {{-- <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png"> --}}
 </head>
+
 <body id="page-top">
 
-<!-- Page Wrapper -->
-<div id="wrapper">
-    <!-- Sidebar -->
-    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #1D3354">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #1D3354">
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">{{auth()->user()->role}}</div>
-        </a>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">{{auth()->user()->role}}</div>
+            </a>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Solicitudes -->
-        @if(auth()->user()->role === "admin")
+            <!-- Nav Item - Solicitudes -->
+            @if(auth()->user()->role === "admin")
             <li class="nav-item {{ Nav::isRoute('solicitudes') }}">
                 <a class="nav-link" href="{{ route('solicitudes') }}">
                     {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
                     {{-- <i class="bi bi-123"></i> --}}
                     <span>{{ __('Solicitudes') }}</span></a>
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'all' ]) }}">
+                    <span>{{ __('Lista de Aulas') }}</span></a>
             </li>
-        @endif
+            </li>
+            @endif
 
-        @if (auth()->user()->role === "docente")
+            @if (auth()->user()->role === "docente")
             <!-- Nav Item - Notificaciones -->
             <li class="nav-item {{ Nav::isRoute('notificaciones') }}">
                 <a class="nav-link" href="{{ route('notificaciones') }}">
@@ -60,41 +66,47 @@
 
             <li class="nav-item {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('solicitudes.create') }}">
-                    <span>{{ __('Solicitar') }}</span></a>
+                    <span>{{ __('Nueva solicitud') }}</span></a>
             </li>
-        @endif
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'reservadas' ]) }}">
+                    <span>{{ __('Mis solicitudes') }}</span></a>
+            </li>
+
+            @endif
 
 
 
-        <!-- Divider -->
-        {{-- <hr class="sidebar-divider">
+
+            <!-- Divider -->
+            {{-- <hr class="sidebar-divider">
 
         <!-- Heading -->
         <div class="sidebar-heading">
             {{ __('Settings') }}
-        </div>
+    </div>
 
-        <!-- Nav Item - Profile -->
-        <li class="nav-item {{ Nav::isRoute('profile') }}">
-            <a class="nav-link" href="{{ route('profile') }}">
-                <i class="fas fa-fw fa-user"></i>
-                <span>{{ __('Profile') }}</span>
-            </a>
-        </li>
+    <!-- Nav Item - Profile -->
+    <li class="nav-item {{ Nav::isRoute('profile') }}">
+        <a class="nav-link" href="{{ route('profile') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>{{ __('Profile') }}</span>
+        </a>
+    </li>
 
-        <!-- Nav Item - About -->
-        <li class="nav-item {{ Nav::isRoute('about') }}">
-            <a class="nav-link" href="{{ route('about') }}">
-                <i class="fas fa-fw fa-hands-helping"></i>
-                <span>{{ __('About') }}</span>
-            </a>
-        </li>
+    <!-- Nav Item - About -->
+    <li class="nav-item {{ Nav::isRoute('about') }}">
+        <a class="nav-link" href="{{ route('about') }}">
+            <i class="fas fa-fw fa-hands-helping"></i>
+            <span>{{ __('About') }}</span>
+        </a>
+    </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block"> --}}
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block"> --}}
 
-        <!-- Sidebar Toggler (Sidebar) -->
-        {{-- <div class="text-center d-none d-md-inline">
+    <!-- Sidebar Toggler (Sidebar) -->
+    {{-- <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div> --}}
 
@@ -154,15 +166,15 @@
 
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                             <figure class="img-profile rounded-circle avatar font-weight-bold" data-initial="{{ Auth::user()->name[0] }}"></figure>
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                             {{-- <a class="dropdown-item" href="{{ route('profile') }}">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                {{ __('Profile') }}
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            {{ __('Profile') }}
                             </a> --}}
                             {{-- <a class="dropdown-item" href="javascript:void(0)">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -174,7 +186,6 @@
                             </a> --}}
                             {{-- <div class="dropdown-divider"></div> --}}
                             <a class="dropdown-item" href="{{ route('login.destroy')}}">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 {{ __('Cerrar sesión') }}
                             </a>
                         </div>
@@ -209,40 +220,41 @@
     </div>
     <!-- End of Content Wrapper -->
 
-</div>
+    </div>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-<!-- Logout Modal-->
-{{-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Logout Modal-->
+    {{-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{ __('Ready to Leave?') }}</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-link" type="button" data-dismiss="modal">{{ __('Cancel') }}</button>
-                <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
-        </div>
+    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
     </div>
-</div> --}}
+    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" data-dismiss="modal">{{ __('Cancel') }}</button>
+        <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </div>
+    </div>
+    </div>
+    </div> --}}
 
-<!-- Scripts -->
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/jquery.easing.min.js') }}"></script>
-<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
 </body>
+
 </html>

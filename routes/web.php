@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use app\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AulaController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\Controller;
 
@@ -90,7 +91,14 @@ Route::resource('solicitudes', SolicitudController::class, [
 Route::resource('notificaciones', NotificacionController::class, [
   'names' => [
     'index' => 'notificaciones',
-    'create' => 'notificaciones.create'
+    'store' => 'notificaciones.store'
   ]
 ])->middleware('auth.user');
+
+Route::resource('aulas', AulaController::class, [
+  'names' => [
+    'index' => 'aulas'
+  ]
+])->middleware('auth.user');
+
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Aula;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AulaController extends Controller
 {
@@ -12,9 +14,18 @@ class AulaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->tipo === "reservadas") {
+            $aulas = DB::table('solicitudes')
+            ->join('materias', 'solicitudes.materia', '=', 'materias.id')
+            ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
+            ->where('solicitudes.docente', Auth::id())
+            ->get();
+            return view('admin.aulas.index', compact('aulas'))->with('tipo', "reservadas");
+        }
+        $aulas = Aula::orderByDesc('created_at')->get();
+        return view('admin.aulas.index', compact('aulas'))->with('tipo', "all");
     }
 
     /**

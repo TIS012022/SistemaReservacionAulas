@@ -6,6 +6,9 @@ use App\Models\Notificacion;
 use App\Models\Solicitud;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 
 class NotificacionController extends Controller
 {
@@ -16,15 +19,14 @@ class NotificacionController extends Controller
      */
     public function index()
     {
-        $solicitudes = Solicitud::all();
-       
-        $notificaciones = Notificacion::get();
+        $notificaciones = DB::table('solicitudes')
+            ->join('notificaciones', 'solicitudes.id', '=', 'notificaciones.solicitud')
+            ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
+            ->join('materias', 'solicitudes.materia', '=', 'materias.id')
+            ->where('solicitudes.docente', Auth::id())
+            ->get();
 
-        return view('admin.notificaciones.index', compact('notificaciones','solicitudes')); 
-
-    //    $noticifaciones = Notificacion::orderBy('id', 'desc')->get();
-    //     
-        // return view('admin.reservas.index', compact('reservas'));
+        return view('admin.notificaciones.index', compact('notificaciones'));
     }
 
     /**
@@ -45,7 +47,14 @@ class NotificacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $notificacion = new Notificacion();
+        $notificacion->mensaje = $request->mensaje;
+        $notificacion->email = Auth::user()->email;
+        $notificacion->dia = date("Y-m-d");
+        $notificacion->solicitud = $request->solicitud;
+        $notificacion->save();
+        Solicitud::find($request->solicitud)->delete();
+        return redirect()->route("solicitudes");
     }
 
     /**

@@ -22,6 +22,7 @@ class CreateSolicitudesTable extends Migration
             $table->time('hora_fin');
             $table->text('periodo');
             $table->date('dia');
+            $table->string('estado');
 
             $table->unsignedBigInteger('grupo');
             $table->unsignedBigInteger('aula');
