@@ -53,7 +53,7 @@ class NotificacionController extends Controller
         $notificacion->dia = date("Y-m-d");
         $notificacion->solicitud = $request->solicitud;
         $notificacion->save();
-        Solicitud::find($request->solicitud)->delete();
+        Solicitud::find($request->solicitud)->update(['estado' => $request->tipo]);
         return redirect()->route("solicitudes");
     }
 

@@ -16,10 +16,22 @@ class MateriaSeeder extends Seeder
     public function run()
     {
         $carreras = ["Sistemas", "Informatica", "Ing Alimentos", "Electromecanica", "Mecanica", "Ing Civil"];
+        $materias = [
+            "Sistemas de Informacion I",
+            "Sistemas de Informacion II",
+            "Ingenieria de Software",
+            "Taller de Ingenieria de Software",
+            "Calculo I",
+            "Calculo II",
+            "Calculo III",
+            "Calculo IV",
+            "Algebra I",
+            "Algebra Lineal",
+        ];
         for ($i = 0; $i < 10; $i++) {
             DB::table('materias')->insert([
-                'codigo' => Str::random(3) . rand(100, 500),
-                'nombre' => Str::random(10),
+                'codigo' => Str::random(3) . rand(1, 5)*100,
+                'nombre' => $materias[$i],
                 'carrera' => $carreras[rand(0, 5)]
             ]);
         }

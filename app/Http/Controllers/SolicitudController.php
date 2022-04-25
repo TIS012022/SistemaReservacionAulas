@@ -72,7 +72,7 @@ class SolicitudController extends Controller
         $solicitud->save();
 
         
-        return Redirect()->route('notificaciones');
+        return Redirect()->route('solicitudes.create');
 
     }
 
