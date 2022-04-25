@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
             GrupoSeeder::class,
             MateriaSeeder::class,
             UserSeeder::class,
-            SolicitudSeeder::class,
-            NotificacionSeeder::class,
-            ReservaSeeder::class,
+            //SolicitudSeeder::class,
+            //NotificacionSeeder::class,
+            //ReservaSeeder::class,
         ]);
     }
 }
