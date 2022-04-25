@@ -59,11 +59,18 @@ class SolicitudController extends Controller
     public function store(Request $request)
     {
         //
+        $request-> validate([
+            'cantidad' => 'required|min:1|max:3',
+            'periodo' => 'required',
+            'motivo' => 'required'
+        ]);
+        
         $solicitud = new Solicitud($request->all());
         $solicitud -> docente = Auth::id();
         $solicitud -> estado = "pendiente";
         //  dd($solicitud);
         $solicitud->save();
+
         
         return Redirect()->route('notificaciones');
 

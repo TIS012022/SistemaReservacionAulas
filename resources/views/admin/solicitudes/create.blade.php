@@ -10,7 +10,17 @@
                 <div class="card-body">
                     <form action="{{route('solicitudes.store')}}" method="POST">
                     @csrf
-                        <div class="card-body">
+                        <div class="card-bady">
+                            {{-- @if($errors->any())
+                                <div class="alert alert-primary">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                             --}}
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
@@ -20,7 +30,7 @@
                                         <div class="input-group">
                                                 <span class="input-group">
                                                     <button class="btn btn-primary" type="button">M</button>
-                                                    <select name="materia" class="custom-select">
+                                                    <select name="materia" class="custom-select" value="{{old('materia')}}">
                                                         <option selected>Seleccione Materia..</option>
                                                         @foreach ($materias as $item)
                                                             <option value="{{ $item->id }}">{{ $item->nombre}}</option>
@@ -54,13 +64,17 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="name" class="form-control-label">
-                                            Cantidad Estudiantes:
+                                            Cantidad Estudiantes*:
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group">
                                                 <button class="btn btn-primary" type="button">C</button>
-                                                <input name="cantidad" type="name" class="form-control" placeholder="Cantidad-Estudiantes">
+                                                <input name="cantidad" type="name" class="form-control" placeholder="Cantidad-Estudiantes" value="{{old('cantidad')}}">
                                             </span>
+                                            <br>      
+                                                @if($errors -> has('cantidad'))
+                                                    <span class="error-danger" for="input-name">{{$errors->first('cantidad')}}</span>
+                                                @endif
                                         </div>         
                                     </div>
                                 </div>
@@ -93,9 +107,13 @@
                                             <div class="input-group">
                                                 <span class="input-group">
                                                 <button class="btn btn-primary" type="button">H</button>
-                                                <input name="hora_ini" type="time" class="form-control" placeholder=" Horario ini">
+                                                <input name="hora_ini" type="time" class="form-control" placeholder=" Horario ini" value="{{old('hora_ini')}}">
                                                 {{-- <input type="date" id="birthday" name="hora_ini" class="form-control"> --}}
                                                 </span>
+                                                <br>      
+                                                @if($errors -> has('hora_ini'))
+                                                    <span class="error-danger" for="input-name">{{$errors->first('hora_ini')}}</span>
+                                                @endif
                                             </div>               
                                         </div>
                                   </div>
@@ -108,9 +126,13 @@
                                             <div class="input-group">
                                             <span class="input-group">
                                                 <button class="btn btn-primary" type="button">H</button>
-                                                <input name="hora_fin" type="time" class="form-control" placeholder="Horario fin">
+                                                <input name="hora_fin" type="time" class="form-control" placeholder="Horario fin" value="{{old('hora_fin')}}">
                                                 {{-- <input type="date" id="birthday" name="hora_fin"> --}}
                                             </span>
+                                            <br>      
+                                            @if($errors -> has('hora_fin'))
+                                                <span class="error text-danger" for="input-name">{{$errors->first('hora_fin')}}</span>
+                                            @endif
                                             </div>                     
                                         </div>
                                    </div>
@@ -123,8 +145,12 @@
                                             <div class="input-group">
                                                 <span class="input-group">
                                                 <button class="btn btn-primary" type="button">D</button>
-                                                <input name="dia" type="date" class="form-control" placeholder="Dia Reserva">
+                                                <input name="dia" type="date" class="form-control" placeholder="Dia Reserva" value="{{old('dia')}}">
                                                 </span>
+                                                <br>      
+                                                @if($errors -> has('dia'))
+                                                    <span class="error-danger" for="input-name">{{$errors->first('dia')}}</span>
+                                                @endif
                                             </div>                        
                                         </div>
                                    </div>
@@ -132,27 +158,35 @@
                                    <div class="col-6">
                                         <div class="form-group">
                                             <label for="name" class="form-control-label">
-                                                    Periodo Reserva:
+                                                    Periodo Reserva*:
                                             </label>
                                                 <div class="input-group">
                                                     <span class="input-group">
                                                     <button class="btn btn-primary" type="button">P</button>
-                                                    <input name="periodo" type="name" class="form-control" placeholder="Periodo reserva">
+                                                    <input name="periodo" type="name" class="form-control" placeholder="Periodo reserva" value="{{old('periodo')}}">
                                                     </span>
+                                                    <br>      
+                                                    @if($errors -> has('periodo'))
+                                                        <span class="error-danger" for="input-name">{{$errors->first('periodo')}}</span>
+                                                    @endif
                                                 </div>                             
                                         </div>
                                     </div>
                                     <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name" class="form-control-label">
-                                                    Motivo:
+                                                    Motivo*:
                                                 </label>
                                                 <div class="input-group">
                                                     <span class="input-group">
                                                     <button class="btn btn-primary" type="button">M</button>
                                                     {{-- <input name="motivo" type="text" class="form-control" aria-label="With textarea"> --}}
-                                                    <textarea name="motivo" type="text" class="form-control" id=""  placeholder="Motivo"></textarea>
+                                                    <textarea name="motivo" type="text" class="form-control" id=""  placeholder="Motivo" >{{old('motivo')}}</textarea>
                                                     </span>
+                                                    <br>      
+                                                    @if($errors -> has('motivo'))
+                                                        <span class="error-danger" for="input-name">{{$errors->first('motivo')}}</span>
+                                                    @endif
                                                 </div>                              
                                             </div>
                                     </div>
