@@ -33,7 +33,13 @@
     </tbody>
 </table>
 @else
-<h2>Aulas</h2>
+<h2>
+    Aulas
+   
+</h2>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCrear">
+    Crear aula
+</button>
 
 <table class="table">
     <thead>
@@ -55,6 +61,32 @@
         @endforeach
     </tbody>
 </table>
+
+<div class="modal fade bs-example-modal-lg" id="modalCrear">
+    <div class="modal-dialog">
+        <div class="modal-content bg-default">
+            <div class="modal-header">
+                <h4 class="modal-title">Crear Categoría</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    
+            </div>
+            <form action="" method="POST">
+                {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Categoría</label>
+                        <input type="text" name="name" class="form-control" id="category">
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>   
+</div>
 
 @endif
 
