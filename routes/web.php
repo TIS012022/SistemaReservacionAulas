@@ -101,4 +101,7 @@ Route::resource('aulas', AulaController::class, [
   ]
 ])->middleware('auth.user');
 
+Route::post('/aulas/store', [App\Http\Controllers\AulaController::class, 'store'])
+->name('admin.aulas.store');
+
 

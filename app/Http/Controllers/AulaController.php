@@ -24,7 +24,7 @@ class AulaController extends Controller
             ->get();
             return view('admin.aulas.index', compact('aulas'))->with('tipo', "reservadas");
         }
-        $aulas = Aula::orderByDesc('created_at')->get();
+        $aulas = Aula::orderBy('id', 'asc')->get();
         return view('admin.aulas.index', compact('aulas'))->with('tipo', "all");
     }
 
@@ -45,8 +45,18 @@ class AulaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {      
+            $newAula= new Aula();
+    
+            $newAula->codigo = $request->codigo;
+            $newAula->num_aula = $request->num_aula;
+            $newAula->capacidad = $request->capacidad;
+            $newAula->sector = $request->sector;
+            $newAula->estado = $request->estado;
+            $newAula->save();
+
+        
+           return redirect()->back();        
     }
 
     /**
