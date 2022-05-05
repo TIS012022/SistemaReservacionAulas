@@ -34,22 +34,24 @@
 </table>
 @else
 
-<h2>
-    Aulas
-   
-</h2>
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCrear">
-    Crear aula
-</button>
-<table class="table" id="aulas">
+<div class="d-flex justify-content-between">
+    <h2>
+        Aulas  
+    </h2>
+    <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalCrear">
+        Crear aula
+    </button>
+</div>
+<div style="margin-top: 5%" class="table-responsive" >
+<table class="table " id="aulas" >
     <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Numero Aula</th>
             <th scope="col">Capacidad</th>
             <th scope="col">Sector</th>
-            <th scope="col">Accion</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -59,18 +61,21 @@
             <td>{{ @$aula->num_aula }}</td>
             <td>{{ @$aula->capacidad }}</td>
             <td>{{ @$aula->sector }}</td>
+            <td>{{ @$aula->estado }}</td>
             <td>
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$aula->id}}">
                     Editar
                 </button>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar">
                     Eliminar
                 </button>
             </td>
         </tr>
+        @include('admin.aulas.modalEditar')
         @endforeach
     </tbody>
 </table>
+</div>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -79,9 +84,9 @@
     <div class="modal-dialog">
         <div class="modal-content ">
             <div class="modal-header">
-                <h4 class="modal-title">Crear Aula</h4>
+                <h4 class="modal-title w-100 text-center">Nueva Aula</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    
+                    <span aria-hidden="true">&times;</span></button>
             </div>
             <form action="{{route('admin.aulas.store')}}" method="POST">
                 {{ csrf_field() }}
@@ -93,16 +98,29 @@
                         <input type="text" name="num_aula" class="form-control" id="num_aula">
                         <label for="name">Capacidad</label>
                         <input type="text" name="capacidad" class="form-control" id="capacidad">
-                        <label for="name">Sector</label>
-                        <input type="text" name="sector" class="form-control" id="sector">
-                        <label for="name">estado</label>
-                        <input type="text" name="estado" class="form-control" id="estado">
+                        <label for="sector">Sector</label>
+                        <select name="sector" id="sector" class="form-control" required>
+                            <option value="">-- Selecciona el sector--</option>
+                            
+                            <option>edificio nuevo</option>
+                            <option>bloque antiguo</option>
+                            <option >laboratorios</option>
+                            <option >edificio memi</option>
+                        </select>   
+                        <label for="estado">Estado</label>
+                        <select name="estado" id="estado" class="form-control" required>
+                            <option value="">-- Selecciona el estado--</option>
+                            
+                            <option>Deshabilitado</option>
+                            <option>Libre</option>
+                            <option >Reservado</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
                 </div>
             </form>
         </div>
@@ -113,20 +131,20 @@
     <div class="modal-dialog">
         <div class="modal-content ">
             <div class="modal-header">
-                <h4 class="modal-title">Eliminar Aula</h4>
+                <h4 class="modal-title w-100 text-center" >Eliminar Aula</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    
+                    <span aria-hidden="true">&times;</span></button>
             </div>
             <form action="{{route('admin.aulas.delete', $aula->id)}}" method="POST">
                 {{ csrf_field() }}
                 @method('DELETE')
-                <div class="modal-body">
-                    <a>Estas seguro?</a>
+                <div class="modal-body w-100 text-center">
+                    <a>¿Esta seguro que desea eliminar este aula?</a>
                 </div>
 
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-outline-primary">Confirmar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
                 </div>
             </form>
         </div>

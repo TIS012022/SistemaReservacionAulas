@@ -6,6 +6,7 @@ use App\Models\Aula;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AulaController extends Controller
 {
@@ -94,9 +95,16 @@ class AulaController extends Controller
      * @param  \App\Models\Aula  $aula
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Aula $aula)
+    public function update(Request $request, $aulaId)
     {
-        //
+        $aula = Aula::find($aulaId);
+        $aula->num_aula = $request->num_aula;
+        $aula->capacidad = $request->capacidad;
+        $aula->sector = $request->sector;
+        $aula->estado = $request->estado;
+        $aula->save();
+
+       return redirect()->back();
     }
 
     /**

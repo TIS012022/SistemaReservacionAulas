@@ -107,4 +107,6 @@ Route::post('/aulas/store', [App\Http\Controllers\AulaController::class, 'store'
 Route::delete('/aulas/{aulaId}/delete', [App\Http\Controllers\AulaController::class, 'delete'])
 ->name('admin.aulas.delete');
 
+Route::post('/aulas/{aulaId}/update', [App\Http\Controllers\AulaController::class, 'update'])
+->name('admin.aulas.update');
 
