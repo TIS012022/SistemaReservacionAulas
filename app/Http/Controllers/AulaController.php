@@ -59,6 +59,12 @@ class AulaController extends Controller
            return redirect()->back();        
     }
 
+    public function delete(Request $request, $aulaId)
+    {
+        $aula = Aula::find($aulaId);
+        $aula->delete();
+        return redirect()->back();
+    }
     /**
      * Display the specified resource.
      *

@@ -63,6 +63,9 @@
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="">
                     Editar
                 </button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar">
+                    Eliminar
+                </button>
             </td>
         </tr>
         @endforeach
@@ -106,6 +109,29 @@
     </div>   
 </div>
 
+<div class="modal fade bs-example-modal-lg" id="modalEliminar">
+    <div class="modal-dialog">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h4 class="modal-title">Eliminar Aula</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    
+            </div>
+            <form action="{{route('admin.aulas.delete', $aula->id)}}" method="POST">
+                {{ csrf_field() }}
+                @method('DELETE')
+                <div class="modal-body">
+                    <a>Estas seguro?</a>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>   
+</div>
 
 @endif
 
