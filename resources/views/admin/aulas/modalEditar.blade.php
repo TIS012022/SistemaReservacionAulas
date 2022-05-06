@@ -1,3 +1,12 @@
+<?php
+    $sector = ['edificio nuevo', 'bloque antiguo', 'laboratorios', 'edificio memi'];
+    $sector = array_diff($sector, array("{$aula->sector}"));   
+    $sector = Arr::prepend($sector, "{$aula->sector}");
+    
+    $estado = ["Libre", "Reservado", "Deshabilitado"];
+    $estado = array_diff($estado, array("{$aula->estado}"));   
+    $estado = Arr::prepend($estado, "{$aula->estado}");
+?>
 <div class="modal fade" id="modalEditar-{{$aula->id}}">
     <div class="modal-dialog">
         <div class="modal-content bg-default">
@@ -20,23 +29,23 @@
                     <div class="form-group">
                         <label for="sector">Sector</label>
                         <select name="sector" id="sector" class="form-control" required>
-                            <option value="">-- Selecciona el sector--</option>
-                            
-                            <option>edificio nuevo</option>
-                            <option>bloque antiguo</option>
-                            <option >laboratorios</option>
-                            <option >edificio memi</option>
+                      
+                            @foreach($sector as $s)
+            
+                             <option value="{{$s}}">{{$s}}</option>
+            
+                            @endforeach
                         </select>                    
                     </div>
                 
                     <div class="form-group">
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" class="form-control" required>
-                            <option value="">-- Selecciona el estado--</option>
-                            
-                            <option>Deshabilitado</option>
-                            <option>Libre</option>
-                            <option >Reservado</option>
+                            @foreach($estado as $es)
+            
+                             <option value="{{$es}}">{{$es}}</option>
+            
+                            @endforeach
                         </select>
                     </div>
                 </div>
