@@ -93,11 +93,14 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Codigo</label>
-                        <input type="text" name="codigo" class="form-control" id="codigo">
+                        <input type="text" name="codigo" class="form-control" id="codigo" required minlength="5" maxlength="15"  
+                        onkeypress="return blockNoNumber(event)">
                         <label for="name">Numero aula</label>
-                        <input type="text" name="num_aula" class="form-control" id="num_aula">
+                        <input type="text" name="num_aula" class="form-control" id="num_aula" required minlength="1" maxlength="6" 
+                        onkeypress="return blockSpecialChar(event)">
                         <label for="name">Capacidad</label>
-                        <input type="text" name="capacidad" class="form-control" id="capacidad">
+                        <input type="text" name="capacidad" class="form-control" id="capacidad" required minlength="1" maxlength="3"
+                        onkeypress="return blockNoNumber(event)">
                         <label for="sector">Sector</label>
                         <select name="sector" id="sector" class="form-control" required>
                             <option value="">-- Selecciona el sector--</option>
@@ -119,7 +122,7 @@
                 </div>
 
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="refresh">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Aceptar</button>
                 </div>
             </form>
@@ -143,23 +146,32 @@
                 </div>
 
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancelar</button>
                     <button type="submit" class="btn btn-primary">Aceptar</button>
                 </div>
             </form>
         </div>
     </div>   
 </div>
-
+<script type="text/javascript">
+    function blockSpecialChar(e){
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+        }
+    function blockNoNumber(e){
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        return ( (k >= 48 && k <= 57));
+        }
+    let refresh = document.getElementById('refresh');
+    refresh.addEventListener('click', _ => {
+            location.reload();
+})
+</script>
 @endif
 
-<script>
-$(document).ready(function() {
-    $('#aulas').DataTable( {
-        "order": [[ 1, "desc" ]]
-    } );
-} );
-</script>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
