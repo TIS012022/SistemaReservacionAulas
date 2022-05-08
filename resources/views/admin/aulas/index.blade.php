@@ -42,7 +42,16 @@
         Crear aula
     </button>
 </div>
-<div style="margin-top: 5%" class="table-responsive" >
+<div style="margin-top: 1%; display: flex; justify-content: center;">
+    @error('message')
+                   
+    <p class="alert alert-danger ">{{$message}}</p>
+    <button type="button" class="close" onclick="location.reload()" style="margin-bottom: 40px">
+        <span aria-hidden="true" >&times;</span></button>  
+    
+    @enderror 
+</div>
+<div style="margin-top: 1%" class="table-responsive" >
 <table class="table " id="aulas" >
     <thead>
         <tr>

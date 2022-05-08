@@ -95,8 +95,8 @@ class AulaController extends Controller
             return redirect()->back();
         }else{
             
-            return ([
-                'message' => 'Aula ya creada'
+            return back()->withErrors([
+                'message' => 'No se puede eliminar el aula '.$aula["num_aula"].' debido a que esta siendo usada en una reservacion'
             ]);
 
         }
