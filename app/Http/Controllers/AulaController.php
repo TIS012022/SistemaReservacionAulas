@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aula;
+use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use SebastianBergmann\Environment\Console;
+use Alert;
 
 class AulaController extends Controller
 {
@@ -62,9 +65,43 @@ class AulaController extends Controller
 
     public function delete(Request $request, $aulaId)
     {
+        function debug_to_console($data) {
+            $output = $data;
+            if (is_array($output))
+                $output = implode(',', $output);
+        
+            echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+        }
+        
+        $solicitudes = Solicitud::where('aula', $aulaId)->first();
+    
         $aula = Aula::find($aulaId);
-        $aula->delete();
-        return redirect()->back();
+        debug_to_console($aula);
+        debug_to_console($solicitudes);
+        /**DB::table('solicitudes')->where('aula', '!=', $aula)->delete();
+        if( $solicitudes["aula"] == $aula["id"] ){
+        return back()->withErrors([
+            'message' => 'El aula esta siendo usada en una reserva'
+            ]);
+            }else{
+            /**$aula->delete();
+            return redirect()->back();
+            debug_to_console('hola');
+         }
+       */
+       if(empty($solicitudes)){
+       
+            $aula->delete();
+            return redirect()->back();
+        }else{
+            
+            return ([
+                'message' => 'Aula ya creada'
+            ]);
+
+        }
+        
+        
     }
     /**
      * Display the specified resource.
