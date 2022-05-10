@@ -16,7 +16,7 @@ class AulaSeeder extends Seeder
     {
         $sectores = ["edificio nuevo", "bloque antiguo", "laboratorios", "edificio memi"];
         $letras = ['A','B','C','D','E','F','G', ''];
-        $estado = ["Libre", "Reservado", "Deshabilitado"];
+        $estado = ["Habilitado", "Deshabilitado", "Mantenimiento"];
         for ($i = 0; $i < 10; $i++) {
             DB::table('aulas')->insert([
                 'codigo' => rand(1,100)*1000,

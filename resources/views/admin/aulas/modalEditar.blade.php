@@ -3,7 +3,7 @@
     $sector = array_diff($sector, array("{$aula->sector}"));   
     $sector = Arr::prepend($sector, "{$aula->sector}");
     
-    $estado = ["Libre", "Reservado", "Deshabilitado"];
+    $estado = ["Habilitado","Deshabilitado", "Mantenimiento"];
     $estado = array_diff($estado, array("{$aula->estado}"));   
     $estado = Arr::prepend($estado, "{$aula->estado}");
 ?>

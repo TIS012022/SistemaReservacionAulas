@@ -51,8 +51,10 @@
     
     @enderror 
 </div>
+
+<!--Tabla de AULAS-->
 <div style="margin-top: 1%" class="table-responsive" >
-<table class="table " id="aulas" >
+<table class="table" id="aulas" >
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -63,14 +65,27 @@
             <th scope="col">Acciones</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody> <!--,color:#c62828     ,color:#2962ff    ,color:#a68b00-->
         @foreach ($aulas as $aula)
         <tr scope="row">
             <td>{{ @$aula->id }}</td>
             <td>{{ @$aula->num_aula }}</td>
             <td>{{ @$aula->capacidad }}</td>
             <td>{{ @$aula->sector }}</td>
-            <td>{{ @$aula->estado }}</td>
+            <td>
+                @if(@$aula->estado == 'Habilitado' )
+                    <span class="badge badge-success">{{ @$aula->estado }}</span>
+
+                @elseif(@$aula->estado == 'Deshabilitado' )
+                    <span class="badge badge-danger">{{ @$aula->estado }}</span>
+
+                @elseif(@$aula->estado == 'Mantenimiento' )
+                     <span class="badge badge-warning">{{ @$aula->estado }}</span>
+                @endif
+            </td>
+
+            
+
             <td>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$aula->id}}">
                     Editar
@@ -124,9 +139,9 @@
                         <select name="estado" id="estado" class="form-control" required>
                             <option value="">-- Selecciona el estado--</option>
                             
+                            <option>Habilitado</option>
                             <option>Deshabilitado</option>
-                            <option>Libre</option>
-                            <option >Reservado</option>
+                            <option>Mantenimiento</option>
                         </select>
                     </div>
                 </div>
