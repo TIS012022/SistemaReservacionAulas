@@ -16,10 +16,9 @@ class Solicitud extends Model
                             'periodo',
                             'dia',
                             'estado',
-                            'grupo',
                             'aula',
-                            'materia',
-                            'docente'
+                            'docmateria',
+                        
                             
     ];
     
@@ -32,5 +31,14 @@ class Solicitud extends Model
     {
         return $this->hasMany(Reserva::class);
     }
+
+    public function docmateria()
+    {
+        return $this->belongsTo(Docmateria::class);
+    }
    
+    public function aula()
+    {
+        return $this->belongsTo(Aula::class);
+    }
 }
