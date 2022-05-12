@@ -13,7 +13,6 @@ class Solicitud extends Model
     protected $fillable = ['cantidad', 
                             'motivo',
                             'hora_ini',
-                            'hora_fin',
                             'periodo',
                             'dia',
                             'estado',
@@ -33,7 +32,11 @@ class Solicitud extends Model
         return $this->hasMany(Reserva::class);
     }
 
-    
+    public function docmateria()
+    {
+        return $this->belongsTo(Docmateria::class);
+    }
+
     public function aula()
     {
         return $this->belongsTo(Aula::class);

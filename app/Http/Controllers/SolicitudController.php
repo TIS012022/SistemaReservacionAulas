@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aula;
+use App\Models\Docmateria;
 use App\Models\Grupo;
 use App\Models\Materia;
 use App\Models\Solicitud;
@@ -25,13 +26,15 @@ class SolicitudController extends Controller
         // $solicitudes = Solicitud::all();
         // return view('admin.reservas.index', compact('solicitudes'));
         $solicitudes = DB::table('solicitudes')
-            ->join('users', 'solicitudes.docente', '=', 'users.id')
+            ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
+          //  ->join('users', 'docmaterias.docente', '=', 'users.id')
             // ->join('materias', 'materias.id', '=', 'solicitudes.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
             ->where('solicitudes.estado', '=', 'pendiente')
             // ->join('grupos', 'grupos.id', '=', 'solicitudes.id')
-            ->select('users.name', 'aulas.num_aula','solicitudes.*')
+           // ->select('docmaterias.name', 'docmaterias.num_aula','solicitudes.*')
             ->get();
+            
         // $solicitudes = solicitud::all(); 
             
         return view('admin.solicitudes.index', compact('solicitudes'));
@@ -47,7 +50,20 @@ class SolicitudController extends Controller
         $aulas = Aula::all();
         $grupos = Grupo::all();
         $materias = Materia::all();
-        return view('admin.solicitudes.create',compact('aulas','grupos', 'materias'));
+        $docmaterias = Docmateria::all();
+        $materiaUnidas = DB::table( 'materias')
+        ->join('docmaterias', 'materias.id', '=', 'docmaterias.materia')
+        ->select('materias.*')
+
+        ->get();
+
+        $grupoUnidas = DB::table( 'grupos')
+        ->join('docmaterias', 'grupos.id', '=', 'docmaterias.grupo')
+        ->select('grupos.*')
+
+        ->get();
+        
+        return view('admin.solicitudes.create',compact('aulas','grupos', 'materias', 'materiaUnidas', 'grupoUnidas'));
     }
 
     /**
@@ -56,7 +72,7 @@ class SolicitudController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) 
     {
         //
         $request-> validate([
