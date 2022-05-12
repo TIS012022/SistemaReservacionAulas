@@ -11,11 +11,12 @@ class Docmateria extends Model
     protected $table = 'docmaterias';
     protected $fillable = ['inscritos','gestion','grupo','materia','docente'];
 
+    
     public function solicitudes()
     {
         return $this->hasMany(Solicitud::class);
     }
-    
+   
     public function user()
     {
         return $this->belongsTo(User::class);
