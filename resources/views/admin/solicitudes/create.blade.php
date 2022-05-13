@@ -2,7 +2,7 @@
 @extends('layouts.dashboard.index')
 @section('main-content')
 <?php
-   
+  
 ?>
     <div class="container">
         <div class="my-6">
@@ -33,7 +33,7 @@
                                         <div class="input-group">
                                                 <span class="input-group">
                                                     <button class="btn btn-primary" type="button">M</button>
-                                                    <select name="materia" class="custom-select" value="{{old('materia')}}">
+                                                    <select name="materia" id="materia" class="custom-select" value="{{old('materia')}}" >
                                                         <option selected>Seleccione Materia..</option>
                                                         @foreach ($materiaUnidas as $item)
                                                             <option value="{{ $item->id }}">{{ $item->nombre}}</option>
@@ -43,7 +43,7 @@
                                         </div>           
                                     </div>
                                 </div>
-
+                               
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="name" class="form-control-label">
@@ -53,7 +53,7 @@
                                             <span class="input-group">
                                                 <button class="btn btn-primary" type="button">G</button>
                                                 {{-- <input name="grupo_id" type="name" class="form-control" placeholder="Grupo"> --}}
-                                                <select name="grupo" class="custom-select">
+                                                <select name="grupo" id="grupo" class="custom-select">
                                                     <option selected>Seleccione N° grupo..</option>
                                                     @foreach ($grupoUnidas as $item)
                                                         <option value="{{ $item->id }}">{{ $item->numero}}</option>
@@ -217,4 +217,25 @@ let fecha_minimo = anio + '-' + mes + '-' + dia; // Nueva variable
 
 document.getElementById("fechaReserva").setAttribute('min',fecha_minimo);
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function()){
+            $('$materia').on('change', function(){
+                var materia_id = $(this).val();
+                if($.trim(materia_id) != ''){
+                    $.get('grupos', {materia_id: materia_id}, function(grupos) {
+                        $('#grupo').empty();
+                        $('#grupo').append("<option value=''>Selecciona un grupo</option>");
+                        $.each(grupos, function(index, value){
+                            $('#grupo').append("<option value='"+ index + "'>"+ value +"</option>");
+
+                        })
+                    }
+                    );
+                }
+            })
+        }
+    </script>
 @endsection

@@ -32,5 +32,14 @@ class UserSeeder extends Seeder
             'Departamento' => 'Informatica',
             'materias_grupos' => 'lorem ipsum'
         ]);
+        DB::table('users')->insert([
+            'name' => 'Pablo Alcozer',
+            'email' => 'docente2@gmail.com',
+            'password' => Hash::make('docente'),
+            'ci' => '222122',
+            'role' => "docente",
+            'Departamento' => 'Informatica',
+            'materias_grupos' => 'lorem ipsum'
+        ]);
     }
 }

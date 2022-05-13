@@ -8,10 +8,11 @@ use App\Models\Grupo;
 use App\Models\Materia;
 use App\Models\Solicitud;
 use App\Models\User;
+use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
 
 class SolicitudController extends Controller
@@ -47,23 +48,36 @@ class SolicitudController extends Controller
      */
     public function create()
     {
+        
         $aulas = Aula::all();
         $grupos = Grupo::all();
         $materias = Materia::all();
         $docmaterias = Docmateria::all();
-        $materiaUnidas = DB::table( 'materias')
+        $materiaUnidas = DB::table('materias')
         ->join('docmaterias', 'materias.id', '=', 'docmaterias.materia')
+        
         ->select('materias.*')
-
+        ->where('docmaterias.docente', '=', Auth::id())
         ->get();
 
         $grupoUnidas = DB::table( 'grupos')
         ->join('docmaterias', 'grupos.id', '=', 'docmaterias.grupo')
-        ->select('grupos.*')
-
+        ->select('grupos.*')    
+        ->where('docmaterias.docente', '=', Auth::id())
         ->get();
         
         return view('admin.solicitudes.create',compact('aulas','grupos', 'materias', 'materiaUnidas', 'grupoUnidas'));
+    }
+
+    public function getGrupos(Request $request){
+            if ($request->ajax()){
+                $grupos = Grupo::where('materia_id', $request->materia_id)->get();
+                foreach ($grupos as $grupo){
+                    $gruposArray[$grupo->id] = $grupo->numero;
+
+                }
+                return response()->json($gruposArray);
+            }
     }
 
     /**
