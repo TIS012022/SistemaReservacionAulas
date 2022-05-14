@@ -27,15 +27,18 @@ class SolicitudController extends Controller
         // $solicitudes = Solicitud::all();
         // return view('admin.reservas.index', compact('solicitudes'));
         $solicitudes = DB::table('solicitudes')
+        
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
-           ->join('users', 'docmaterias.docente', '=', 'users.id')
+            ->join('users', 'docmaterias.docente', '=', 'users.id')
+          
+           ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
             // ->join('materias', 'materias.id', '=', 'solicitudes.id')
-            ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
+            
             ->where('solicitudes.estado', '=', 'pendiente')
             // ->join('grupos', 'grupos.id', '=', 'solicitudes.id')
-           // ->select('docmaterias.name', 'docmaterias.num_aula','solicitudes.*')
+            ->select('name', 'num_aula','solicitudes.*')
             ->get();
-            
+          //  dd($solicitudes->all());
         // $solicitudes = solicitud::all(); 
             
         return view('admin.solicitudes.index', compact('solicitudes'));

@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-floating">
-                                            <input type="hidden" name="solicitud" value="{{$solicitud->id}}">
+                                            <input type="hidden" name="solicitud" value="{{$solicitud->aula}}">
                                             <input type="hidden" name="tipo" value="aceptado">
                                             <textarea name="mensaje" class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
                                         </div>
