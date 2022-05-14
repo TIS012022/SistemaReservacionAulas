@@ -22,9 +22,10 @@ class AulaController extends Controller
     {
         if ($request->tipo === "reservadas") {
             $aulas = DB::table('solicitudes')
-            ->join('materias', 'solicitudes.materia', '=', 'materias.id')
+            ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
+            ->join('materias', 'docmaterias.materia', '=', 'materias.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
-            ->where('solicitudes.docente', Auth::id())
+            ->where('docmaterias.docente', Auth::id())
             ->get();
             return view('admin.aulas.index', compact('aulas'))->with('tipo', "reservadas");
         }

@@ -110,3 +110,4 @@ Route::delete('/aulas/{aulaId}/delete', [App\Http\Controllers\AulaController::cl
 Route::post('/aulas/{aulaId}/update', [App\Http\Controllers\AulaController::class, 'update'])
 ->name('admin.aulas.update');
 
+Route::get('/grupos', [App\Http\Controllers\SolicitudController::class, 'getGrupos']);

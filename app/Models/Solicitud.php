@@ -17,7 +17,7 @@ class Solicitud extends Model
                             'dia',
                             'estado',
                             'aula',
-                            'docmateria',
+                            'docmateria_id',
                         
                             
     ];

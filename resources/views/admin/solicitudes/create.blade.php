@@ -33,17 +33,17 @@
                                         <div class="input-group">
                                                 <span class="input-group">
                                                     <button class="btn btn-primary" type="button">M</button>
-                                                    <select name="materia" id="materia" class="custom-select" value="{{old('materia')}}" >
+                                                    <select name="docmateria_id" id="docmateria_id" class="custom-select" value="{{old('materia')}}" >
                                                         <option selected>Seleccione Materia..</option>
                                                         @foreach ($materiaUnidas as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nombre}}</option>
+                                                            <option value="{{ $item->id }}">{{ $item->nombre}}--Grupo {{$item->numero}}</option>
                                                         @endforeach
                                                     </select>
                                                 </span>
                                         </div>           
                                     </div>
                                 </div>
-                               
+                               {{--
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="name" class="form-control-label">
@@ -51,9 +51,10 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group">
-                                                <button class="btn btn-primary" type="button">G</button>
-                                                {{-- <input name="grupo_id" type="name" class="form-control" placeholder="Grupo"> --}}
-                                                <select name="grupo" id="grupo" class="custom-select">
+                                                <button class="btn btn-primary" type="button" >G</button>
+                                                
+                                                {{-- <input name="grupo_id" type="name" class="form-control" placeholder="Grupo"> 
+                                                <select name="grupo" id="grupo" class="custom-select" >
                                                     <option selected>Seleccione N° grupo..</option>
                                                     @foreach ($grupoUnidas as $item)
                                                         <option value="{{ $item->id }}">{{ $item->numero}}</option>
@@ -63,7 +64,7 @@
                                         </div>        
                                     </div>
                                 </div>
-
+                                 --}}
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="name" class="form-control-label">
@@ -82,7 +83,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-4">
+                                <div class="col-6">
                                     <div class="form-group">
                                          <label for="name" class="form-control-label">
                                                 Numero de Aula:
@@ -101,7 +102,7 @@
                                         </div>            
                                      </div>
                                  </div>
-
+                                 
                                  <div class="col-6">
                                         <div class="form-group">
                                             <label for="name" class="form-control-label">
@@ -160,7 +161,7 @@
                                                 <div class="input-group">
                                                     <span class="input-group">
                                                     <button class="btn btn-primary" type="button">P</button>
-                                                    <select name="hora_ini" id="hora_ini" class="form-control" required>
+                                                    <select name="periodo" id="periodo" class="form-control" required>
                                                     </span>
                                                         <option value="">-- Selecciona los periodos requeridos--</option>
                                                         
@@ -221,6 +222,7 @@ document.getElementById("fechaReserva").setAttribute('min',fecha_minimo);
 @endsection
 @section('script')
     <script>
+        
         $(document).ready(function()){
             $('$materia').on('change', function(){
                 var materia_id = $(this).val();
@@ -237,5 +239,6 @@ document.getElementById("fechaReserva").setAttribute('min',fecha_minimo);
                 }
             })
         }
+    
     </script>
 @endsection

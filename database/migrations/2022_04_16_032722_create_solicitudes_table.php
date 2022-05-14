@@ -23,9 +23,11 @@ class CreateSolicitudesTable extends Migration
             $table->date('dia');
             $table->string('estado');
 
-            $table->foreignId('docmateria_id')->constrained('docmaterias');
+          
             $table->unsignedBigInteger('aula');
             $table->foreign('aula')->references('id')->on('aulas')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('docmateria_id');
+            $table->foreign('docmateria_id')->references('id')->on('docmaterias')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

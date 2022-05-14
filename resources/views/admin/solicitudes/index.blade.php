@@ -26,7 +26,7 @@
                     <td>{{ @$solicitud->motivo }}</td>
                     <td>{{ @$solicitud->cantidad }}</td>
                     <td>{{ @$solicitud->num_aula }}</td>
-                    <td>{{ @$solicitud->hora_ini }} - {{ @$solicitud->hora_fin }}</td>
+                    <td>{{ @$solicitud->hora_ini }} </td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAceptar{{$loop->index}}">
                             Aceptar
