@@ -101,12 +101,20 @@ Route::resource('aulas', AulaController::class, [
   ]
 ])->middleware('auth.user');
 
+
+
 Route::post('/aulas/store', [App\Http\Controllers\AulaController::class, 'store'])
 ->name('admin.aulas.store');
 
 Route::delete('/aulas/{aulaId}/delete', [App\Http\Controllers\AulaController::class, 'delete'])
 ->name('admin.aulas.delete');
 
+
 Route::post('/aulas/{aulaId}/update', [App\Http\Controllers\AulaController::class, 'update'])
 ->name('admin.aulas.update');
+
+//Delete para aulas reservadas
+Route::delete('/aulasR/{aulaId}/deleteReservadas', [App\Http\Controllers\AulaController::class, 'deleteReservadas'])
+->name('admin.aulasR.delete');
+
 
