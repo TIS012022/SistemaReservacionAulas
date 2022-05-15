@@ -11,38 +11,26 @@ use Illuminate\Support\Str;
 use SebastianBergmann\Environment\Console;
 use Alert;
 
-class AulaController extends Controller
+class AulasReservadasController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->tipo === "reservadas") {
+        
             $aulas = DB::table('solicitudes')
             ->join('materias', 'solicitudes.materia', '=', 'materias.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
-            ->where('solicitudes.estado','=','aceptado')
-            ->select('solicitudes.estado','solicitudes.periodo','aulas.num_aula','materias.nombre','solicitudes.dia',
+            ->where('solicitudes.docente')
+            ->select('solicitudes.estado','aulas.num_aula','materias.nombre','solicitudes.dia',
             'solicitudes.hora_ini','solicitudes.hora_fin')
             ->get();
-            return view('admin.aulas.index', compact('aulas'))->with('tipo', "reservadas");
 
-        }elseif($request->tipo === "admin"){
-            $aulas = DB::table('solicitudes')
-            ->join('materias', 'solicitudes.materia', '=', 'materias.id')
-            ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
-            ->where('solicitudes.estado','=','aceptado')
-            ->select('solicitudes.estado','solicitudes.periodo','aulas.num_aula','materias.nombre','solicitudes.dia',
-            'solicitudes.hora_ini','solicitudes.hora_fin','solicitudes.id')
-            ->get();
-            return view('admin.aulasR.index', compact('aulas'))->with('tipo', "admin");
-
-        }
-        $aulas = Aula::orderBy('id', 'asc')->get();
-        return view('admin.aulas.index', compact('aulas'))->with('tipo', "all");
+            return view('admin.aulasR.index', compact('aulasR'));
+        
     }
 
     /**
@@ -116,14 +104,6 @@ class AulaController extends Controller
         
         
     }
-    public function deleteReservadas(Request $request, $reservaId)
-    {
-        
-        $reserva = Solicitud::find($reservaId);
-        $reserva->delete();
-        return redirect()->back();
-    }
-    
     /**
      * Display the specified resource.
      *
