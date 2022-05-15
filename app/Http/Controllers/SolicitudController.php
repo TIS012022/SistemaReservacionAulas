@@ -40,7 +40,7 @@ class SolicitudController extends Controller
             ->get();
           //  dd($solicitudes->all());
         // $solicitudes = solicitud::all(); 
-            
+     
         return view('admin.solicitudes.index', compact('solicitudes'));
     }
 
@@ -104,13 +104,13 @@ class SolicitudController extends Controller
       
     
         $solicitud -> estado = "pendiente";
-         
-        $solicitud->save();
+       
+       $solicitud->save();
      //   dd($request->all());
         
 
     
-       return redirect()->back();    
+     return redirect()->back();    
         
         //return Redirect()->route('solicitudes.create');
 

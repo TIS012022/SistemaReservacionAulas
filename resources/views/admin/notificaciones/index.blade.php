@@ -13,7 +13,7 @@
                     <th>Aula</th>
                     <th>Dia</th>
                     <th>Horario</th>
-                    <th>Mensaje</th>
+                
                     <th>Correo</th>
                     <th>Acciones</th>
                 </tr>
@@ -28,7 +28,7 @@
                     <td>{{ $notificacion->num_aula }}</td>
                     <td>{{ $notificacion->dia }}</td>
                     <td>{{ $notificacion->hora_ini }}</td>
-                    <td>{{ \Illuminate\Support\Str::limit($notificacion->mensaje, 50, $end='...') }}</td>
+                  {{-- <td>{{ \Illuminate\Support\Str::limit($notificacion->mensaje, 50, $end='...') }}</td>--}}
                     <td>{{ $notificacion->email }}</td>
                     <td><i class="btn btn-primary bi bi-eye-fill" data-bs-toggle="modal" data-bs-target="#modalVer{{$loop->index}}"></i></td>
 
