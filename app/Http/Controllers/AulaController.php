@@ -26,22 +26,23 @@ class AulaController extends Controller
             ->join('materias', 'docmaterias.materia', '=', 'materias.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
 
-            ->where('docmaterias.docente', Auth::id())
+           // ->where('docmaterias.docente', Auth::id())
 
             ->where('solicitudes.estado','=','aceptado')
             ->select('solicitudes.estado','solicitudes.periodo','aulas.num_aula','materias.nombre','solicitudes.dia',
-            'solicitudes.hora_ini','solicitudes.hora_fin')
+            'solicitudes.hora_ini')
 
             ->get();
             return view('admin.aulas.index', compact('aulas'))->with('tipo', "reservadas");
 
         }elseif($request->tipo === "admin"){
             $aulas = DB::table('solicitudes')
-            ->join('materias', 'solicitudes.materia', '=', 'materias.id')
+            ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
+            ->join('materias', 'docmaterias.materia', '=', 'materias.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
             ->where('solicitudes.estado','=','aceptado')
             ->select('solicitudes.estado','solicitudes.periodo','aulas.num_aula','materias.nombre','solicitudes.dia',
-            'solicitudes.hora_ini','solicitudes.hora_fin','solicitudes.id')
+            'solicitudes.hora_ini','solicitudes.id')
             ->get();
             return view('admin.aulasR.index', compact('aulas'))->with('tipo', "admin");
 
