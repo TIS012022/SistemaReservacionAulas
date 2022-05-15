@@ -1,6 +1,9 @@
 
 @extends('layouts.dashboard.index')
 @section('main-content')
+<?php
+  
+?>
     <div class="container">
         <div class="my-6">
             <div class="card">
@@ -30,17 +33,17 @@
                                         <div class="input-group">
                                                 <span class="input-group">
                                                     <button class="btn btn-primary" type="button">M</button>
-                                                    <select name="materia" class="custom-select" value="{{old('materia')}}">
+                                                    <select name="docmateria_id" id="docmateria_id" class="custom-select" value="{{old('materia')}}" >
                                                         <option selected>Seleccione Materia..</option>
-                                                        @foreach ($materias as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nombre}}</option>
+                                                        @foreach ($materiaUnidas as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->nombre}}--Grupo {{$item->numero}}</option>
                                                         @endforeach
                                                     </select>
                                                 </span>
                                         </div>           
                                     </div>
                                 </div>
-
+                               {{--
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="name" class="form-control-label">
@@ -48,11 +51,12 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group">
-                                                <button class="btn btn-primary" type="button">G</button>
-                                                {{-- <input name="grupo_id" type="name" class="form-control" placeholder="Grupo"> --}}
-                                                <select name="grupo" class="custom-select">
+                                                <button class="btn btn-primary" type="button" >G</button>
+                                                
+                                                {{-- <input name="grupo_id" type="name" class="form-control" placeholder="Grupo"> 
+                                                <select name="grupo" id="grupo" class="custom-select" >
                                                     <option selected>Seleccione N° grupo..</option>
-                                                    @foreach ($grupos as $item)
+                                                    @foreach ($grupoUnidas as $item)
                                                         <option value="{{ $item->id }}">{{ $item->numero}}</option>
                                                     @endforeach
                                                 </select>
@@ -60,7 +64,7 @@
                                         </div>        
                                     </div>
                                 </div>
-
+                                 --}}
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="name" class="form-control-label">
@@ -79,7 +83,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-4">
+                                <div class="col-6">
                                     <div class="form-group">
                                          <label for="name" class="form-control-label">
                                                 Numero de Aula:
@@ -98,7 +102,7 @@
                                         </div>            
                                      </div>
                                  </div>
-
+                                 
                                  <div class="col-6">
                                         <div class="form-group">
                                             <label for="name" class="form-control-label">
@@ -107,35 +111,29 @@
                                             <div class="input-group">
                                                 <span class="input-group">
                                                 <button class="btn btn-primary" type="button">H</button>
-                                                <input name="hora_ini" type="time" class="form-control" placeholder=" Horario ini" value="{{old('hora_ini')}}">
                                                 {{-- <input type="date" id="birthday" name="hora_ini" class="form-control"> --}}
+                                               
+                                                <select name="hora_ini" id="hora_ini" class="form-control" required>
                                                 </span>
-                                                <br>      
-                                                @if($errors -> has('hora_ini'))
-                                                    <span class="error-danger" for="input-name">{{$errors->first('hora_ini')}}</span>
-                                                @endif
+                                                    <option value="">-- Selecciona la hora para la solicitud--</option>
+                                                    
+                                                    <option>6:45</option>
+                                                    <option>8:15</option>
+                                                    <option >9:45</option>
+                                                    <option >11:15</option>
+                                                    <option>12:45</option>
+                                                    <option>14:15</option>
+                                                    <option >15:45</option>
+                                                    <option >17:15</option>
+                                                    <option>18:45</option>
+                                                    <option>20:15</option>
+                                                    <option >21:45</option>                           
+                                                </select>   
                                             </div>               
                                         </div>
                                   </div>
 
-                                  <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="name" class="form-control-label">
-                                                Horario fin:
-                                            </label>
-                                            <div class="input-group">
-                                            <span class="input-group">
-                                                <button class="btn btn-primary" type="button">H</button>
-                                                <input name="hora_fin" type="time" class="form-control" placeholder="Horario fin" value="{{old('hora_fin')}}">
-                                                {{-- <input type="date" id="birthday" name="hora_fin"> --}}
-                                            </span>
-                                            <br>      
-                                            @if($errors -> has('hora_fin'))
-                                                <span class="error text-danger" for="input-name">{{$errors->first('hora_fin')}}</span>
-                                            @endif
-                                            </div>                     
-                                        </div>
-                                   </div>
+                                 
 
                                    <div class="col-6">
                                         <div class="form-group">
@@ -145,7 +143,7 @@
                                             <div class="input-group">
                                                 <span class="input-group">
                                                 <button class="btn btn-primary" type="button">D</button>
-                                                <input name="dia" type="date" class="form-control" placeholder="Dia Reserva" value="{{old('dia')}}">
+                                                <input name="dia" type="date" id="fechaReserva" class="form-control" placeholder="Dia Reserva" value="{{old('dia')}}">
                                                 </span>
                                                 <br>      
                                                 @if($errors -> has('dia'))
@@ -163,12 +161,14 @@
                                                 <div class="input-group">
                                                     <span class="input-group">
                                                     <button class="btn btn-primary" type="button">P</button>
-                                                    <input name="periodo" type="name" class="form-control" placeholder="Periodo reserva" value="{{old('periodo')}}">
+                                                    <select name="periodo" id="periodo" class="form-control" required>
                                                     </span>
-                                                    <br>      
-                                                    @if($errors -> has('periodo'))
-                                                        <span class="error-danger" for="input-name">{{$errors->first('periodo')}}</span>
-                                                    @endif
+                                                        <option value="">-- Selecciona los periodos requeridos--</option>
+                                                        
+                                                        <option>2</option>
+                                                        <option>4</option>
+                                                          
+                                                    </select>  
                                                 </div>                             
                                         </div>
                                     </div>
@@ -201,4 +201,44 @@
              </div> 
         </div>
     </div>
+<script>
+    var fecha = new Date();
+var anio = fecha.getFullYear();
+var dia = fecha.getDate();
+var _mes = fecha.getMonth(); //viene con valores de 0 al 11
+_mes = _mes + 1; //ahora lo tienes de 1 al 12
+if (_mes < 10) //ahora le agregas un 0 para el formato date
+{
+  var mes = "0" + _mes;
+} else {
+  var mes = _mes.toString;
+}
+
+let fecha_minimo = anio + '-' + mes + '-' + dia; // Nueva variable
+
+document.getElementById("fechaReserva").setAttribute('min',fecha_minimo);
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+@endsection
+@section('script')
+    <script>
+        
+        $(document).ready(function()){
+            $('$materia').on('change', function(){
+                var materia_id = $(this).val();
+                if($.trim(materia_id) != ''){
+                    $.get('grupos', {materia_id: materia_id}, function(grupos) {
+                        $('#grupo').empty();
+                        $('#grupo').append("<option value=''>Selecciona un grupo</option>");
+                        $.each(grupos, function(index, value){
+                            $('#grupo').append("<option value='"+ index + "'>"+ value +"</option>");
+
+                        })
+                    }
+                    );
+                }
+            })
+        }
+    
+    </script>
 @endsection

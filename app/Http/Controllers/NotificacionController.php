@@ -21,9 +21,10 @@ class NotificacionController extends Controller
     {
         $notificaciones = DB::table('solicitudes')
             ->join('notificaciones', 'solicitudes.id', '=', 'notificaciones.solicitud')
+            ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
-            ->join('materias', 'solicitudes.materia', '=', 'materias.id')
-            ->where('solicitudes.docente', Auth::id())
+            ->join('materias', 'docmaterias.materia', '=', 'materias.id')
+            ->where('docmaterias.docente', Auth::id())
             ->get();
 
         return view('admin.notificaciones.index', compact('notificaciones'));
@@ -47,11 +48,17 @@ class NotificacionController extends Controller
      */
     public function store(Request $request)
     {
-        $notificacion = new Notificacion();
+        
+
+    
+       $notificacion = new Notificacion();
         $notificacion->mensaje = $request->mensaje;
+    
         $notificacion->email = Auth::user()->email;
         $notificacion->dia = date("Y-m-d");
+        
         $notificacion->solicitud = $request->solicitud;
+       
         $notificacion->save();
         Solicitud::find($request->solicitud)->update(['estado' => $request->tipo]);
         return redirect()->route("solicitudes");

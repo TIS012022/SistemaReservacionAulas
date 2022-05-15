@@ -11,8 +11,8 @@ class Materia extends Model
     protected $table = 'materias';
     protected $fillable = ['codigo', 'nombre', 'carrera'];
 
-    public function solicitudes()
+    public function docmaterias()
     {
-        return $this->hasMany(Solicitud::class);
+        return $this->hasMany(Docmateria::class);
     }
 }

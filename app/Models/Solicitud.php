@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use League\CommonMark\Node\Block\Document;
 
 class Solicitud extends Model
 {
@@ -12,14 +13,12 @@ class Solicitud extends Model
     protected $fillable = ['cantidad', 
                             'motivo',
                             'hora_ini',
-                            'hora_fin',
                             'periodo',
                             'dia',
                             'estado',
-                            'grupo',
                             'aula',
-                            'materia',
-                            'docente'
+                            'docmateria_id',
+                        
                             
     ];
     
@@ -32,5 +31,14 @@ class Solicitud extends Model
     {
         return $this->hasMany(Reserva::class);
     }
-   
+
+    public function docmateria()
+    {
+        return $this->belongsTo(Docmateria::class);
+    }
+
+    public function aula()
+    {
+        return $this->belongsTo(Aula::class);
+    }
 }

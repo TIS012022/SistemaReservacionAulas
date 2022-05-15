@@ -19,15 +19,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($aulas as $aula)
+        @foreach ($aulas as $aula) 
         <tr scope="row">
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ @$aula->num_aula }}</td>
             <td>{{ @$aula->nombre }}</td>
             <td>{{ @$aula->dia }}</td>
-            <td>{{ @$aula->hora_ini }}</td>
+
+            <td>{{ @$aula->hora_ini }} </td>
             <td>{{ @$aula->periodo }}</td>
             
+
         </tr>
         @endforeach
     </tbody>

@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aula;
+use App\Models\Docmateria;
 use App\Models\Grupo;
 use App\Models\Materia;
 use App\Models\Solicitud;
 use App\Models\User;
+use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
 
 class SolicitudController extends Controller
@@ -25,13 +27,18 @@ class SolicitudController extends Controller
         // $solicitudes = Solicitud::all();
         // return view('admin.reservas.index', compact('solicitudes'));
         $solicitudes = DB::table('solicitudes')
-            ->join('users', 'solicitudes.docente', '=', 'users.id')
+        
+            ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
+            ->join('users', 'docmaterias.docente', '=', 'users.id')
+          
+           ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
             // ->join('materias', 'materias.id', '=', 'solicitudes.id')
-            ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
+            
             ->where('solicitudes.estado', '=', 'pendiente')
             // ->join('grupos', 'grupos.id', '=', 'solicitudes.id')
-            ->select('users.name', 'aulas.num_aula','solicitudes.*')
+            ->select('name', 'num_aula','solicitudes.*')
             ->get();
+          //  dd($solicitudes->all());
         // $solicitudes = solicitud::all(); 
             
         return view('admin.solicitudes.index', compact('solicitudes'));
@@ -44,19 +51,47 @@ class SolicitudController extends Controller
      */
     public function create()
     {
+        
         $aulas = Aula::all();
         $grupos = Grupo::all();
         $materias = Materia::all();
-        return view('admin.solicitudes.create',compact('aulas','grupos', 'materias'));
+        $docmaterias = Docmateria::all();
+        $materiaUnidas = DB::table('docmaterias')
+    
+        ->join('materias', 'docmaterias.materia', '=', 'materias.id')
+        ->join('grupos', 'docmaterias.grupo', '=', 'grupos.id')
+      
+        ->where('docmaterias.docente', '=', Auth::id())
+        ->get();
+
+        $grupoUnidas = DB::table( 'grupos')
+        ->join('docmaterias', 'grupos.id', '=', 'docmaterias.grupo')
+        ->select('grupos.*')    
+        ->where('docmaterias.docente', '=', Auth::id())
+        ->get();
+        
+        return view('admin.solicitudes.create',compact('aulas','grupos', 'materias', 'materiaUnidas', 'grupoUnidas'));
+        
     }
 
+    /**public function getGrupos(Request $request){
+            if ($request->ajax()){
+                $grupos = Grupo::where('materia_id', $request->materia_id)->get();
+                foreach ($grupos as $grupo){
+                    $gruposArray[$grupo->id] = $grupo->numero;
+
+                }
+                return response()->json($gruposArray);
+            }
+    }
+*/
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) 
     {
         //
         $request-> validate([
@@ -66,13 +101,18 @@ class SolicitudController extends Controller
         ]);
         
         $solicitud = new Solicitud($request->all());
-        $solicitud -> docente = Auth::id();
+      
+    
         $solicitud -> estado = "pendiente";
-        //  dd($solicitud);
+         
         $solicitud->save();
-
+     //   dd($request->all());
         
-        return Redirect()->route('solicitudes.create');
+
+    
+       return redirect()->back();    
+        
+        //return Redirect()->route('solicitudes.create');
 
     }
 

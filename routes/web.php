@@ -113,8 +113,12 @@ Route::delete('/aulas/{aulaId}/delete', [App\Http\Controllers\AulaController::cl
 Route::post('/aulas/{aulaId}/update', [App\Http\Controllers\AulaController::class, 'update'])
 ->name('admin.aulas.update');
 
+
+Route::get('/grupos', [App\Http\Controllers\SolicitudController::class, 'getGrupos']);
+
 //Delete para aulas reservadas
 Route::delete('/aulasR/{aulaId}/deleteReservadas', [App\Http\Controllers\AulaController::class, 'deleteReservadas'])
 ->name('admin.aulasR.delete');
+
 
 

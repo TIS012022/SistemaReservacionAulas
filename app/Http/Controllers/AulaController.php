@@ -22,11 +22,16 @@ class AulaController extends Controller
     {
         if ($request->tipo === "reservadas") {
             $aulas = DB::table('solicitudes')
-            ->join('materias', 'solicitudes.materia', '=', 'materias.id')
+            ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
+            ->join('materias', 'docmaterias.materia', '=', 'materias.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
+
+            ->where('docmaterias.docente', Auth::id())
+
             ->where('solicitudes.estado','=','aceptado')
             ->select('solicitudes.estado','solicitudes.periodo','aulas.num_aula','materias.nombre','solicitudes.dia',
             'solicitudes.hora_ini','solicitudes.hora_fin')
+
             ->get();
             return view('admin.aulas.index', compact('aulas'))->with('tipo', "reservadas");
 
@@ -109,7 +114,7 @@ class AulaController extends Controller
         }else{
             
             return back()->withErrors([
-                'message' => 'No se puede eliminar el aula '.$aula["num_aula"].' debido a que esta siendo usada en una reservacion'
+                'message' => 'No se puede eliminar el aula '.$aula["num_aula"].' debido a que esta siendo usada en una solicitud'
             ]);
 
         }

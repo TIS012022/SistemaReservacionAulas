@@ -20,7 +20,7 @@ class ReservaFactory extends Factory
             'hora_fin'  =>$this->faker->dateTimeThisCentury->format('Y-m-d'),
             'periodo'  =>$this->faker->text(100),
             'dia'  =>$this->faker->text(100),
-            'solicitud' =>$this->faker->faker->numberBetween(1,20)
+       
         ];
     }
 }
