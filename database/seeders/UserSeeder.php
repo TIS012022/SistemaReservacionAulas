@@ -33,8 +33,18 @@ class UserSeeder extends Seeder
             'materias_grupos' => 'lorem ipsum'
         ]);
         DB::table('users')->insert([
-            'name' => 'Pablo Alcozer',
+            'name' => 'Pablo Montaño',
             'email' => 'docente2@gmail.com',
+            'password' => Hash::make('docente'),
+            'ci' => '123458',
+
+            'role' => "docente",
+            'Departamento' => 'Informatica',
+            'materias_grupos' => 'lorem ipsum'
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Pablo Alcozer',
+            'email' => 'docente3@gmail.com',
             'password' => Hash::make('docente'),
             'ci' => '222122',
             'role' => "docente",

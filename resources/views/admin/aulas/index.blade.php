@@ -3,7 +3,7 @@
 
 
 @if ($tipo === 'reservadas')
-<h2>Mis solicitudes</h2>
+<h2>INFORMACIÓN DE AULAS RESERVADAS</h2>
 
 
 <table class="table">
@@ -11,11 +11,11 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Numero Aula</th>
-            <th scope="col">Capacidad</th>
             <th scope="col">Materia</th>
             <th scope="col">Dia de reserva</th>
             <th scope="col">Horario de reserva</th>
-            <th scope="col">Estado</th>
+            <th scope="col">Periodos reservados</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -23,11 +23,13 @@
         <tr scope="row">
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ @$aula->num_aula }}</td>
-            <td>{{ @$aula->capacidad }}</td>
-            <td>{{ @$aula->codigo }} - {{ @$aula->nombre }}</td>
+            <td>{{ @$aula->nombre }}</td>
             <td>{{ @$aula->dia }}</td>
+
             <td>{{ @$aula->hora_ini }} </td>
-            <td>{{ @$aula->estado }}</td>
+            <td>{{ @$aula->periodo }}</td>
+            
+
         </tr>
         @endforeach
     </tbody>
@@ -36,7 +38,7 @@
 
 <div class="d-flex justify-content-between">
     <h2>
-        Aulas  
+        AULAS 
     </h2>
     <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalCrear">
         Crear aula
@@ -65,7 +67,7 @@
             <th scope="col">Acciones</th>
         </tr>
     </thead>
-    <tbody> <!--,color:#c62828     ,color:#2962ff    ,color:#a68b00-->
+    <tbody> 
         @foreach ($aulas as $aula)
         <tr scope="row">
             <td>{{ @$aula->id }}</td>
