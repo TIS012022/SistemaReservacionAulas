@@ -120,5 +120,5 @@ Route::get('/grupos', [App\Http\Controllers\SolicitudController::class, 'getGrup
 Route::delete('/aulasR/{aulaId}/deleteReservadas', [App\Http\Controllers\AulaController::class, 'deleteReservadas'])
 ->name('admin.aulasR.delete');
 
-
+Route::get('select', [App\Http\Controllers\AulaController::class, 'select']);
 

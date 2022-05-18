@@ -10,6 +10,16 @@
                 <div class="card-header">
                   Nueva Solicitud
                 </div>
+                <div style="margin-top: 1%; display: flex; justify-content: center;">
+    @error('message')
+                   
+    <p class="alert alert-danger ">{{$message}}</p>
+    <button type="button" class="close" onclick="location.reload()" style="margin-bottom: 40px">
+        <span aria-hidden="true" >&times;</span></button>  
+    
+    @enderror 
+</div>
+
                 <div class="card-body">
                     <form action="{{route('solicitudes.store')}}" method="POST">
                     @csrf
@@ -37,6 +47,7 @@
                                                         <option selected>Seleccione Materia..</option>
                                                         @foreach ($materiaUnidas as $item)
                                                             <option value="{{ $item->id }}">{{ $item->nombre}}--Grupo {{$item->numero}}</option>
+
                                                         @endforeach
                                                     </select>
                                                 </span>
@@ -73,7 +84,7 @@
                                         <div class="input-group">
                                             <span class="input-group">
                                                 <button class="btn btn-primary" type="button">C</button>
-                                                <input name="cantidad" type="name" class="form-control" placeholder="Cantidad-Estudiantes" value="{{old('cantidad')}}">
+                                                <input name="cantidad" id="cantidad" type="name" class="form-control" placeholder="Cantidad-Estudiantes" value="{{old('cantidad')}}">
                                             </span>
                                             <br>      
                                                 @if($errors -> has('cantidad'))
@@ -113,21 +124,21 @@
                                                 <button class="btn btn-primary" type="button">H</button>
                                                 {{-- <input type="date" id="birthday" name="hora_ini" class="form-control"> --}}
                                                
-                                                <select name="hora_ini" id="hora_ini" class="form-control" required>
+                                                <select name="hora_ini" id="hora_ini" class="form-control" type="date" required>
                                                 </span>
                                                     <option value="">-- Selecciona la hora para la solicitud--</option>
                                                     
-                                                    <option>6:45</option>
-                                                    <option>8:15</option>
-                                                    <option >9:45</option>
-                                                    <option >11:15</option>
-                                                    <option>12:45</option>
-                                                    <option>14:15</option>
-                                                    <option >15:45</option>
-                                                    <option >17:15</option>
-                                                    <option>18:45</option>
-                                                    <option>20:15</option>
-                                                    <option >21:45</option>                           
+                                                    <option>6:45:00</option>
+                                                    <option>8:15:00</option>
+                                                    <option >9:45:00</option>
+                                                    <option >11:15:00</option>
+                                                    <option>12:45:00</option>
+                                                    <option>14:15:00</option>
+                                                    <option >15:45:00</option>
+                                                    <option >17:15:00</option>
+                                                    <option>18:45:00</option>
+                                                    <option>20:15:00</option>
+                                                    <option >21:45:00</option>                           
                                                 </select>   
                                             </div>               
                                         </div>
@@ -152,7 +163,35 @@
                                             </div>                        
                                         </div>
                                    </div>
-
+                                   <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="name" class="form-control-label">
+                                                Horario Fin:
+                                        </label>
+                                            <div class="input-group">
+                                                <span class="input-group">
+                                                <button class="btn btn-primary" type="button">H</button>
+                                                {{-- <input type="date" id="birthday" name="hora_ini" type="date" class="form-control"> --}}
+                                               
+                                                <select name="hora_fin" id="hora_fin" class="form-control" required>
+                                                </span>
+                                                    <option value="">-- Selecciona la hora para la solicitud--</option>
+                                                    
+                                                    <option>6:45:00</option>
+                                                    <option>8:15:00</option>
+                                                    <option >9:45:00</option>
+                                                    <option >11:15:00</option>
+                                                    <option>12:45:00</option>
+                                                    <option>14:15:00</option>
+                                                    <option >15:45:00</option>
+                                                    <option >17:15:00</option>
+                                                    <option>18:45:00</option>
+                                                    <option>20:15:00</option>
+                                                    <option >21:45:00</option>                           
+                                                </select>   
+                                            </div>               
+                                        </div>
+                                  </div>
                                    <div class="col-6">
                                         <div class="form-group">
                                             <label for="name" class="form-control-label">
@@ -218,27 +257,17 @@ let fecha_minimo = anio + '-' + mes + '-' + dia; // Nueva variable
 
 document.getElementById("fechaReserva").setAttribute('min',fecha_minimo);
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-@endsection
-@section('script')
-    <script>
-        
-        $(document).ready(function()){
-            $('$materia').on('change', function(){
-                var materia_id = $(this).val();
-                if($.trim(materia_id) != ''){
-                    $.get('grupos', {materia_id: materia_id}, function(grupos) {
-                        $('#grupo').empty();
-                        $('#grupo').append("<option value=''>Selecciona un grupo</option>");
-                        $.each(grupos, function(index, value){
-                            $('#grupo').append("<option value='"+ index + "'>"+ value +"</option>");
 
-                        })
-                    }
-                    );
-                }
-            })
-        }
-    
+
+@endsection
+
+@section('scripts')
+<script type="text/javascript" >
+    <script>
+        $(document).ready(function() {
+            $('select').cantidad();
+        });
     </script>
+</script>
+
 @endsection

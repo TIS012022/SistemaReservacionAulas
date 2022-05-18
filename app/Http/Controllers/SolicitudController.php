@@ -52,7 +52,9 @@ class SolicitudController extends Controller
     public function create()
     {
         
-        $aulas = Aula::all();
+        $aulas = DB::table('aulas')
+        ->where('estado','=','Habilitado')
+        ->get();
         $grupos = Grupo::all();
         $materias = Materia::all();
         $docmaterias = Docmateria::all();
@@ -62,6 +64,7 @@ class SolicitudController extends Controller
         ->join('grupos', 'docmaterias.grupo', '=', 'grupos.id')
       
         ->where('docmaterias.docente', '=', Auth::id())
+      
         ->get();
 
         $grupoUnidas = DB::table( 'grupos')
@@ -94,6 +97,8 @@ class SolicitudController extends Controller
     public function store(Request $request) 
     {
         //
+        
+        $docmaterias = Docmateria::all();
         $request-> validate([
             'cantidad' => 'required|min:1|max:3',
             'periodo' => 'required',
@@ -104,15 +109,38 @@ class SolicitudController extends Controller
       
     
         $solicitud -> estado = "pendiente";
+        $id = $request->aula;
+      
+        $cantidad = DB::table('aulas')
+            ->where('id', $id)
+            ->first();
+           
+        if(($request->cantidad)>($cantidad->capacidad)){
+            return back()->withErrors([
+                'message' => 'La cantidad de requerida excede la capacidad del aula'
+            ]);
+        }else{
+           if(($request->hora_ini)>=($request->hora_fin)){
+            return back()->withErrors([
+                'message' => 'La hora final es igual o mayor al horario de inicio'
+            ]);
+           }else{
+         
+             $solicitud->save();
+            //return redirect()->back();   
+           }
+        }    
+     
+
+        
        
-       $solicitud->save();
-     //   dd($request->all());
+     //   dd($request->all()); 
         
 
     
-     return redirect()->back();    
+         
         
-        //return Redirect()->route('solicitudes.create');
+        return Redirect()->route('solicitudes.create');
 
     }
 
@@ -167,4 +195,11 @@ class SolicitudController extends Controller
     {
         //
     }
+    public function select(){ 
+        $data=DB::table('docmaterias')
+        ->select('inscritos')
+        ->get();
+         return view('pruebas.select')->with('data',$data);
+     }
+  
 }

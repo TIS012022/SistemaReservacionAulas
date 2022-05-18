@@ -112,7 +112,7 @@ class AulaController extends Controller
        
             $aula->delete();
             return redirect()->back();
-        }else{
+        }else{ 
             
             return back()->withErrors([
                 'message' => 'No se puede eliminar el aula '.$aula["num_aula"].' debido a que esta siendo usada en una solicitud'
