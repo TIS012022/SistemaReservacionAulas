@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aula;
+use App\Models\Sector;
 use App\Models\Docmateria;
 use App\Models\Grupo;
 use App\Models\Materia;
@@ -57,6 +58,7 @@ class SolicitudController extends Controller
         ->get();
         $grupos = Grupo::all();
         $materias = Materia::all();
+        $sectores = Sector::all();
         $docmaterias = Docmateria::all();
         $materiaUnidas = DB::table('docmaterias')
     
@@ -64,16 +66,16 @@ class SolicitudController extends Controller
         ->join('grupos', 'docmaterias.grupo', '=', 'grupos.id')
       
         ->where('docmaterias.docente', '=', Auth::id())
-      
+        ->select('docmaterias.*', 'materias.nombre', 'grupos.numero')
         ->get();
-
+       
         $grupoUnidas = DB::table( 'grupos')
         ->join('docmaterias', 'grupos.id', '=', 'docmaterias.grupo')
         ->select('grupos.*')    
         ->where('docmaterias.docente', '=', Auth::id())
         ->get();
-        
-        return view('admin.solicitudes.create',compact('aulas','grupos', 'materias', 'materiaUnidas', 'grupoUnidas'));
+        //dd($materiaUnidas);
+       return view('admin.solicitudes.create',compact('aulas','grupos', 'materias', 'materiaUnidas', 'grupoUnidas','sectores'));
         
     }
 
@@ -195,14 +197,40 @@ class SolicitudController extends Controller
     {
         //
     }
-    public function getCantidad(Request $request){ 
-      //  $cantidades = 'hola';
-        if($request->ajax()){
-            $cantidades = Docmateria::where('docmateria_id', $request->docmateria_id)->get();
-            
+    public function getCantidades(Request $request){ 
+      
+      //  $solicitudes = Solicitud::where('aula', $aulaId)->first(); 
+        if($request->ajax()){                   
+           $cantidades = Docmateria::where('id', $request->docmateria_id)->first();
+            //$cantidades = '5';
+           
             return response()->json($cantidades);
         }
-       $cantidades = '50';
+        
      }
-  
+    
+     public function getAulas (Request $request){ 
+      
+        //  $solicitudes = Solicitud::where('aula', $aulaId)->first(); 
+          if($request->ajax()){                   
+             $aulas = DB::table('aulas')
+             ->where('sector', $request->sector_id)
+             ->where('estado','=','Habilitado')
+             ->get();
+           //  Aula::where('sector', $request->sector_id)->where('estado','=','Habilitado')>get();
+              if(empty($aulas)){
+                
+                    $aulasArray = ['100','200'];
+                
+                }else{
+                    foreach($aulas as $aula){
+                        $aulasArray[$aula->id] = $aula->num_aula;
+                        }
+                    return response()->json($aulasArray);
+                }
+             
+              
+          }
+          
+       }
 }

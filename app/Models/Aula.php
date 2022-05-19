@@ -15,4 +15,8 @@ class Aula extends Model
     {
         return $this->hasMany(Solicitud::class);
     }
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class);
+    }
 }

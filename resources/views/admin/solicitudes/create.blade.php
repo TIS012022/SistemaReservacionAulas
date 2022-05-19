@@ -4,7 +4,7 @@
 <?php
   
 ?>
-    <div class="container">
+<div class="container">
         <div class="my-6">
             <div class="card">
                 <div class="card-header">
@@ -94,25 +94,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-6">
-                                    <div class="form-group">
-                                         <label for="name" class="form-control-label">
-                                                Numero de Aula:
-                                         </label>
-                                            <div class="input-group">
-                                         <span class="input-group">
-                                            <button class="btn btn-primary" type="button">A</button>
-                                            {{-- <input name="aula" type="name" class="form-control" placeholder="Aula"> --}}
-                                            <select name="aula" class="custom-select">
-                                                <option selected>Seleccione N° Aula..</option>
-                                                @foreach ($aulas as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->num_aula}}</option>
-                                                @endforeach
-                                            </select>
-                                          </span>
-                                        </div>            
-                                     </div>
-                                 </div>
+                                
                                  
                                  <div class="col-6">
                                         <div class="form-group">
@@ -211,24 +193,69 @@
                                                 </div>                             
                                         </div>
                                     </div>
+                                    
+
                                     <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="name" class="form-control-label">
-                                                    Motivo*:
-                                                </label>
+                                        <div class="form-group">
+                                             <label for="name" class="form-control-label">
+                                                    Sector de aula:
+                                             </label>
                                                 <div class="input-group">
-                                                    <span class="input-group">
-                                                    <button class="btn btn-primary" type="button">M</button>
-                                                    {{-- <input name="motivo" type="text" class="form-control" aria-label="With textarea"> --}}
-                                                    <textarea name="motivo" type="text" class="form-control" id=""  placeholder="Motivo" >{{old('motivo')}}</textarea>
-                                                    </span>
-                                                    <br>      
-                                                    @if($errors -> has('motivo'))
-                                                        <span class="error-danger" for="input-name">{{$errors->first('motivo')}}</span>
-                                                    @endif
-                                                </div>                              
-                                            </div>
-                                    </div>
+                                             <span class="input-group">
+                                                <button class="btn btn-primary" type="button">A</button>
+                                                {{-- <input name="aula" type="name" class="form-control" placeholder="Aula"> --}}
+                                                <select name="sector" id="sector" class="custom-select">
+                                                    <option selected>Seleccione sector..</option>
+                                                    @foreach ($sectores as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->nombre}}</option>
+                                                    @endforeach
+                                                </select>
+                                              </span>
+                                            </div>            
+                                         </div>
+                                     </div>
+    
+                                     <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="name" class="form-control-label">
+                                                Motivo*:
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group">
+                                                <button class="btn btn-primary" type="button">M</button>
+                                                {{-- <input name="motivo" type="text" class="form-control" aria-label="With textarea"> --}}
+                                                <textarea name="motivo" type="text" class="form-control" id=""  placeholder="Motivo" >{{old('motivo')}}</textarea>
+                                                </span>
+                                                <br>      
+                                                @if($errors -> has('motivo'))
+                                                    <span class="error-danger" for="input-name">{{$errors->first('motivo')}}</span>
+                                                @endif
+                                            </div>                              
+                                        </div>
+                                     </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                             <label for="name" class="form-control-label">
+                                                    Numero de Aula:
+                                             </label>
+                                                <div class="input-group">
+                                             <span class="input-group">
+                                                <button class="btn btn-primary" type="button">A</button>
+                                                {{-- <input name="aula" type="name" class="form-control" placeholder="Aula"> --}}
+                                                <select name="aula" id="aula" class="custom-select">
+                                                     <option selected>Seleccione N° Aula..</option>
+                                                  {{--  @foreach ($aulas as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->num_aula}}</option>
+                                                    @endforeach--}}
+                                                </select>
+                                              </span>
+                                            </div>            
+                                         </div>
+                                     </div>
+
+                                     
+
                                             <div class="col-md-offset-4 col-md-10 text-center mt-3">
                                                 <button type="submit" class="btn btn-primary">enviar</button>
                                                 <a href="{{ URL::previous() }}" class="btn btn-secondary">Cancelar</a>
@@ -267,20 +294,44 @@
         $('#docmateria_id').on('change', function(){
             var docmateria_id = $(this).val();
             if($.trim(docmateria_id) != ''){
-               
-                $.get('cantidades', {docmateria_id: docmateria_id}, function(cantidades){
-                   
+                
+                $.get('/cantidades', {docmateria_id: docmateria_id}, function(cantidades){
+                
+                
                     $('#cantidad').empty();
-                    $('#cantidad').attr("value", $cantidades->inscritos);
-                    $.each(cantidades, function(index, value){
-                        $('#cantidad').attr("value", $cantidades->inscritos);
-                    })
+  
+                   
+                    
+                   
+                        $('#cantidad').attr("value", cantidades.inscritos);
+                        $('#cantidad').empty();
                         
                 });
             }
         })
-    })
-     
+    }) 
+
+    $(document).ready(function(){
+        $('#sector').on('change', function(){
+            var sector_id = $(this).val();
+            if($.trim(sector_id) != ''){
+                
+                $.get('/sectoresaulas', {sector_id: sector_id}, function(aulas){
+                               
+                    $('#aula').empty();
+                    $('#aula').append("<option value=''>Selecciona un aula</option>");
+                  //  alert(aulas);
+                  if(aulas == 'undefined'){
+                    alert('hola');
+                  }else{
+                    $.each(aulas, function(index, value){
+                        $('#aula').append("<option value='"+ index +"'>"+ value + "</option>");
+                    })
+                }
+                });
+            }
+        })
+    })  
 </script>
 
 @endsection
