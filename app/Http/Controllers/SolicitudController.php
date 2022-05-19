@@ -104,7 +104,8 @@ class SolicitudController extends Controller
         $request-> validate([
             'cantidad' => 'required|min:1|max:3',
             'periodo' => 'required',
-            'motivo' => 'required'
+            'motivo' => 'required',
+            'sector' => 'required'
         ]);
         
         $solicitud = new Solicitud($request->all());
@@ -211,25 +212,34 @@ class SolicitudController extends Controller
     
      public function getAulas (Request $request){ 
       
-        //  $solicitudes = Solicitud::where('aula', $aulaId)->first(); 
-          if($request->ajax()){                   
+       
+        
+          if($request->ajax()){      
+             
              $aulas = DB::table('aulas')
              ->where('sector', $request->sector_id)
              ->where('estado','=','Habilitado')
              ->get();
-           //  Aula::where('sector', $request->sector_id)->where('estado','=','Habilitado')>get();
-              if(empty($aulas)){
-                
-                    $aulasArray = ['100','200'];
-                
-                }else{
-                    foreach($aulas as $aula){
-                        $aulasArray[$aula->id] = $aula->num_aula;
-                        }
-                    return response()->json($aulasArray);
+             $datos = DB::table('aulas')
+             ->where('sector', $request->sector_id)
+             ->where('estado','=','Habilitado')
+             ->count();
+           //  Aula::where('sector', $request->sector_id)->where('estado','=','Habilitado')>get();   
+           if($datos == 0)  {   
+                 $aulasArray =  [
+                0=> "1",
+         
+                ];
+            return response()->json($aulasArray);            
+                 
+            }else{
+                foreach($aulas as $aula){
+                    $aulasArray[$aula->id] = $aula->num_aula;
                 }
-             
-              
+                return response()->json($aulasArray);    
+            }                
+                   
+            
           }
           
        }

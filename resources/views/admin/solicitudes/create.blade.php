@@ -43,8 +43,8 @@
                                         <div class="input-group">
                                                 <span class="input-group">
                                                     <button class="btn btn-primary" type="button">M</button>
-                                                    <select name="docmateria_id" id="docmateria_id" class="custom-select" value="{{old('materia')}}" >
-                                                        <option selected>Seleccione Materia..</option>
+                                                    <select name="docmateria_id" id="docmateria_id" class="custom-select" value="{{old('materia')}}" required>
+                                                        <option value="">Seleccione Materia..</option>
                                                         @foreach ($materiaUnidas as $item)
                                                             <option value="{{ $item->id }}">{{ $item->nombre}}--Grupo {{$item->numero}}</option>
 
@@ -79,12 +79,12 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="name" class="form-control-label">
-                                            Cantidad Estudiantes*:
+                                            Cantidad Estudiantes:
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group">
                                                 <button class="btn btn-primary" type="button">C</button>
-                                                <input name="cantidad" id="cantidad" type="name" class="form-control" placeholder="Cantidad-Estudiantes" value="{{old('cantidad')}}">
+                                                <input name="cantidad" id="cantidad" type="name" class="form-control" placeholder="Cantidad-Estudiantes" value="{{old('cantidad')}}" required>
                                             </span>
                                             <br>      
                                                 @if($errors -> has('cantidad'))
@@ -108,7 +108,7 @@
                                                
                                                 <select name="hora_ini" id="hora_ini" class="form-control" type="date" required>
                                                 </span>
-                                                    <option value="">-- Selecciona la hora para la solicitud--</option>
+                                                    <option value="" >-- Selecciona la hora para la solicitud--</option>
                                                     
                                                     <option>6:45:00</option>
                                                     <option>8:15:00</option>
@@ -136,7 +136,7 @@
                                             <div class="input-group">
                                                 <span class="input-group">
                                                 <button class="btn btn-primary" type="button">D</button>
-                                                <input name="dia" type="date" id="fechaReserva" class="form-control" placeholder="Dia Reserva" value="{{old('dia')}}">
+                                                <input name="dia" type="date" id="fechaReserva" class="form-control" placeholder="Dia Reserva" value="{{old('dia')}}" required>
                                                 </span>
                                                 <br>      
                                                 @if($errors -> has('dia'))
@@ -177,7 +177,7 @@
                                    <div class="col-6">
                                         <div class="form-group">
                                             <label for="name" class="form-control-label">
-                                                    Periodo Reserva*:
+                                                    Periodo Reserva:
                                             </label>
                                                 <div class="input-group">
                                                     <span class="input-group">
@@ -202,15 +202,16 @@
                                              </label>
                                                 <div class="input-group">
                                              <span class="input-group">
-                                                <button class="btn btn-primary" type="button">A</button>
+                                                <button class="btn btn-primary" type="button">S</button>
                                                 {{-- <input name="aula" type="name" class="form-control" placeholder="Aula"> --}}
-                                                <select name="sector" id="sector" class="custom-select">
-                                                    <option selected>Seleccione sector..</option>
+                                                <select name="sector" id="sector" class="custom-select" required>
+                                                </span>
+                                                    <option value="">Seleccione sector..</option>
                                                     @foreach ($sectores as $item)
                                                         <option value="{{ $item->id }}">{{ $item->nombre}}</option>
                                                     @endforeach
                                                 </select>
-                                              </span>
+                                              
                                             </div>            
                                          </div>
                                      </div>
@@ -218,13 +219,13 @@
                                      <div class="col-6">
                                         <div class="form-group">
                                             <label for="name" class="form-control-label">
-                                                Motivo*:
+                                                Motivo:
                                             </label>
                                             <div class="input-group">
                                                 <span class="input-group">
                                                 <button class="btn btn-primary" type="button">M</button>
                                                 {{-- <input name="motivo" type="text" class="form-control" aria-label="With textarea"> --}}
-                                                <textarea name="motivo" type="text" class="form-control" id=""  placeholder="Motivo" >{{old('motivo')}}</textarea>
+                                                <textarea name="motivo" type="text" class="form-control" id=""  placeholder="Motivo" required>{{old('motivo')}}</textarea>
                                                 </span>
                                                 <br>      
                                                 @if($errors -> has('motivo'))
@@ -243,7 +244,7 @@
                                              <span class="input-group">
                                                 <button class="btn btn-primary" type="button">A</button>
                                                 {{-- <input name="aula" type="name" class="form-control" placeholder="Aula"> --}}
-                                                <select name="aula" id="aula" class="custom-select">
+                                                <select name="aula" id="aula" class="custom-select" required>
                                                      <option selected>Seleccione N° Aula..</option>
                                                   {{--  @foreach ($aulas as $item)
                                                         <option value="{{ $item->id }}">{{ $item->num_aula}}</option>
@@ -318,16 +319,23 @@
                 
                 $.get('/sectoresaulas', {sector_id: sector_id}, function(aulas){
                                
-                    $('#aula').empty();
-                    $('#aula').append("<option value=''>Selecciona un aula</option>");
+                   
                   //  alert(aulas);
-                  if(aulas == 'undefined'){
-                    alert('hola');
-                  }else{
-                    $.each(aulas, function(index, value){
-                        $('#aula').append("<option value='"+ index +"'>"+ value + "</option>");
-                    })
-                }
+                  if( aulas.length == 1){
+                    $('#aula').empty();
+                        $('#aula').append("<option value='' disabled >No hay aulas disponibles</option>");
+                        console.log('hola2');
+                        console.log(aulas);
+                    
+                    }else{
+                        $('#aula').empty();
+                        $('#aula').append("<option value=''>Selecciona un aula</option>");
+                         $.each(aulas, function(index, value){
+                        $('#aula').append("<option value='"+ index +"'>"+ value + "</option>")
+                      
+                         })
+                        console.log('hola1');
+                    }
                 });
             }
         })

@@ -73,7 +73,7 @@
             <td>{{ @$aula->id }}</td>
             <td>{{ @$aula->num_aula }}</td>
             <td>{{ @$aula->capacidad }}</td>
-            <td>{{ @$aula->sector }}</td>
+            <td>{{ @$aula->nombre }}</td>
             <td>
                 @if(@$aula->estado == 'Habilitado' )
                     <span class="badge badge-success">{{ @$aula->estado }}</span>
@@ -95,7 +95,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$aula->id}}">
                     Eliminar
                 </button>
-            </td>
+            </td> 
         </tr>
         @include('admin.aulas.modalEditar')
         @include('admin.aulas.modalEliminar')
@@ -128,15 +128,14 @@
                         <label for="name">Capacidad</label>
                         <input type="text" name="capacidad" class="form-control" id="capacidad" required minlength="1" maxlength="3"
                         onkeypress="return blockNoNumber(event)">
-                        <label for="sector">Sector</label>
+                        <label for="sectores">Sector</label>
                         <select name="sector" id="sector" class="form-control" required>
                             <option value="">-- Selecciona el sector--</option>
                             
-                            <option>edificio nuevo</option>
-                            <option>bloque antiguo</option>
-                            <option >laboratorios</option>
-                            <option >edificio memi</option>
-                        </select>   
+                            @foreach ($sector as $item)
+                                <option value="{{ $item->id }}">{{ $item->nombre}}</option>
+                            @endforeach
+                        </select>  
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" class="form-control" required>
                             <option value="">-- Selecciona el estado--</option>
