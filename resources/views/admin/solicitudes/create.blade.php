@@ -241,33 +241,46 @@
         </div>
     </div>
 <script>
-    var fecha = new Date();
-var anio = fecha.getFullYear();
-var dia = fecha.getDate();
-var _mes = fecha.getMonth(); //viene con valores de 0 al 11
-_mes = _mes + 1; //ahora lo tienes de 1 al 12
-if (_mes < 10) //ahora le agregas un 0 para el formato date
-{
-  var mes = "0" + _mes;
-} else {
-  var mes = _mes.toString;
-}
+            var fecha = new Date();
+        var anio = fecha.getFullYear();
+        var dia = fecha.getDate();
+        var _mes = fecha.getMonth(); //viene con valores de 0 al 11
+        _mes = _mes + 1; //ahora lo tienes de 1 al 12
+        if (_mes < 10) //ahora le agregas un 0 para el formato date
+        {
+        var mes = "0" + _mes;
+        } else {
+        var mes = _mes.toString;
+        }
 
-let fecha_minimo = anio + '-' + mes + '-' + dia; // Nueva variable
+        let fecha_minimo = anio + '-' + mes + '-' + dia; // Nueva variable
 
-document.getElementById("fechaReserva").setAttribute('min',fecha_minimo);
+        document.getElementById("fechaReserva").setAttribute('min',fecha_minimo);
 </script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 @endsection
 
-@section('scripts')
-<script type="text/javascript" >
-    <script>
-        $(document).ready(function() {
-            $('select').cantidad();
-        });
-    </script>
+@section('script')
+<script >
+    $(document).ready(function(){
+        $('#docmateria_id').on('change', function(){
+            var docmateria_id = $(this).val();
+            if($.trim(docmateria_id) != ''){
+               
+                $.get('cantidades', {docmateria_id: docmateria_id}, function(cantidades){
+                   
+                    $('#cantidad').empty();
+                    $('#cantidad').attr("value", $cantidades->inscritos);
+                    $.each(cantidades, function(index, value){
+                        $('#cantidad').attr("value", $cantidades->inscritos);
+                    })
+                        
+                });
+            }
+        })
+    })
+     
 </script>
 
 @endsection

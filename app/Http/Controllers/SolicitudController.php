@@ -195,11 +195,14 @@ class SolicitudController extends Controller
     {
         //
     }
-    public function select(){ 
-        $data=DB::table('docmaterias')
-        ->select('inscritos')
-        ->get();
-         return view('pruebas.select')->with('data',$data);
+    public function getCantidad(Request $request){ 
+      //  $cantidades = 'hola';
+        if($request->ajax()){
+            $cantidades = Docmateria::where('docmateria_id', $request->docmateria_id)->get();
+            
+            return response()->json($cantidades);
+        }
+       $cantidades = '50';
      }
   
 }
