@@ -50,7 +50,7 @@ class AulaController extends Controller
             return view('admin.aulasR.index', compact('aulas'))->with('tipo', "admin");
 
         }
-
+ 
         $aulas =  DB::table('aulas')
         ->join('sectors', 'aulas.sector', '=', 'sectors.id')
         ->select('aulas.*','sectors.nombre')

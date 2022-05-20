@@ -3,6 +3,7 @@
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\UsuariosRController;
 use Illuminate\Support\Facades\Route;
 
 use app\Http\Controllers\RegisterController;
@@ -123,3 +124,12 @@ Route::delete('/aulasR/{aulaId}/deleteReservadas', [App\Http\Controllers\AulaCon
 Route::get('/cantidades', [App\Http\Controllers\SolicitudController::class, 'getCantidades']);
 
 Route::get('/sectoresaulas', [App\Http\Controllers\SolicitudController::class, 'getAulas']);
+
+Route::get('/usuarios/index', [App\Http\Controllers\UsuariosRController::class, 'index'])
+ ->name('admin.usuarios.index');
+
+//Route::resource('usuarios', AulaController::class, [
+ // 'names' => [
+   // 'index' => 'usuarios'
+ // ]
+//])->middleware('auth.user');

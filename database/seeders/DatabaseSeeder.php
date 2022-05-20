@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             AulaSeeder::class,
             GrupoSeeder::class,
             MateriaSeeder::class,
+            RoleSeeder::class,
             UserSeeder::class,
             DocmateriaSeeder::class,
             //SolicitudSeeder::class,

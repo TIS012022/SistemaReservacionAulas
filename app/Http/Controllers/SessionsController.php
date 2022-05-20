@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class SessionsController extends Controller
 {
@@ -11,8 +13,8 @@ class SessionsController extends Controller
         return view('auth.login');
     }
 
-    public function store(){
-
+    public function store(){ 
+    
         if(auth()->attempt(request(['email','password'])) == false){
             return back()->withErrors([
                 'message' => 'El correo o la contraseña es incorrecta'

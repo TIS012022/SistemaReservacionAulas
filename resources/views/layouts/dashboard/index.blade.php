@@ -37,14 +37,22 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">{{auth()->user()->role}}</div>
+                <div class="sidebar-brand-text mx-3">UMSS</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Solicitudes -->
-            @if(auth()->user()->role === "admin")
+        <?php
+          $roles=DB::table('roles')
+            ->join('users', 'roles.id', '=', 'users.role')
+            ->where('roles.id','=', auth()->user()->role)
+         
+            ->get();
+         //  dd($roles[0]->permiso);
+        ?>
+            @if($roles[0]->permiso === "Full")
             <li class="nav-item {{ Nav::isRoute('solicitudes') }}">
                 <a class="nav-link" href="{{ route('solicitudes') }}">
                     {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
@@ -59,11 +67,15 @@
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'admin']) }}">
                     <span>{{ __('Aulas Reservadas') }}</span></a>
             </li>
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
+                    <span>{{ __('Usuarios') }}</span></a>
+            </li>
             </li>
             
             @endif
 
-            @if (auth()->user()->role === "docente")
+            @if ($roles[0]->permiso === "User")
             <!-- Nav Item - Notificaciones -->
             <li class="nav-item {{ Nav::isRoute('notificaciones') }}">
                 <a class="nav-link" href="{{ route('notificaciones') }}">
