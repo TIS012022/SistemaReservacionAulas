@@ -125,11 +125,15 @@ Route::get('/cantidades', [App\Http\Controllers\SolicitudController::class, 'get
 
 Route::get('/sectoresaulas', [App\Http\Controllers\SolicitudController::class, 'getAulas']);
 
+//usuarios
 Route::get('/usuarios/index', [App\Http\Controllers\UsuariosRController::class, 'index'])
  ->name('admin.usuarios.index');
 
-//Route::resource('usuarios', AulaController::class, [
- // 'names' => [
-   // 'index' => 'usuarios'
- // ]
-//])->middleware('auth.user');
+ Route::post('/usuarios/store', [App\Http\Controllers\UsuariosRController::class, 'store'])
+->name('admin.usuarios.store');
+
+Route::delete('/usuarios/{usuarioId}/delete', [App\Http\Controllers\UsuariosRController::class, 'delete'])
+->name('admin.usuarios.delete');
+
+Route::post('/usuarios/{usuarioId}/update', [App\Http\Controllers\UsuariosRController::class, 'update'])
+->name('admin.usuarios.update');

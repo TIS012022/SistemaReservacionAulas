@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Pedro Perez',
             'email' => 'admin@gmail.com',
+            'estadoCuenta' => 'Habilitado',
             'password' => Hash::make('admin'),
             'ci' => '123456',
             'role' => "1"
@@ -26,6 +27,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Patricia Rodriguez',
             'email' => 'docente@gmail.com',
+            'estadoCuenta' => 'Habilitado',
             'password' => Hash::make('docente'),
             'ci' => '654321',
             'role' => "2",
@@ -35,7 +37,8 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Pablo Montaño',
             'email' => 'docente2@gmail.com',
-            'password' => Hash::make('docente'),
+            'estadoCuenta' => 'Deshabilitado',
+            'password' => Hash::make('docente'), 
             'ci' => '123458',
             'role' => "2",
             'Departamento' => 'Informatica',
@@ -44,6 +47,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Pablo Alcozer',
             'email' => 'docente3@gmail.com',
+            'estadoCuenta' => 'Habilitado',
             'password' => Hash::make('docente'),
             'ci' => '222122',
             'role' => "3",
