@@ -44,12 +44,13 @@
             <td>{{ @$usuario->rol}}</td>
         
             <td>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$usuario->id}}">
-                    Eliminar
-                </button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$usuario->id}}">
                     Editar
                 </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$usuario->id}}">
+                    Eliminar
+                </button>
+                
             </td>
             
         </tr>
