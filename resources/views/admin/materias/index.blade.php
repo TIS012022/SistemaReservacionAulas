@@ -120,13 +120,13 @@
                             <input type="text" name="codigo" class="form-control" id="codigo" required minlength="7" maxlength="15"  
                             onkeypress="return blockNoNumber(event)">
                             <label for="name">Nombre Materia</label>
-                            <input type="text" name="nombre" class="form-control" id="nombre" required minlength="1" maxlength="2"
-                            onkeypress="return blockNoNumber(event)">
+                            <input type="text" name="nombre" class="form-control" id="nombre" required minlength="5" maxlength="40"
+                            onkeypress="return blockSpecialChar(event)">
                             <label for="name">Carrera</label>
-                            <input type="text" name="carrera" class="form-control" id="carrera" required minlength="1" maxlength="2"
-                            onkeypress="return blockNoNumber(event)">
+                            <input type="text" name="carrera" class="form-control" id="carrera" required minlength="5" maxlength="50"
+                            onkeypress="return blockSpecialChar(event)">
                             <label for="name">Nivel</label>
-                            <input type="text" name="nivel" class="form-control" id="nivel" required minlength="1" maxlength="10s" 
+                            <input type="text" name="nivel" class="form-control" id="nivel" required minlength="1" maxlength="2" 
                             onkeypress="return blockSpecialChar(event)">
                             <label for="sector">Tipo Materia</label>
                             <select name="tipo" id="tipo" class="form-control" required>
@@ -158,7 +158,7 @@
         function blockSpecialChar(e){
             var k;
             document.all ? k = e.keyCode : k = e.which;
-            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32);
             }
         function blockNoNumber(e){
             var k;
