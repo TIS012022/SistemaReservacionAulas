@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Materia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MateriaController extends Controller
 {
@@ -12,9 +13,10 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $materias = Materia::orderBy('id', 'asc')->get();
+        return view('admin.materias.index', compact('materias'))->with('tipo', "all");
     }
 
     /**
@@ -35,7 +37,17 @@ class MateriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newMateria = new Materia();
+        
+        $newMateria ->codigo = $request->codigo;
+        $newMateria->nombre = $request->nombre;
+        $newMateria->carrera = $request->carrera;
+        $newMateria->tipo = $request->tipo;
+        $newMateria->nivel = $request->nivel;
+        $newMateria->estado = $request->estado;
+        $newMateria->save();
+
+        return redirect()->back();
     }
 
     /**

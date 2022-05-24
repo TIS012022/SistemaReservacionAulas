@@ -11,8 +11,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\Controller;
-
-
+use App\Http\Controllers\MateriaController;
 
 // use App\Http\Controllers\ReservaController;
 
@@ -119,6 +118,19 @@ Route::get('/grupos', [App\Http\Controllers\SolicitudController::class, 'getGrup
 //Delete para aulas reservadas
 Route::delete('/aulasR/{aulaId}/deleteReservadas', [App\Http\Controllers\AulaController::class, 'deleteReservadas'])
 ->name('admin.aulasR.delete');
+
+
+Route::resource('materias', MateriaController::class, [
+  'names' => [
+    'index' => 'materias'
+  ]
+])->middleware('auth.user');
+
+Route::post('/materias/store', [App\Http\Controllers\MateriaController::class, 'store'])
+->name('admin.materias.store');
+
+Route::post('/materias/{materiaId}/update', [App\Http\Controllers\MateriaController::class, 'update'])
+->name('admin.materias.update');
 
 
 

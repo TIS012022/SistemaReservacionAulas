@@ -77,8 +77,6 @@ class AulaController extends Controller
             $newAula->sector = $request->sector;
             $newAula->estado = $request->estado;
             $newAula->save();
-
-        
            return redirect()->back();        
     }
 
