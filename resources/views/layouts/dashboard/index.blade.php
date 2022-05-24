@@ -58,6 +58,17 @@
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'admin']) }}">
                     <span>{{ __('Aulas Reservadas') }}</span></a>
             </li>
+
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('admin.docMaterias.index') }}">
+                    <span>{{ __('Materias de Docentes') }}</span></a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('admin.grupos.index') }}">
+                    <span>{{ __('Grupos') }}</span></a>
+            </li>
+
             </li>
             
             @endif

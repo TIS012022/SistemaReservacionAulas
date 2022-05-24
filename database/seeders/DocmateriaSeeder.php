@@ -19,6 +19,7 @@ class DocmateriaSeeder extends Seeder
         DB::table('docmaterias')->insert([
             'inscritos' => '10',
             'gestion' => 'I-2022',
+            'estado' => 'Habilitado',
             'grupo' => '1',
             'materia' => '1',
             'docente' => "2"
@@ -26,6 +27,7 @@ class DocmateriaSeeder extends Seeder
         DB::table('docmaterias')->insert([
             'inscritos' => '20',
             'gestion' => 'I-2022',
+            'estado' => 'Habilitado',
             'grupo' => '2',
             'materia' => '1',
             'docente' => "2"
@@ -33,6 +35,7 @@ class DocmateriaSeeder extends Seeder
         DB::table('docmaterias')->insert([
             'inscritos' => '30',
             'gestion' => 'I-2022',
+            'estado' => 'Habilitado',
             'grupo' => '1',
             'materia' => '2',
             'docente' => "2"
@@ -40,6 +43,7 @@ class DocmateriaSeeder extends Seeder
         DB::table('docmaterias')->insert([
             'inscritos' => '40',
             'gestion' => 'I-2022',
+            'estado' => 'Habilitado',
             'grupo' => '1',
             'materia' => '1',
             'docente' => "3"
@@ -47,6 +51,7 @@ class DocmateriaSeeder extends Seeder
         DB::table('docmaterias')->insert([
             'inscritos' => '50',
             'gestion' => 'I-2022',
+            'estado' => 'Habilitado',
             'grupo' => '1',
             'materia' => '4',
             'docente' => "3"

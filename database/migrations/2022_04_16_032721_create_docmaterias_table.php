@@ -17,6 +17,7 @@ class CreateDocmateriasTable extends Migration
             $table->id();
             $table->integer("inscritos");
             $table->string("gestion");
+            $table->string("estado");
 
 
       

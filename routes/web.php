@@ -120,5 +120,22 @@ Route::get('/grupos', [App\Http\Controllers\SolicitudController::class, 'getGrup
 Route::delete('/aulasR/{aulaId}/deleteReservadas', [App\Http\Controllers\AulaController::class, 'deleteReservadas'])
 ->name('admin.aulasR.delete');
 
+//Materias de docentes
+Route::get('/docentesmaterias', [App\Http\Controllers\DocmateriaController::class, 'index2'])
+ ->name('admin.docMaterias.index');
 
+Route::post('/docentesmaterias/store', [App\Http\Controllers\DocmateriaController::class, 'store'])
+ ->name('admin.docentesmaterias.store');
 
+Route::post('/docentesmaterias/{docmateriaId}/update', [App\Http\Controllers\DocmateriaController::class, 'update'])
+ ->name('admin.docentesmaterias.update');
+
+ //Grupos
+Route::get('/grupos', [App\Http\Controllers\GrupoController::class, 'index'])
+->name('admin.grupos.index');
+
+Route::post('/grupos/store', [App\Http\Controllers\GrupoController::class, 'store'])
+->name('admin.grupos.store');
+
+Route::post('/grupos/{grupoId}/update', [App\Http\Controllers\GrupoController::class, 'update'])
+->name('admin.grupos.update');

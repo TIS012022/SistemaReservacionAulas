@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grupo;
+use App\Models\Materia;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GrupoController extends Controller
 {
@@ -14,7 +17,15 @@ class GrupoController extends Controller
      */
     public function index()
     {
-        //
+
+    $grupos = DB::table('grupos')
+     //->join('users', 'docmaterias.docente', '=', 'users.id')
+     //->join('materias', 'docmaterias.materia', '=', 'materias.id')
+     //->join('grupos', 'docmaterias.grupo', '=', 'grupos.id')
+     //->select('grupos.*')
+     ->get();
+    
+      return view('admin.grupos.index', compact('grupos'));
     }
 
     /**
@@ -35,7 +46,16 @@ class GrupoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newGrupo= new Grupo();
+    
+        $newGrupo->codigo = $request->codigo;
+        $newGrupo->numero = $request->numero;
+       
+        
+        $newGrupo->save();
+
+    
+       return redirect()->back();
     }
 
     /**
@@ -67,9 +87,15 @@ class GrupoController extends Controller
      * @param  \App\Models\Grupo  $grupo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Grupo $grupo)
+    public function update(Request $request, $grupoId)
     {
-        //
+        $grupo = Grupo::find($grupoId);
+
+        $grupo->codigo = $request->codigo;
+        $grupo->numero = $request->numero;
+        $grupo->save();
+
+       return redirect()->back();
     }
 
     /**
