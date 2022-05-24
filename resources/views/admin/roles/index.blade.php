@@ -1,56 +1,70 @@
 @extends('layouts.dashboard.index')
 @section('main-content')
 
-
-@if ($tipo === 'admin')
-
-    <h2>INFORMACIÓN DE AULAS RESERVADAS</h2>
-
-<div class="form-group">
-    <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
+<div class="d-flex justify-content-between">
+    <h2>
+        ROLES
+    </h2>
+    <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="">
+        Crear Rol
+    </button>
+</div>
+<div style="margin-top: 1%; display: flex; justify-content: center;">
+    @error('message')
+                   
+    <p class="alert alert-danger ">{{$message}}</p>
+    <button type="button" class="close" onclick="location.reload()" style="margin-bottom: 40px">
+        <span aria-hidden="true" >&times;</span></button>  
+    
+    @enderror 
+</div>
+<div class="form-group" >
+    <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto"> 
         <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
         <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
     </span>
 </div>
-<table class="table table-primary table-striped mt-4" id="aulasR">
-    <thead> 
+<div style="margin: 0 auto; text-align: center; " class="table-responsive" >
+<table class="table" id="roles"  >
+    <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Numero Aula</th>
-            <th scope="col">Materia</th>
-            <th scope="col">Dia de reserva</th>
-            <th scope="col">Horario de reserva</th>
-            <th scope="col">Periodos reservados</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Permiso</th>
+
             <th scope="col">Acciones</th>
             
         </tr>
     </thead>
     <tbody>
-        @foreach ($aulas as $aula)
+        @foreach ($roles as $role)
         <tr scope="row">
             <td>{{ $loop->index + 1 }}</td>
-            <td>{{ @$aula->num_aula }}</td>
-            <td>{{ @$aula->nombre }}</td>
-            <td>{{ @$aula->dia }}</td>
-            <td>{{ @$aula->hora_ini }}</td>
-            <td>{{ @$aula->periodo }}</td>
+            <td>{{ @$role->rol }}</td>
+            <td>{{ @$role->permiso }}</td>
+
+        
             <td>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminarReservas-{{$aula->id}}">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
+                    Editar
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
                     Eliminar
                 </button>
+                
             </td>
             
         </tr>
-        @include('admin.aulasR.modalEliminarReservas')
-
+    
+    
         @endforeach
+       
     </tbody>
+    
 </table>
-@endif
-
 <script language="javascript">
             function doSearch() {
-                var tableReg = document.getElementById('aulasR');
+                var tableReg = document.getElementById('roles');
                 var searchText = document.getElementById('searchTerm').value.toLowerCase();
                 for (var i = 1; i < tableReg.rows.length; i++) {
                     var cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
@@ -69,11 +83,8 @@
                 }
             }
 </script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 @endsection

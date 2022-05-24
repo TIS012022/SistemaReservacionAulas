@@ -11,6 +11,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\RegisterAdminController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Controller;
 
 
@@ -128,6 +129,19 @@ Route::get('/sectoresaulas', [App\Http\Controllers\SolicitudController::class, '
 //usuarios
 Route::get('/usuarios/index', [App\Http\Controllers\UsuariosRController::class, 'index'])
  ->name('admin.usuarios.index');
+
+ Route::post('/usuarios/store', [App\Http\Controllers\UsuariosRController::class, 'store'])
+->name('admin.usuarios.store');
+
+Route::delete('/usuarios/{usuarioId}/delete', [App\Http\Controllers\UsuariosRController::class, 'delete'])
+->name('admin.usuarios.delete');
+
+Route::post('/usuarios/{usuarioId}/update', [App\Http\Controllers\UsuariosRController::class, 'update'])
+->name('admin.usuarios.update');
+
+//roles
+Route::get('/roles/index', [App\Http\Controllers\RoleController::class, 'index'])
+ ->name('admin.roles.index');
 
  Route::post('/usuarios/store', [App\Http\Controllers\UsuariosRController::class, 'store'])
 ->name('admin.usuarios.store');

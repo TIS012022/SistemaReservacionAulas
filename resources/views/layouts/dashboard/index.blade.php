@@ -71,6 +71,10 @@
                 <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
                     <span>{{ __('Usuarios') }}</span></a>
             </li>
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{route('admin.roles.index')}}" >
+                    <span>{{ __('Roles') }}</span></a>
+            </li>
             </li>
             
             @endif
