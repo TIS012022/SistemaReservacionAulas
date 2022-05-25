@@ -6,9 +6,14 @@
 
     <h2>INFORMACIÓN DE AULAS RESERVADAS</h2>
 
-
-<table class="table table-primary table-striped mt-4">
-    <thead>
+<div class="form-group">
+    <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
+        <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
+        <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
+    </span>
+</div>
+<table class="table table-primary table-striped mt-4" id="aulasR">
+    <thead> 
         <tr>
             <th scope="col">#</th>
             <th scope="col">Numero Aula</th>
@@ -43,7 +48,27 @@
 </table>
 @endif
 
-
+<script language="javascript">
+            function doSearch() {
+                var tableReg = document.getElementById('aulasR');
+                var searchText = document.getElementById('searchTerm').value.toLowerCase();
+                for (var i = 1; i < tableReg.rows.length; i++) {
+                    var cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+                    var found = false;
+                    for (var j = 0; j < cellsOfRow.length && !found; j++) {
+                        var compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                        if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1)) {
+                            found = true;
+                        }
+                    }
+                    if (found) {
+                        tableReg.rows[i].style.display = '';
+                    } else {
+                        tableReg.rows[i].style.display = 'none';
+                    }
+                }
+            }
+</script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

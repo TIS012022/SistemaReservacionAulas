@@ -18,11 +18,16 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('ci')->unique();
             $table->string('email')->unique();
+            $table->string('estadoCuenta');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->nullable();
+            
             $table->string('Departamento')->nullable();
             $table->string('materias_grupos')->nullable();
+       
+
+            $table->unsignedBigInteger('role');
+            $table->foreign('role')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

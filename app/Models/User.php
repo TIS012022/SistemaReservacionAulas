@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','ci','email','password','role','departamento','materias_grupos',
+        'name','ci','email', 'estadoCuenta', 'password','role','departamento','materias_grupos',
     ];
 
     /**
@@ -45,5 +45,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Docmateria::class);
     }
-   
+    public function roles()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

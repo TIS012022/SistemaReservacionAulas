@@ -3,6 +3,7 @@
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\UsuariosRController;
 use Illuminate\Support\Facades\Route;
 
 use app\Http\Controllers\RegisterController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\RegisterAdminController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Controller;
 
 
@@ -120,5 +122,32 @@ Route::get('/grupos', [App\Http\Controllers\SolicitudController::class, 'getGrup
 Route::delete('/aulasR/{aulaId}/deleteReservadas', [App\Http\Controllers\AulaController::class, 'deleteReservadas'])
 ->name('admin.aulasR.delete');
 
+Route::get('/cantidades', [App\Http\Controllers\SolicitudController::class, 'getCantidades']);
 
+Route::get('/sectoresaulas', [App\Http\Controllers\SolicitudController::class, 'getAulas']);
 
+//usuarios
+Route::get('/usuarios/index', [App\Http\Controllers\UsuariosRController::class, 'index'])
+ ->name('admin.usuarios.index');
+
+ Route::post('/usuarios/store', [App\Http\Controllers\UsuariosRController::class, 'store'])
+->name('admin.usuarios.store');
+
+Route::delete('/usuarios/{usuarioId}/delete', [App\Http\Controllers\UsuariosRController::class, 'delete'])
+->name('admin.usuarios.delete');
+
+Route::post('/usuarios/{usuarioId}/update', [App\Http\Controllers\UsuariosRController::class, 'update'])
+->name('admin.usuarios.update');
+
+//roles
+Route::get('/roles/index', [App\Http\Controllers\RoleController::class, 'index'])
+ ->name('admin.roles.index');
+
+ Route::post('/roles/store', [App\Http\Controllers\RoleController::class, 'store'])
+->name('admin.roles.store');
+
+Route::delete('/roles/{roleId}/delete', [App\Http\Controllers\RoleController::class, 'delete'])
+->name('admin.roles.delete');
+
+Route::post('/roles/{roleId}/update', [App\Http\Controllers\RoleController::class, 'update'])
+->name('admin.roles.update');

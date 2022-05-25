@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aula;
+use App\Models\Sector;
 use App\Models\Docmateria;
 use App\Models\Grupo;
 use App\Models\Materia;
@@ -52,9 +53,12 @@ class SolicitudController extends Controller
     public function create()
     {
         
-        $aulas = Aula::all();
+        $aulas = DB::table('aulas')
+        ->where('estado','=','Habilitado')
+        ->get();
         $grupos = Grupo::all();
         $materias = Materia::all();
+        $sectores = Sector::all();
         $docmaterias = Docmateria::all();
         $materiaUnidas = DB::table('docmaterias')
     
@@ -62,15 +66,16 @@ class SolicitudController extends Controller
         ->join('grupos', 'docmaterias.grupo', '=', 'grupos.id')
       
         ->where('docmaterias.docente', '=', Auth::id())
+        ->select('docmaterias.*', 'materias.nombre', 'grupos.numero')
         ->get();
-
+       
         $grupoUnidas = DB::table( 'grupos')
         ->join('docmaterias', 'grupos.id', '=', 'docmaterias.grupo')
         ->select('grupos.*')    
         ->where('docmaterias.docente', '=', Auth::id())
         ->get();
-        
-        return view('admin.solicitudes.create',compact('aulas','grupos', 'materias', 'materiaUnidas', 'grupoUnidas'));
+        //dd($materiaUnidas);
+       return view('admin.solicitudes.create',compact('aulas','grupos', 'materias', 'materiaUnidas', 'grupoUnidas','sectores'));
         
     }
 
@@ -94,25 +99,51 @@ class SolicitudController extends Controller
     public function store(Request $request) 
     {
         //
+        
+        $docmaterias = Docmateria::all();
         $request-> validate([
             'cantidad' => 'required|min:1|max:3',
             'periodo' => 'required',
-            'motivo' => 'required'
+            'motivo' => 'required',
+            'sector' => 'required'
         ]);
         
         $solicitud = new Solicitud($request->all());
       
     
         $solicitud -> estado = "pendiente";
+        $id = $request->aula;
+      
+        $cantidad = DB::table('aulas')
+            ->where('id', $id)
+            ->first();
+           
+        if(($request->cantidad)>($cantidad->capacidad)){
+            return back()->withErrors([
+                'message' => 'La cantidad de requerida excede la capacidad del aula'
+            ]);
+        }else{
+           if(($request->hora_ini)>=($request->hora_fin)){
+            return back()->withErrors([
+                'message' => 'La hora final es igual o mayor al horario de inicio'
+            ]);
+           }else{
+         
+             $solicitud->save();
+            //return redirect()->back();   
+           }
+        }    
+     
+
+        
        
-       $solicitud->save();
-     //   dd($request->all());
+     //   dd($request->all()); 
         
 
     
-     return redirect()->back();    
+         
         
-        //return Redirect()->route('solicitudes.create');
+        return Redirect()->route('solicitudes.create');
 
     }
 
@@ -167,4 +198,49 @@ class SolicitudController extends Controller
     {
         //
     }
+    public function getCantidades(Request $request){ 
+      
+      //  $solicitudes = Solicitud::where('aula', $aulaId)->first(); 
+        if($request->ajax()){                   
+           $cantidades = Docmateria::where('id', $request->docmateria_id)->first();
+            //$cantidades = '5';
+           
+            return response()->json($cantidades);
+        }
+        
+     }
+    
+     public function getAulas (Request $request){ 
+      
+       
+        
+          if($request->ajax()){      
+             
+             $aulas = DB::table('aulas')
+             ->where('sector', $request->sector_id)
+             ->where('estado','=','Habilitado')
+             ->get();
+             $datos = DB::table('aulas')
+             ->where('sector', $request->sector_id)
+             ->where('estado','=','Habilitado')
+             ->count();
+           //  Aula::where('sector', $request->sector_id)->where('estado','=','Habilitado')>get();   
+           if($datos == 0)  {   
+                 $aulasArray =  [
+                0=> "1",
+         
+                ];
+            return response()->json($aulasArray);            
+                 
+            }else{
+                foreach($aulas as $aula){
+                    $aulasArray[$aula->id] = $aula->num_aula;
+                }
+                return response()->json($aulasArray);    
+            }                
+                   
+            
+          }
+          
+       }
 }

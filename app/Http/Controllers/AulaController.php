@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aula;
 use App\Models\Solicitud;
+use App\Models\Sector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,7 @@ class AulaController extends Controller
      */
     public function index(Request $request)
     {
+        
         if ($request->tipo === "reservadas") {
             $aulas = DB::table('solicitudes')
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
@@ -36,6 +38,7 @@ class AulaController extends Controller
             return view('admin.aulas.index', compact('aulas'))->with('tipo', "reservadas");
 
         }elseif($request->tipo === "admin"){
+            
             $aulas = DB::table('solicitudes')
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
             ->join('materias', 'docmaterias.materia', '=', 'materias.id')
@@ -47,8 +50,15 @@ class AulaController extends Controller
             return view('admin.aulasR.index', compact('aulas'))->with('tipo', "admin");
 
         }
-        $aulas = Aula::orderBy('id', 'asc')->get();
-        return view('admin.aulas.index', compact('aulas'))->with('tipo', "all");
+ 
+        $aulas =  DB::table('aulas')
+        ->join('sectors', 'aulas.sector', '=', 'sectors.id')
+        ->select('aulas.*','sectors.nombre')
+        ->orderBy('id','desc')
+        ->get();
+       // dd($aulas);
+        $sector = DB::table('sectors')->get();
+        return view('admin.aulas.index', compact('aulas', 'sector'))->with('tipo', "all");
     }
 
     /**
@@ -69,8 +79,8 @@ class AulaController extends Controller
      */
     public function store(Request $request)
     {      
-            $newAula= new Aula();
-    
+        $newAula= new Aula();
+   
             $newAula->codigo = $request->codigo;
             $newAula->num_aula = $request->num_aula;
             $newAula->capacidad = $request->capacidad;
@@ -108,11 +118,12 @@ class AulaController extends Controller
             debug_to_console('hola');
          }
        */
+     
        if(empty($solicitudes)){
        
             $aula->delete();
             return redirect()->back();
-        }else{
+        }else{ 
             
             return back()->withErrors([
                 'message' => 'No se puede eliminar el aula '.$aula["num_aula"].' debido a que esta siendo usada en una solicitud'

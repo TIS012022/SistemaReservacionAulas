@@ -13,6 +13,7 @@ class Solicitud extends Model
     protected $fillable = ['cantidad', 
                             'motivo',
                             'hora_ini',
+                            'hora_fin',
                             'periodo',
                             'dia',
                             'estado',
