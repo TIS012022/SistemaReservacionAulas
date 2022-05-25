@@ -13,29 +13,28 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th># Solicitud</th>
                     <th>Estado</th>
                     <th>Materia</th>
                     <th>Aula</th>
                     <th>Dia</th>
-                    <th>Horario</th>
-                
-                    <th>Correo</th>
+                    <th>Horario inicio</th>
+                    <th>Horario final</th>
+        
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($notificaciones as $notificacion)
                 <tr>
-                    <td>{{ $loop->index + 1 }}</td>
-                    <td>{{ $notificacion->solicitud }}</td>
+                    <td>{{ $loop->index + 1 }}</td>  
                     <td>{{ $notificacion->estado }}</td>
                     <td>{{ $notificacion->codigo }} - {{ $notificacion->nombre }}</td>
                     <td>{{ $notificacion->num_aula }}</td>
                     <td>{{ $notificacion->dia }}</td>
                     <td>{{ $notificacion->hora_ini }}</td>
+                    <td>{{ $notificacion->hora_fin }}</td>
                   {{-- <td>{{ \Illuminate\Support\Str::limit($notificacion->mensaje, 50, $end='...') }}</td>--}}
-                    <td>{{ $notificacion->email }}</td>
+   
                     <td><i class="btn btn-primary bi bi-eye-fill" data-bs-toggle="modal" data-bs-target="#modalVer{{$loop->index}}"></i></td>
 
                     <div class="modal fade" id="modalVer{{$loop->index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

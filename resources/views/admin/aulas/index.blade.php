@@ -19,7 +19,7 @@
             <th scope="col">Materia</th>
             <th scope="col">Dia de reserva</th>
             <th scope="col">Horario de reserva</th>
-            <th scope="col">Periodos reservados</th>
+            <th scope="col">Horario fin reserva</th>
             
         </tr>
     </thead>
@@ -32,7 +32,7 @@
             <td>{{ @$aula->dia }}</td>
 
             <td>{{ @$aula->hora_ini }} </td>
-            <td>{{ @$aula->periodo }}</td>
+            <td>{{ @$aula->hora_fin }}</td>
             
 
         </tr>

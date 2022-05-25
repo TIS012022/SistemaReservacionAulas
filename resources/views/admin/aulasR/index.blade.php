@@ -20,7 +20,7 @@
             <th scope="col">Materia</th>
             <th scope="col">Dia de reserva</th>
             <th scope="col">Horario de reserva</th>
-            <th scope="col">Periodos reservados</th>
+            <th scope="col">Horario fin reserva</th>
             <th scope="col">Acciones</th>
             
         </tr>
@@ -33,7 +33,7 @@
             <td>{{ @$aula->nombre }}</td>
             <td>{{ @$aula->dia }}</td>
             <td>{{ @$aula->hora_ini }}</td>
-            <td>{{ @$aula->periodo }}</td>
+            <td>{{ @$aula->hora_fin }}</td>
             <td>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminarReservas-{{$aula->id}}">
                     Eliminar

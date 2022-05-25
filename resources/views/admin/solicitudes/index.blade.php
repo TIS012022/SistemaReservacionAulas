@@ -17,10 +17,11 @@
                 <tr>
                     <th scope="col">Fecha</th>
                     <th scope="col">Nombre Docente</th>
-                    <th scope="col">Motivos y Detalles</th>
-                    <th scope="col">Cantidad Estudiantes</th>
+                    <th scope="col">Motivos</th>
+                    <th scope="col">Estudiantes</th>
                     <th scope="col">Aula</th>
                     <th scope="col">Hora de reserva</th>
+                    <th scope="col">Hora fin reserva</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -33,6 +34,7 @@
                     <td>{{ @$solicitud->cantidad }}</td>
                     <td>{{ @$solicitud->num_aula }}</td>
                     <td>{{ @$solicitud->hora_ini }} </td>
+                    <td>{{ @$solicitud->hora_fin }} </td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAceptar{{$loop->index}}">
                             Aceptar

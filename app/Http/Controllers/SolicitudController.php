@@ -103,7 +103,6 @@ class SolicitudController extends Controller
         $docmaterias = Docmateria::all();
         $request-> validate([
             'cantidad' => 'required|min:1|max:3',
-            'periodo' => 'required',
             'motivo' => 'required',
             'sector' => 'required'
         ]);

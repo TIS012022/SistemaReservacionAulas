@@ -31,7 +31,7 @@ class AulaController extends Controller
            // ->where('docmaterias.docente', Auth::id())
 
             ->where('solicitudes.estado','=','aceptado')
-            ->select('solicitudes.estado','solicitudes.periodo','aulas.num_aula','materias.nombre','solicitudes.dia',
+            ->select('solicitudes.estado','solicitudes.hora_fin','aulas.num_aula','materias.nombre','solicitudes.dia',
             'solicitudes.hora_ini')
 
             ->get();
@@ -44,7 +44,7 @@ class AulaController extends Controller
             ->join('materias', 'docmaterias.materia', '=', 'materias.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
             ->where('solicitudes.estado','=','aceptado')
-            ->select('solicitudes.estado','solicitudes.periodo','aulas.num_aula','materias.nombre','solicitudes.dia',
+            ->select('solicitudes.estado','solicitudes.hora_fin','aulas.num_aula','materias.nombre','solicitudes.dia',
             'solicitudes.hora_ini','solicitudes.id')
             ->get();
             return view('admin.aulasR.index', compact('aulas'))->with('tipo', "admin");

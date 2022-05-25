@@ -20,7 +20,7 @@ class CreateSolicitudesTable extends Migration
             $table->text('motivo');
             $table->time('hora_ini');
             $table->time('hora_fin');
-            $table->string('periodo');
+            $table->string('periodo')->nullable();
             $table->date('dia');
             $table->string('estado');
 
