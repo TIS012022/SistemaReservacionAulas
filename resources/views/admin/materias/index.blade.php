@@ -1,38 +1,6 @@
 @extends('layouts.dashboard.index')
 @section('main-content')
 
-@if ($tipo === 'asignadas')
-<h2>INFORMACION DE MATERIAS ASIGNADAS</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre_Docente</th>
-            <th scope="col">Materia</th>
-            <th scope="col">Carrera</th>
-            <th scope="col">Nivel</th>
-            <th scope="col"> Tipo</th>
-
-            
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($materias as $materia) 
-        <tr scope="row">
-            <td>{{ $loop->index + 1 }}</td>
-            <td>{{ @$materia->Nombre_Docente }}</td>
-            <td>{{ @$materia->nombre }}</td>
-            <td>{{ @$materia->carrera }}</td>
-            <td>{{ @$materia->nivel }} </td>
-            <td>{{ @$materia->tipo }} </td>
-          
-        </tr>
-        @endforeach
-    </tbody>
-</table>
-@else
-
     <div class="d-flex justify-content-between">
         <h2>
             ASIGNACIÓN MATERIAS 
@@ -57,8 +25,9 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nombre_Docente</th>
+                    <th scope="col">Nombre_Doc.</th>
                     <th scope="col">Materia</th>
+                    <th scope="col">Carrera</th>
                     <th scope="col">Codigo</th>
                     <th scope="col">Nivel</th>
                     <th scope="col">Tipo</th>
@@ -71,10 +40,11 @@
                 <tr scope="row">
                     <td>{{ @$materia->id }}</td>
                     <td>{{ @$materia->Nombre_Docente}}</td>
-                    <td>{{ @$materia->Materia }}</td>
-                    <td>{{ @$materia->Codigo }}</td>
-                    <td>{{ @$materia->Nivel }}</td>
-                    <td>{{ @$materia->Tipo }}</td>
+                    <td>{{ @$materia->nombre}}</td>
+                    <td>{{ @$materia->carrera}}</td>
+                    <td>{{ @$materia->codigo}}</td>
+                    <td>{{ @$materia->nivel}}</td>
+                    <td>{{ @$materia->tipo}}</td>
                     <td>
                         @if(@$materia->estado == 'Habilitado' )
                             <span class="badge badge-success">{{ @$materia->estado }}</span>
@@ -85,12 +55,17 @@
                     </td>
 
                     <td>
-                        {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$materia->id}}">
-                            Editar
+                        
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$materia->id}}">
+                                Editar
+                            </button>
+                         </div>
+                        {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$materia->id}}">
+                            Desabilitar
                         </button> --}}
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$materia->id}}">
-                            Suspender
-                        </button>
                     </td>
                 </tr>
 
@@ -120,15 +95,15 @@
                             <input type="text" name="codigo" class="form-control" id="codigo" required minlength="7" maxlength="15"  
                             onkeypress="return blockNoNumber(event)">
                             <label for="name">Nombre Materia</label>
-                            <input type="text" name="nombre" class="form-control" id="nombre" required minlength="5" maxlength="40"
+                            <input type="text" name="nombre" class="form-control" id="nombre" required minlength="5" maxlength="22"
                             onkeypress="return blockSpecialChar(event)">
                             <label for="name">Carrera</label>
-                            <input type="text" name="carrera" class="form-control" id="carrera" required minlength="5" maxlength="50"
+                            <input type="text" name="carrera" class="form-control" id="carrera" required minlength="5" maxlength="15"
                             onkeypress="return blockSpecialChar(event)">
                             <label for="name">Nivel</label>
                             <input type="text" name="nivel" class="form-control" id="nivel" required minlength="1" maxlength="2" 
                             onkeypress="return blockSpecialChar(event)">
-                            <label for="sector">Tipo Materia</label>
+                            <label for="tipo">Tipo Materia</label>
                             <select name="tipo" id="tipo" class="form-control" required>
                                 <option value="">-- Selecciona el tipo de materia--</option>
                                 
@@ -170,8 +145,6 @@
                 location.reload();
     })
     </script>
-    @endif
-
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
