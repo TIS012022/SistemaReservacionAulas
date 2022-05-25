@@ -122,7 +122,7 @@ class SolicitudController extends Controller
                 'message' => 'La cantidad de requerida excede la capacidad del aula'
             ]);
         }else{
-           if(($request->hora_ini)>=($request->hora_fin)){
+           if(strtotime($request->hora_ini)>=strtotime($request->hora_fin)){
             return back()->withErrors([
                 'message' => 'La hora final es igual o mayor al horario de inicio'
             ]);
