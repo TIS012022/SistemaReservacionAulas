@@ -5,7 +5,7 @@
     <h2>
         ROLES
     </h2>
-    <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="">
+    <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalCrearRol">
         Crear Rol
     </button>
 </div>
@@ -45,23 +45,75 @@
 
         
             <td>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$role->id}}">
                     Editar
                 </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$role->id}}">
                     Eliminar
                 </button>
                 
             </td>
             
         </tr>
-    
-    
+        @include('admin.roles.modalEliminar')
+        @include('admin.roles.modalEditar')
         @endforeach
        
     </tbody>
-    
+
 </table>
+</div>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div class="modal fade bs-example-modal-lg" id="modalCrearRol">
+    <div class="modal-dialog">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h4 class="modal-title w-100 text-center">Nuevo Rol</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="{{route('admin.roles.store')}}" method="POST">
+                {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="rol">Nombre</label>
+                        <input type="text" name="rol" class="form-control" id="rol" required minlength="4" maxlength="15"
+                        onkeypress="return blockSpecialChar(event)">
+                        <label for="permiso">Permiso</label>
+                        <select name="permiso" id="permiso" class="form-control" required>
+                            <option value="">-- Selecciona el tipo de permiso--</option>
+                            
+                            <option>Full</option>
+                            <option>User</option>
+            
+            
+                        </select>  
+                        
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="refresh">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>   
+</div>
+<script type="text/javascript">
+    function blockSpecialChar(e){
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32);
+        }
+    
+    let refresh = document.getElementById('refresh');
+    refresh.addEventListener('click', _ => {
+            location.reload();
+})
+</script>
 <script language="javascript">
             function doSearch() {
                 var tableReg = document.getElementById('roles');
