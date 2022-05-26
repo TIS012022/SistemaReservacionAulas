@@ -39,7 +39,7 @@
         <tr scope="row">
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ @$docentesmateria->nombre }}</td>
-            <td>{{ @$docentesmateria->codigo }}</td>
+            <td>{{ @$docentesmateria->numero }}</td>
             <td>{{ @$docentesmateria->estado }}</td>
             <td>{{ @$docentesmateria->name }}</td>
             <td>{{ @$docentesmateria->inscritos}}</td>
@@ -50,7 +50,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$docentesmateria->id}}">
                     Editar
                 </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$docentesmateria->id}}">
                     Eliminar
                 </button>
             </td>
@@ -58,7 +58,7 @@
         </tr>
 
         @include('admin.docMaterias.modalEditar')
-
+        @include('admin.docMaterias.modalEliminar')
         @endforeach
     </tbody>
 </table>

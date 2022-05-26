@@ -17,8 +17,8 @@
     @enderror 
 </div>
 
-<div class="container mt-4"  >
-<table class="table" id="tabla-responsives" style="width:100%">
+<div class="container mt-4" style="margin: 0 auto; text-align: center; ">
+<table class="table table-sm" id="tabla-responsives">
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -42,7 +42,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$grupo->id}}">
                     Editar
                 </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$grupo->id}}">
                     Eliminar
                 </button>
             </td>
@@ -50,7 +50,7 @@
         </tr>
 
         @include('admin.grupos.modalEditar')
-
+        @include('admin.grupos.modalEliminar')
         @endforeach
     </tbody>
 </table>
@@ -64,7 +64,7 @@
     <div class="modal-dialog">
         <div class="modal-content ">
             <div class="modal-header">
-                <h4 class="modal-title w-100 text-center">Asignar materia para docente</h4>
+                <h4 class="modal-title w-100 text-center">Crear Nuevo Grupo</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>
@@ -73,8 +73,8 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Código</label>
-                        <input type="text" name="codigo" class="form-control" id="codigo" required minlength="1" maxlength="2"  
-                        >
+                        <input type="text" name="codigo" class="form-control" id="codigo" required minlength="1" maxlength="4"  
+                        onkeypress="return blockNoNumber(event)">
                         <label for="name">Número</label>
                         <input type="text" name="numero" class="form-control" id="numero" required minlength="1" maxlength="2" 
                         onkeypress="return blockSpecialChar(event)">

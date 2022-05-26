@@ -51,7 +51,14 @@ class GrupoController extends Controller
         $newGrupo->codigo = $request->codigo;
         $newGrupo->numero = $request->numero;
        
-        
+        $grupoCod = Grupo::where('codigo', $request->codigo)->first();
+        $grupoNum = Grupo::where('numero', $request->numero)->first();
+
+        if($grupoCod != $grupoNum){
+
+
+        }
+
         $newGrupo->save();
 
     
@@ -104,8 +111,10 @@ class GrupoController extends Controller
      * @param  \App\Models\Grupo  $grupo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Grupo $grupo)
+    public function delete(Request $request, $grupoId)
     {
-        //
+        $grupo = Grupo::find($grupoId);
+        $grupo->delete();
+        return redirect()->back();
     }
 }

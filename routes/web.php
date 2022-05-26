@@ -130,6 +130,9 @@ Route::post('/docentesmaterias/store', [App\Http\Controllers\DocmateriaControlle
 Route::post('/docentesmaterias/{docmateriaId}/update', [App\Http\Controllers\DocmateriaController::class, 'update'])
  ->name('admin.docentesmaterias.update');
 
+ Route::delete('/docentesmaterias/{docmateriaId}/delete', [App\Http\Controllers\DocmateriaController::class, 'delete'])
+->name('admin.docentesmaterias.delete');
+
  //Grupos
 Route::get('/grupos', [App\Http\Controllers\GrupoController::class, 'index'])
 ->name('admin.grupos.index');
@@ -139,3 +142,6 @@ Route::post('/grupos/store', [App\Http\Controllers\GrupoController::class, 'stor
 
 Route::post('/grupos/{grupoId}/update', [App\Http\Controllers\GrupoController::class, 'update'])
 ->name('admin.grupos.update');
+
+Route::delete('/grupos/{grupoId}/delete', [App\Http\Controllers\GrupoController::class, 'delete'])
+->name('admin.grupos.delete');

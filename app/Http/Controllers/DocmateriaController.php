@@ -41,7 +41,7 @@ class DocmateriaController extends Controller
      ->join('users', 'docmaterias.docente', '=', 'users.id')
      ->join('materias', 'docmaterias.materia', '=', 'materias.id')
      ->join('grupos', 'docmaterias.grupo', '=', 'grupos.id')
-     ->select('materias.nombre','grupos.codigo','users.name', 'docmaterias.*')
+     ->select('materias.nombre','grupos.numero','users.name', 'docmaterias.*')
      ->get();
     
       return view('admin.docMaterias.index', ['docentesmaterias' => $docentesmaterias,
@@ -59,6 +59,9 @@ class DocmateriaController extends Controller
             $newAsignacion->materia = $request->materia;
             $newAsignacion->docente = $request->docente;
             
+            
+
+
             $newAsignacion->save();
 
         
@@ -78,5 +81,12 @@ class DocmateriaController extends Controller
         $asignacion->save();
 
        return redirect()->back();
+    }
+
+    public function delete(Request $request, $docmateriaId)
+    {
+        $docmateria = Docmateria::find($docmateriaId);
+        $docmateria->delete();
+        return redirect()->back();
     }
 }
