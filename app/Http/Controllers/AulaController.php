@@ -54,7 +54,7 @@ class AulaController extends Controller
         $aulas =  DB::table('aulas')
         ->join('sectors', 'aulas.sector', '=', 'sectors.id')
         ->select('aulas.*','sectors.nombre')
-        ->orderBy('id','desc')
+        ->orderBy('id','asc')
         ->get();
        // dd($aulas);
         $sector = DB::table('sectors')->get();
@@ -86,10 +86,21 @@ class AulaController extends Controller
             $newAula->capacidad = $request->capacidad;
             $newAula->sector = $request->sector;
             $newAula->estado = $request->estado;
-            $newAula->save();
 
-        
-           return redirect()->back();        
+            $aula = Aula::where('codigo', $request->codigo)->first();
+            $aula2 = Aula::where('num_aula', $request->num_aula)->first();
+            if(empty($aula) && empty($aula2)){    
+                $newAula->save();
+                return redirect()->back();
+            }else{ 
+                
+                return back()->withErrors([
+                    'message' => 'Error, el codigo o numero de aula ingresado ya existe'
+                ]);
+            }
+           
+           return redirect()->back();    
+                   
     }
 
     public function delete(Request $request, $aulaId)

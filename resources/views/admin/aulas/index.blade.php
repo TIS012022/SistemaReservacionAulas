@@ -81,7 +81,7 @@
     <tbody> 
         @foreach ($aulas as $aula)
         <tr scope="row">
-            <td>{{ @$aula->id }}</td>
+            <td>{{ $loop->index + 1 }}</td>
             <td>{{ @$aula->num_aula }}</td>
             <td>{{ @$aula->capacidad }}</td>
             <td>{{ @$aula->nombre }}</td>
