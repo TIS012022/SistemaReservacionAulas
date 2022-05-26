@@ -63,7 +63,7 @@
 
             <li class="nav-item {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('materias', ['tipo'=> 'admin']) }}">
-                    <span>{{ __('Materias Asignadas') }}</span></a>
+                    <span>{{ __('Listas Materias') }}</span></a>
             </li>
             
             @endif

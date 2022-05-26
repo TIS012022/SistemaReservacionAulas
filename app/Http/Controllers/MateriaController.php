@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Materia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class MateriaController extends Controller
 {
@@ -37,6 +38,16 @@ class MateriaController extends Controller
      */
     public function store(Request $request)
     {
+        
+        // $validator = $request->validate([
+        //     'codigo' => ['required|max:15','unique:materias'],
+        //     'nombre' => 'required',          
+        //     'carrera' => 'required|string|max:255',
+        //     'tipo' => 'required',
+        //     'nivel' => 'required'
+        // ]);
+        // Materia::create($validator);
+
         $newMateria = new Materia();
         
         $newMateria ->codigo = $request->codigo;
@@ -82,7 +93,7 @@ class MateriaController extends Controller
     public function update(Request $request, $materiaId)
     {
         $materia = Materia::find($materiaId);
-        $materia ->codigo = $request->codigo;
+        
         $materia->nombre = $request->nombre;
         $materia->carrera = $request->carrera;
         $materia->tipo = $request->tipo;

@@ -3,7 +3,7 @@
 
     <div class="d-flex justify-content-between">
         <h2>
-            ASIGNACIÓN MATERIAS 
+            LISTA DE CREADAS MATERIAS 
         </h2>
         <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalCrear">
             Crear materias
@@ -25,7 +25,6 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nombre_Doc.</th>
                     <th scope="col">Materia</th>
                     <th scope="col">Carrera</th>
                     <th scope="col">Codigo</th>
@@ -39,7 +38,6 @@
                 @foreach ($materias as $materia)
                 <tr scope="row">
                     <td>{{ @$materia->id }}</td>
-                    <td>{{ @$materia->Nombre_Docente}}</td>
                     <td>{{ @$materia->nombre}}</td>
                     <td>{{ @$materia->carrera}}</td>
                     <td>{{ @$materia->codigo}}</td>
@@ -69,8 +67,8 @@
                     </td>
                 </tr>
 
-                     {{-- @include('admin.materias.modalEditar')
-                     @include('admin.materias.modalEliminar') --}}
+                     @include('admin.materias.modalEditar')
+                    {{-- @include('admin.materias.modalEliminar') --}}
                 @endforeach
             </tbody>
         </table>
@@ -106,10 +104,10 @@
                             <label for="tipo">Tipo Materia</label>
                             <select name="tipo" id="tipo" class="form-control" required>
                                 <option value="">-- Selecciona el tipo de materia--</option>
-                                
                                 <option>Regular</option>
                                 <option>Electiva</option>
                             </select>   
+                            
                             <label for="estado">Estado</label>
                             <select name="estado" id="estado" class="form-control" required>
                                 <option value="">-- Selecciona el estado--</option>

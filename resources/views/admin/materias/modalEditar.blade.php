@@ -1,5 +1,5 @@
 <?php
-    $tipo = ['regular', 'electiva'];
+    $tipo = ['Regular', 'Electiva'];
     $tipo = array_diff($tipo, array("{$materia->tipo}"));   
     $tipo = Arr::prepend($tipo, "{$materia->tipo}");
     
@@ -23,11 +23,19 @@
                         <input type="text" name="nombre" class="form-control" id="nombre" value="{{$materia->nombre}}" required minlength="5" maxlength="22" 
                         onkeypress="return blockSpecialChar(event)">
                     </div>
+
                     <div class="form-group">
                         <label for="carrera">Carrera</label>
                         <input type="text" name="carrera" class="form-control" id="carrera" value="{{$materia->carrera}}" required minlength="5" maxlength="15"
                         onkeypress="return blockSpecialChar(event)">
                     </div>
+
+                    <div class="form-group">
+                        <label for="name">Nivel</label>
+                            <input type="text" name="nivel" class="form-control" id="nivel" value="{{$materia->nivel}}" required minlength="1" maxlength="2" 
+                            onkeypress="return blockSpecialChar(event)">
+                    </div>
+
                     <div class="form-group">
                         <label for="tipo">Tipo</label>
                         <select name="tipo" id="tipo" class="form-control" required>

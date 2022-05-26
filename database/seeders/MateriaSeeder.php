@@ -30,7 +30,7 @@ class MateriaSeeder extends Seeder
         ];
         $estado = ["Habilitado", "Deshabilitado"];
         $niveles = ['A','B','C','D','E','F','G', 'H', 'I', 'J', ''];
-        $tipos = ["Regular", "electiva"];
+        $tipos = ["Regular", "Electiva"];
 
         for ($i = 0; $i < 10; $i++) {
             DB::table('materias')->insert([
