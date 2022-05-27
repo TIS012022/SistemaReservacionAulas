@@ -4,66 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserEditRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use Spatie\Permission\Models\Role;
 
 class UsuariosRController extends Controller
 {
     //
     public function index()
     {
-        $rols = DB::table('rols')->get();
-        $usuarios = DB::table('users')
-        ->join('rols', 'users.role', '=', 'rols.id')
-        ->select('users.*','rols.rol')
-        ->get();
-     //   Crypt::decrypt($usuarios->password);
-        return view('admin.usuarios.index', ['usuarios' => $usuarios, 'rols' => $rols]);
+      //  abort_if(Gate::denies('user_index'), 403);
+        $users = User::all();
+        return view('admin.usuarios.index', compact('users'));
     }
 
-    public function store(Request $request)
-    {    
-     
-        
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'ci' => 'required|unique:users',          
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required',
-            'Departamento' => 'required',
-            'role' => 'required'
-        ]);
+    
+    public function create()
+    {
+       // abort_if(Gate::denies('user_create'), 403);
+        $roles = Role::all()->pluck('name', 'id');
+        return view('admin.usuarios.create', compact('roles'));
+    }
 
-          //  $request['password'] = Hash::make($request['password']);
+    public function edit(User $user)
+    {
+      //  abort_if(Gate::denies('user_edit'), 403);
+        $roles = Role::all()->pluck('name', 'id');
+        $user->load('roles');
+        return view('admin.usuarios.edit', compact('user', 'roles'));
+    }
 
-            $newUsuario= new User();
+    public function store(UserCreateRequest $request)
+    {
+        // $request->validate([
+        //     'name' => 'required|min:3|max:5',
+        //     'username' => 'required',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required'
+        // ]);
+        $user = User::create($request->only('name', 'ci', 'email','departamento', 'password')
+            + [
+                'estadoCuenta' => "Habilitado",
+            ]);
 
-            $newUsuario->name = $request->name;
-            $newUsuario->ci = $request->ci;
-            $newUsuario->email = $request->email;
-            $newUsuario->password = $request->password;            ;
-            $newUsuario->Departamento = $request->Departamento;
-            $newUsuario->role = $request->role;
-            $newUsuario ->estadoCuenta = "Habilitado";
-
-            $usuarios = User::where('ci', $request->ci)->first();
-            $usuarios2 = User::where('email', $request->email)->first();
-             // dd($request->all());
-          // dd($usuarios2);
-           if(empty($usuarios) && empty($usuarios2) ){    
-                $newUsuario->save();
-                return redirect()->back();
-            }else{ 
-                
-                return back()->withErrors([
-                    'message' => 'No se pudo completar el registro, ci o email ya registrado'
-                ]);
-            }
-           
-           return redirect()->back();        
-    } 
+        $roles = $request->input('roles', []);
+        $user->syncRoles($roles);
+        return redirect()->route('admin.usuarios.index', $user->id)->with('success', 'Usuario creado correctamente');
+    }
 
     public function delete(Request $request, $usuarioId)
     {
@@ -73,16 +64,37 @@ class UsuariosRController extends Controller
         return redirect()->back();
     }
     
-    public function update(Request $request, $usuarioId)
+    public function update(UserEditRequest $request, User $user)
     {
-        $usuario = User::find($usuarioId);
-        $usuario->name = $request->name;
-        $usuario->password = $request->password;
-        $usuario->estadoCuenta = $request->estadoCuenta;
-        $usuario->Departamento = $request->Departamento;
-        $usuario->role = $request->role;
-        $usuario->save();
+        // $user=User::findOrFail($id);
+        $data = $request->only('name', 'email', 'departamento', 'estadoCuenta');
+        $password=$request->input('password');
+        if($password)
+            $data['password'] = $password;
+        // if(trim($request->password)=='')
+        // {
+        //     $data=$request->except('password');
+        // }
+        // else{
+        //     $data=$request->all();
+        //     $data['password']=bcrypt($request->password);
+        // }
 
-       return redirect()->back();
+        $user->update($data);
+
+        $roles = $request->input('roles', []);
+        $user->syncRoles($roles);
+        return redirect()->route('admin.usuarios.index', $user->id)->with('success', 'Usuario actualizado correctamente');
+    }
+    public function destroy(User $user)
+    {
+     //   abort_if(Gate::denies('user_destroy'), 403);
+
+        if (auth()->user()->id == $user->id) {
+            return redirect()->route('admin.usuarios.index');
+        }
+
+        $user->delete();
+        return back()->with('succes', 'Usuario eliminado correctamente');
     }
 }

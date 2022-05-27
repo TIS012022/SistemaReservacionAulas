@@ -44,14 +44,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Solicitudes -->
-        <?php
-          $rols=DB::table('rols')
-            ->join('users', 'rols.id', '=', 'users.role')
-            ->where('rols.id','=', auth()->user()->role)
-         
-            ->get();
-         //  dd($rols[0]->permiso);
-        ?>
+        
             
             <li class="nav-item {{ Nav::isRoute('solicitudes') }}">
                 <a class="nav-link" href="{{ route('solicitudes') }}">

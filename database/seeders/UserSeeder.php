@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'estadoCuenta' => 'Habilitado',
             'password' => Hash::make('admin'),
             'ci' => '123456',
-            'role' => "1"
+            'Departamento' => 'Informatica',
         ]);
         DB::table('users')->insert([
             'name' => 'Patricia Rodriguez',
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'estadoCuenta' => 'Habilitado',
             'password' => Hash::make('docente'),
             'ci' => '654321',
-            'role' => "2",
+
             'Departamento' => 'Informatica',
             'materias_grupos' => 'lorem ipsum'
         ]);
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             'estadoCuenta' => 'Deshabilitado',
             'password' => Hash::make('docente'), 
             'ci' => '123458',
-            'role' => "2",
+
             'Departamento' => 'Informatica',
             'materias_grupos' => 'lorem ipsum'
         ]);
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
             'estadoCuenta' => 'Habilitado',
             'password' => Hash::make('docente'),
             'ci' => '222122',
-            'role' => "3",
+
             'Departamento' => 'Informatica',
             'materias_grupos' => 'lorem ipsum'
         ]);

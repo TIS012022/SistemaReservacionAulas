@@ -5,10 +5,10 @@
     //$sector = Arr::prepend($sector, "{$aula->nombre}");
 
     $estado = ["Habilitado","Deshabilitado"];
-    $estado = array_diff($estado, array("{$usuario->estadoCuenta}"));   
-    $estado = Arr::prepend($estado, "{$usuario->estadoCuenta}");
+    $estado = array_diff($estado, array("{$user->estadoCuenta}"));   
+    $estado = Arr::prepend($estado, "{$user->estadoCuenta}");
 ?>
-<div class="modal fade" id="modalEditar-{{$usuario->id}}">
+<div class="modal fade" id="modalEditar-{{$user->id}}">
     <div class="modal-dialog">
         <div class="modal-content bg-default">
             <div class="modal-header">
@@ -16,12 +16,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>
-            <form action="{{ route('admin.usuarios.update', $usuario->id) }}" method="POST">
+            <form action="{{ route('admin.usuarios.update', $user->id) }}" method="POST">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="num_aula">Nombre completo</label>
-                        <input type="text" name="name" class="form-control" id="name" value="{{$usuario->name}}" required minlength="4" maxlength="20" 
+                        <input type="text" name="name" class="form-control" id="name" value="{{$user->name}}" required minlength="4" maxlength="20" 
                         onkeypress="return blockSpecialChar(event)">
                     </div>
                     
@@ -44,7 +44,7 @@
                 
                     <div class="form-group">
                         <label for="Departamento">Departamento</label>
-                        <input type="text" name="Departamento" class="form-control" id="Departamento" value="{{$usuario->Departamento}}" required minlength="4" maxlength="15"
+                        <input type="text" name="Departamento" class="form-control" id="Departamento" value="{{$user->Departamento}}" required minlength="4" maxlength="15"
                         onkeypress="return blockSpecialChar(event)">
                     </div>
 
@@ -53,9 +53,7 @@
                         <select name="role" id="role" class="form-control" required>
                             <option value="">-- Selecciona el rol--</option>
                             
-                            @foreach ($rols as $item)
-                                <option value="{{ $item->id }}">{{ $item->rol}}</option>
-                            @endforeach
+                         
                         </select>
                     </div>
                 </div>

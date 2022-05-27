@@ -133,13 +133,19 @@ Route::get('/sectoresaulas', [App\Http\Controllers\SolicitudController::class, '
 Route::get('/usuarios/index', [App\Http\Controllers\UsuariosRController::class, 'index'])
  ->name('admin.usuarios.index');
 
+ Route::get('/usuarios/create', [App\Http\Controllers\UsuariosRController::class, 'create'])
+ ->name('admin.usuarios.create');
+
  Route::post('/usuarios/store', [App\Http\Controllers\UsuariosRController::class, 'store'])
 ->name('admin.usuarios.store');
 
-Route::delete('/usuarios/{usuarioId}/delete', [App\Http\Controllers\UsuariosRController::class, 'delete'])
+Route::delete('/usuarios/{user}', [App\Http\Controllers\UsuariosRController::class, 'destroy'])
 ->name('admin.usuarios.delete');
 
-Route::post('/usuarios/{usuarioId}/update', [App\Http\Controllers\UsuariosRController::class, 'update'])
+Route::get('/usuarios/{user}/edit', [App\Http\Controllers\UsuariosRController::class, 'edit'])
+->name('admin.usuarios.edit');
+
+Route::put('/usuarios/{user}', [App\Http\Controllers\UsuariosRController::class, 'update'])
 ->name('admin.usuarios.update');
 
 //roles

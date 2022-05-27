@@ -31,6 +31,7 @@
           <th scope="col">Nombre</th>
           <th scope="col">Guard</th>
           <th scope="col">Created_at</th>
+          <th scope="col">Permisos</th>
           <th scope="col">Acciones</th>
       </tr>
   </thead>
@@ -40,7 +41,14 @@
           <td>{{ @$role->id }}</td>
           <td>{{ @$role->name }}</td>
           <td>{{ @$role->guard_name }}</td>
-          <td>{{ @$role->created_at }}</td>
+          <td class="text-primary">{{ $role->created_at->toFormattedDateString() }}</td>
+                    <td>
+                      @forelse ($role->permissions as $permission)
+                          <span class="badge badge-info">{{ $permission->name }}</span>
+                      @empty
+                          <span class="badge badge-danger">No permission added</span>
+                      @endforelse
+                    </td>
           
           <td>
               <a type="button" class="btn btn-primary" href="{{ route('roles.edit', $role->id) }}" >
