@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>
-            <form action="{{route('admin.roles.delete', $role->id)}}" method="POST">
+            <form action="{{route('admin.rols.delete', $role->id)}}" method="POST">
                 {{ csrf_field() }}
                 @method('DELETE')
                 <div class="modal-body w-100 text-center">

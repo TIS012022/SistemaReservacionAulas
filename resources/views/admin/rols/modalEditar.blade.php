@@ -16,7 +16,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>
-            <form action="{{ route('admin.roles.update', $role->id) }}" method="POST">
+            <form action="{{ route('admin.rols.update', $role->id) }}" method="POST">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group" style="text-align: left;">

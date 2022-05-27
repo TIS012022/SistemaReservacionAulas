@@ -37,7 +37,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($roles as $role)
+        @foreach ($rols as $role)
         <tr scope="row">
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ @$role->rol }}</td>
@@ -55,8 +55,8 @@
             </td>
             
         </tr>
-        @include('admin.roles.modalEliminar')
-        @include('admin.roles.modalEditar')
+        @include('admin.rols.modalEliminar')
+        @include('admin.rols.modalEditar')
         @endforeach
        
     </tbody>
@@ -74,7 +74,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>
-            <form action="{{route('admin.roles.store')}}" method="POST">
+            <form action="{{route('admin.rols.store')}}" method="POST">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">

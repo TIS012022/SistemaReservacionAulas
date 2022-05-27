@@ -14,13 +14,13 @@ class UsuariosRController extends Controller
     //
     public function index()
     {
-        $roles = DB::table('roles')->get();
+        $rols = DB::table('rols')->get();
         $usuarios = DB::table('users')
-        ->join('roles', 'users.role', '=', 'roles.id')
-        ->select('users.*','roles.rol')
+        ->join('rols', 'users.role', '=', 'rols.id')
+        ->select('users.*','rols.rol')
         ->get();
      //   Crypt::decrypt($usuarios->password);
-        return view('admin.usuarios.index', ['usuarios' => $usuarios, 'roles' => $roles]);
+        return view('admin.usuarios.index', ['usuarios' => $usuarios, 'rols' => $rols]);
     }
 
     public function store(Request $request)

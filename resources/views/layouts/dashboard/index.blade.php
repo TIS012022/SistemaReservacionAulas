@@ -45,20 +45,20 @@
 
             <!-- Nav Item - Solicitudes -->
         <?php
-          $roles=DB::table('roles')
-            ->join('users', 'roles.id', '=', 'users.role')
-            ->where('roles.id','=', auth()->user()->role)
+          $rols=DB::table('rols')
+            ->join('users', 'rols.id', '=', 'users.role')
+            ->where('rols.id','=', auth()->user()->role)
          
             ->get();
-         //  dd($roles[0]->permiso);
+         //  dd($rols[0]->permiso);
         ?>
-            @if($roles[0]->permiso === "Full")
+            
             <li class="nav-item {{ Nav::isRoute('solicitudes') }}">
                 <a class="nav-link" href="{{ route('solicitudes') }}">
                     {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
                     {{-- <i class="bi bi-123"></i> --}}
                     <span>{{ __('Solicitudes') }}</span></a>
-            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+            <li class="nav-item {{ $activePage = 'permissions' ? 'active': '' }}">
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'all' ]) }}">
                     <span>{{ __('Lista de Aulas') }}</span></a>
             </li>
@@ -71,15 +71,15 @@
                 <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
                     <span>{{ __('Usuarios') }}</span></a>
             </li>
-            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
-                <a class="nav-link" href="{{route('admin.roles.index')}}" >
+            <li class="nav-item {{ $activePage == 'roles' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ route('roles.index') }}" >
                     <span>{{ __('Roles') }}</span></a>
             </li>
             </li>
             
-            @endif
+        
 
-            @if ($roles[0]->permiso === "User")
+           
             <!-- Nav Item - Notificaciones -->
             <li class="nav-item {{ Nav::isRoute('notificaciones') }}">
                 <a class="nav-link" href="{{ route('notificaciones') }}">
@@ -98,8 +98,11 @@
                     <span>{{ __('Aulas Reservadas') }}</span></a>
             </li>
             
-
-            @endif
+            <li class="nav-item {{ $activePage = 'permissions' ? 'active': '' }}">
+                <a class="nav-link" href="{{ route('permissions.index')}}">
+                    <span>{{ __('Permissions') }}</span></a>
+            </li>
+     
 
 
 
