@@ -28,13 +28,20 @@
                   <div class="form-group">
                     <div class="tab-content">
                       <div class="tab-pane active" id="profile">
-                        <table class="table">
+                        
+                        <div class="form-group" style="margin-top: 2%;">                         
+                          <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
+                              <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
+                              <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
+                          </span>                          
+                        </div>
+                        <table class="table" id="rol_permisos_edit">
                           <tbody>
                             @foreach ($permissions as $id => $permission)
                             <tr>
                               <td>
                                 <div class="form-check">
-                                  <label class="form-check-label">
+                                  <label class="form-check-label" style="margin-bottom: 15%">
                                     <input class="form-check-input" type="checkbox" name="permissions[]"
                                       value="{{ $id }}" {{ $role->permissions->contains($id) ? 'checked' : '' }}>
                                     <span class="form-check-sign">
@@ -68,4 +75,25 @@
     </div>
   </div>
 </div>
+<script language="javascript">
+  function doSearch() {
+      var tableReg = document.getElementById('rol_permisos_edit');
+      var searchText = document.getElementById('searchTerm').value.toLowerCase();
+      for (var i = 1; i < tableReg.rows.length; i++) {
+          var cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+          var found = false;
+          for (var j = 0; j < cellsOfRow.length && !found; j++) {
+              var compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+              if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1)) {
+                  found = true;
+              }
+          }
+          if (found) {
+              tableReg.rows[i].style.display = '';
+          } else {
+              tableReg.rows[i].style.display = 'none';
+          }
+      }
+  }
+</script>
 @endsection

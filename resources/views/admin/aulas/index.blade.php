@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.index', ['activePage' => 'aulas', 'titlePage' => 'Aulas'])
+@extends('layouts.dashboard.index')
 @section('main-content')
 
 
@@ -45,9 +45,11 @@
     <h2>
         AULAS 
     </h2>
+    @can('aula_create')
     <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalCrear">
         Crear aula
     </button>
+    @endcan
 </div>
 <div style="margin-top: 1%; display: flex; justify-content: center;">
     @error('message')
@@ -61,10 +63,12 @@
 
 <!--Tabla de AULAS-->
 <div class="form-group">
+    @can('aula_buscar')
     <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
         <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
         <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
     </span>
+    @endcan
 </div>
 <div style="margin-top: 1%" class="table-responsive" >
 <table class="table" id="aulas" >
@@ -100,12 +104,16 @@
             
 
             <td>
+                @can('aula_edit')
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$aula->id}}">
                     Editar
                 </button>
+                @endcan
+                @can('aula_destroy')
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$aula->id}}">
                     Eliminar
                 </button>
+                @endcan
             </td> 
         </tr>
         @include('admin.aulas.modalEditar')

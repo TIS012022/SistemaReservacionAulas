@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use SebastianBergmann\Environment\Console;
+use Illuminate\Support\Facades\Gate;
 use Alert;
 
 class AulaController extends Controller
@@ -38,7 +39,7 @@ class AulaController extends Controller
             return view('admin.aulas.index', compact('aulas'))->with('tipo', "reservadas");
 
         }elseif($request->tipo === "admin"){
-            
+            abort_if(Gate::denies('aulaR_index'), 403);
             $aulas = DB::table('solicitudes')
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
             ->join('materias', 'docmaterias.materia', '=', 'materias.id')
@@ -50,7 +51,8 @@ class AulaController extends Controller
             return view('admin.aulasR.index', compact('aulas'))->with('tipo', "admin");
 
         }
- 
+        
+        abort_if(Gate::denies('aula_index'), 403);
         $aulas =  DB::table('aulas')
         ->join('sectors', 'aulas.sector', '=', 'sectors.id')
         ->select('aulas.*','sectors.nombre')
@@ -79,7 +81,8 @@ class AulaController extends Controller
      */
     public function store(Request $request)
     {      
-        $newAula= new Aula();
+        abort_if(Gate::denies('aula_create'), 403);
+            $newAula= new Aula();
    
             $newAula->codigo = $request->codigo;
             $newAula->num_aula = $request->num_aula;
@@ -105,6 +108,7 @@ class AulaController extends Controller
 
     public function delete(Request $request, $aulaId)
     {
+        abort_if(Gate::denies('aula_destroy'), 403);
         function debug_to_console($data) {
             $output = $data;
             if (is_array($output))
@@ -146,7 +150,7 @@ class AulaController extends Controller
     }
     public function deleteReservadas(Request $request, $reservaId)
     {
-        
+        abort_if(Gate::denies('aula_destroy'), 403);
         $reserva = Solicitud::find($reservaId);
         $reserva->delete();
         return redirect()->back();
@@ -183,6 +187,7 @@ class AulaController extends Controller
      */
     public function update(Request $request, $aulaId)
     {
+        abort_if(Gate::denies('aula_edit'), 403);
         $aula = Aula::find($aulaId);
         $aula->num_aula = $request->num_aula;
         $aula->capacidad = $request->capacidad;

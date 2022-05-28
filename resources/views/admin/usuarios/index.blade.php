@@ -5,9 +5,11 @@
     <h2>
         INFORMACIÓN DE USUARIOS 
     </h2>
+    @can('user_create')
     <a type="button" class="btn btn-dark" style="background-color: #1D3354" href="{{ route('admin.usuarios.create')}}">
         Nuevo usuario
     </a>
+    @endcan
 </div>
 <div class="card-body">
     @if (session('success'))
@@ -18,10 +20,12 @@
 </div>
 
 <div class="form-group" >
+    @can('user_buscar')
     <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto"> 
         <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
         <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
     </span>
+    @endcan
 </div>
 <div style="margin-top: 0%" class="table-responsive" >
 <table class="table" id="usuarios" >
@@ -55,9 +59,12 @@
               </td>
         
             <td>
+                @can('user_edit')
                 <a type="button" class="btn btn-primary" href="{{ route('admin.usuarios.edit', $user->id) }}">
                     Editar
                 </a>
+                @endcan
+                @can('user_destroy')
                 <form action="{{ route('admin.usuarios.delete', $user->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Seguro?')">
                     @csrf
                     @method('DELETE')
@@ -65,7 +72,7 @@
                         <i class="material-icons">close</i>
                         </button>
                     </form>
-                
+                @endcan
             </td>
             
         </tr>

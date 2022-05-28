@@ -44,58 +44,64 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Solicitudes -->
-        
-            
-            <li class="nav-item {{ Nav::isRoute('solicitudes') }}">
-                <a class="nav-link" href="{{ route('solicitudes') }}">
-                    {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
-                    {{-- <i class="bi bi-123"></i> --}}
-                    <span>{{ __('Solicitudes') }}</span></a>
-            <li class="nav-item {{ $activePage = 'permissions' ? 'active': '' }}">
-                <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'all' ]) }}">
-                    <span>{{ __('Lista de Aulas') }}</span></a>
-            </li>
-            
-            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
-                <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'admin']) }}">
-                    <span>{{ __('Aulas Reservadas') }}</span></a>
-            </li>
-            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
-                <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
-                    <span>{{ __('Usuarios') }}</span></a>
-            </li>
-            <li class="nav-item {{ $activePage == 'roles' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('roles.index') }}" >
-                    <span>{{ __('Roles') }}</span></a>
-            </li>
-            </li>
-            
-        
-
-           
-            <!-- Nav Item - Notificaciones -->
-            <li class="nav-item {{ Nav::isRoute('notificaciones') }}">
-                <a class="nav-link" href="{{ route('notificaciones') }}">
-                    {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
-                    <span>{{ __('Notificaciones') }}</span></a>
-            </li>
-
-            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+            @can('crear_reserva')
+            <li class="nav-item active {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('solicitudes.create') }}">
                     <span>{{ __('Nueva solicitud') }}</span></a>
                     
             </li>
-            
-            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
-                <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'reservadas' ]) }}">
+            @endcan
+            @can('solicitud_index')
+            <li class="nav-item active {{ Nav::isRoute('solicitudes') }}">
+                <a class="nav-link" href="{{ route('solicitudes') }}">
+                    {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
+                    {{-- <i class="bi bi-123"></i> --}}
+                    <span>{{ __('Solicitudes') }}</span></a>
+            @endcan   
+            @can('aula_index')
+            <li class="nav-item active {{ Nav::isRoute('aulas') }}">
+                <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'all' ]) }}">
+                    <span>{{ __('Lista de Aulas') }}</span></a>
+            </li>
+            @endcan
+            @can('aulaR_index')
+            <li class="nav-item active {{ Nav::isRoute('aulasR') }}">
+                <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'admin']) }}">
                     <span>{{ __('Aulas Reservadas') }}</span></a>
             </li>
-            
-            <li class="nav-item {{ $activePage = 'permissions' ? 'active': '' }}">
+            @endcan
+            @can('user_index')
+            <li class="nav-item active {{ Nav::isRoute('usuarios') }}">
+                <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
+                    <span>{{ __('Usuarios') }}</span></a>
+            </li>
+            @endcan
+            @can('role_index')
+            <li class="nav-item active {{ Nav::isRoute('roles') }}">
+                <a class="nav-link" href="{{ route('roles.index') }}" >
+                    <span>{{ __('Roles') }}</span></a>
+            </li>
+            @endcan
+            </li>
+            @can('permission_index')
+            <li class="nav-item active {{ Nav::isRoute('permisos') }}">
                 <a class="nav-link" href="{{ route('permissions.index')}}">
                     <span>{{ __('Permissions') }}</span></a>
             </li>
-     
+            @endcan
+        
+
+           
+            <!-- Nav Item - Notificaciones -->
+            @can('notificacion_index')
+            <li class="nav-item active {{ Nav::isRoute('notificaciones') }}">
+                <a class="nav-link" href="{{ route('notificaciones') }}">
+                    {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
+                    <span>{{ __('Notificaciones') }}</span></a>
+            </li>
+            @endcan
+           
+          
 
 
 

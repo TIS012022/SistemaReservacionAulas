@@ -78,7 +78,7 @@
                                         <tr>
                                             <td>
                                                 <div class="form-check">
-                                                    <label class="form-check-label">
+                                                    <label class="form-check-label" style="margin-bottom: 10%">
                                                         <input class="form-check-input" type="checkbox"
                                                             name="roles[]"
                                                             value="{{ $id }}" {{ $user->roles->contains($id) ? 'checked' : ''}}

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Gate;    
 use Spatie\Permission\Models\Role;
 
 class UsuariosRController extends Controller
@@ -17,7 +18,7 @@ class UsuariosRController extends Controller
     //
     public function index()
     {
-      //  abort_if(Gate::denies('user_index'), 403);
+        abort_if(Gate::denies('user_index'), 403);
         $users = User::all();
         return view('admin.usuarios.index', compact('users'));
     }
@@ -25,14 +26,14 @@ class UsuariosRController extends Controller
     
     public function create()
     {
-       // abort_if(Gate::denies('user_create'), 403);
+        abort_if(Gate::denies('user_create'), 403);
         $roles = Role::all()->pluck('name', 'id');
         return view('admin.usuarios.create', compact('roles'));
     }
 
     public function edit(User $user)
     {
-      //  abort_if(Gate::denies('user_edit'), 403);
+        abort_if(Gate::denies('user_edit'), 403);
         $roles = Role::all()->pluck('name', 'id');
         $user->load('roles');
         return view('admin.usuarios.edit', compact('user', 'roles'));
@@ -88,7 +89,7 @@ class UsuariosRController extends Controller
     }
     public function destroy(User $user)
     {
-     //   abort_if(Gate::denies('user_destroy'), 403);
+        abort_if(Gate::denies('user_destroy'), 403);
 
         if (auth()->user()->id == $user->id) {
             return redirect()->route('admin.usuarios.index');

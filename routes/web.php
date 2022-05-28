@@ -74,7 +74,7 @@ Route::get('/docente', [App\Http\Controllers\UserController::class, 'index'])
 ->name('user.index');
 
 Route::get('/auth', function () {
-  return view('layouts.dashboard.index');
+  return view('index');
 })->middleware('auth.user')
 ->name('auth.user');
 

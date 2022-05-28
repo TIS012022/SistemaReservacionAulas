@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Gate; 
 
 class SolicitudController extends Controller
 {
@@ -27,6 +28,7 @@ class SolicitudController extends Controller
     {
         // $solicitudes = Solicitud::all();
         // return view('admin.reservas.index', compact('solicitudes'));
+        abort_if(Gate::denies('solicitud_index'), 403);
         $solicitudes = DB::table('solicitudes')
         
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
@@ -52,7 +54,8 @@ class SolicitudController extends Controller
      */
     public function create()
     {
-        
+        abort_if(Gate::denies('crear_reserva'), 403);
+
         $aulas = DB::table('aulas')
         ->where('estado','=','Habilitado')
         ->get();
@@ -179,6 +182,9 @@ class SolicitudController extends Controller
     public function update(Request $request, Solicitud $solicitud)
     {
         //
+        abort_if(Gate::denies('solicitud_aceptar'), 403);
+        abort_if(Gate::denies('solicitud_rechazar'), 403);
+        abort_if(Gate::denies('solicitud_sugerir'), 403);
         $solicitud->fill($request->all());
         $solicitud->save();
 

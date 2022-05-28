@@ -1,5 +1,5 @@
 
-@extends('layouts.dashboard.index')
+@extends('layouts.dashboard.index', ['activePage' => 'nueva solicitud', 'titlePage' => 'Nueva solicitud'])
 @section('main-content')
 <?php
   
@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">
                   Nueva Solicitud
-                </div>
+                </div> 
                 <div style="margin-top: 1%; display: flex; justify-content: center;">
     @error('message')
                    

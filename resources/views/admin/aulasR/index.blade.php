@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.index')
+@extends('layouts.dashboard.index', ['activePage' => 'aulasR', 'titlePage' => 'Aulas Reservadas'])
 @section('main-content')
 
 
@@ -7,10 +7,12 @@
     <h2>INFORMACIÓN DE AULAS RESERVADAS</h2>
 
 <div class="form-group">
+    @can('aulaR_buscar')
     <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
         <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
         <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
     </span>
+    @endcan
 </div>
 <table class="table table-primary table-striped mt-4" id="aulasR">
     <thead> 
@@ -35,9 +37,11 @@
             <td>{{ @$aula->hora_ini }}</td>
             <td>{{ @$aula->hora_fin }}</td>
             <td>
+                @can('aulaR_destroy')
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminarReservas-{{$aula->id}}">
                     Eliminar
                 </button>
+                @endcan
             </td>
             
         </tr>
