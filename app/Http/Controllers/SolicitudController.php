@@ -182,9 +182,9 @@ class SolicitudController extends Controller
     public function update(Request $request, Solicitud $solicitud)
     {
         //
-        abort_if(Gate::denies('solicitud_aceptar'), 403);
+        /*abort_if(Gate::denies('solicitud_aceptar'), 403);
         abort_if(Gate::denies('solicitud_rechazar'), 403);
-        abort_if(Gate::denies('solicitud_sugerir'), 403);
+        abort_if(Gate::denies('solicitud_sugerir'), 403);*/
         $solicitud->fill($request->all());
         $solicitud->save();
 
