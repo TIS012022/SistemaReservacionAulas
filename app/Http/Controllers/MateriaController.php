@@ -38,16 +38,14 @@ class MateriaController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'codigo' => 'required|unique:materias',
+            'nombre' => 'required|string|unique:materias',          
+            'carrera' => 'required|string|max:255',
+            'tipo' => 'required',
+            'nivel' => 'required'
+        ]);
         
-        // $validator = $request->validate([
-        //     'codigo' => ['required|max:15','unique:materias'],
-        //     'nombre' => 'required',          
-        //     'carrera' => 'required|string|max:255',
-        //     'tipo' => 'required',
-        //     'nivel' => 'required'
-        // ]);
-        // Materia::create($validator);
-
         $newMateria = new Materia();
         
         $newMateria ->codigo = $request->codigo;
@@ -57,6 +55,20 @@ class MateriaController extends Controller
         $newMateria->nivel = $request->nivel;
         $newMateria->estado = $request->estado;
         $newMateria->save();
+
+        $materias = Materia::where('codigo', $request->codigo)->first();
+        $materias2 = Materia::where('nombre', $request->nombre)->first();
+         // dd($request->all());
+      // dd($usuarios2);
+       if(empty($materias) && empty($materias2) ){    
+            $newMateria->save();
+            return redirect()->back();
+        }else{ 
+            
+            return back()->withErrors([
+                'message' => 'Error, El codigo o nombre restrado ya existen'
+            ]);
+        }
 
         return redirect()->back();
     }
