@@ -20,6 +20,26 @@ class MateriaController extends Controller
         return view('admin.materias.index', compact('materias'))->with('tipo', "all");
     }
 
+    public function UpdateStatusNoti(Request $request){ 
+
+        $NotiUpdate = Materia::find($request->id);/* ->update(['estatus' => $request->estatus]) */
+        $NotiUpdate ->estado=$request->estatus;
+
+        $NotiUpdate->save();
+        if($NotiUpdate){
+            $NotiUpdate=Materia::find($request->id);
+            if($NotiUpdate->estado == 'Deshabilitado')  {
+                        $newStatus = '<span class="badge badge-danger">'.@$NotiUpdate->estado.'</span>';
+                    }else{
+                        $newStatus ='<span class="badge badge-success">'.@$NotiUpdate->estado.'</span>';
+                    }
+                    return response()->json(['var'=>''.$newStatus.'']);
+        }
+        
+        return response()->json([],401);
+
+    } 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -38,12 +58,12 @@ class MateriaController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'codigo' => 'required|unique:materias',
-            'nombre' => 'required|string|unique:materias',          
-            'carrera' => 'required|string|max:255',
+        $request -> validate([
+            'codigo' => 'required|unique:materias,codigo',
+            'nombre' => 'required|string|max:30|unique:materias,nombre',          
+            'carrera' => 'required',
             'tipo' => 'required',
-            'nivel' => 'required'
+            'nivel' => 'required'  
         ]);
         
         $newMateria = new Materia();
@@ -58,15 +78,15 @@ class MateriaController extends Controller
 
         $materias = Materia::where('codigo', $request->codigo)->first();
         $materias2 = Materia::where('nombre', $request->nombre)->first();
-         // dd($request->all());
-      // dd($usuarios2);
+        //    dd($request->all());
+        //    dd($materias2);
        if(empty($materias) && empty($materias2) ){    
             $newMateria->save();
             return redirect()->back();
         }else{ 
-            
+
             return back()->withErrors([
-                'message' => 'Error, El codigo o nombre restrado ya existen'
+                'message' => 'Error, El codigo o nombre registrado ya existen'
             ]);
         }
 
@@ -110,7 +130,7 @@ class MateriaController extends Controller
         $materia->carrera = $request->carrera;
         $materia->tipo = $request->tipo;
         $materia->nivel = $request->nivel;
-        // $materia->estado = $request->estado;
+        //$materia->estado = $request->estado;
         $materia->save();
 
         return redirect()->back();

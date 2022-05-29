@@ -43,28 +43,30 @@
                     <td>{{ @$materia->codigo}}</td>
                     <td>{{ @$materia->nivel}}</td>
                     <td>{{ @$materia->tipo}}</td>
-                    <td>
+                    
+                    <td id="resp{{ $materia->id }}">
                         @if(@$materia->estado == 'Habilitado' )
                             <span class="badge badge-success">{{ @$materia->estado }}</span>
-        
+                
                         @elseif(@$materia->estado == 'Deshabilitado' )
                             <span class="badge badge-danger">{{ @$materia->estado }}</span>
+                        
                         @endif
                     </td>
-
                     <td>
-                        
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                            <label class="switch">
+                                <input data-id="{{ $materia->id }}" class="mi_checkbox" type="checkbox" 
+                                data-onstyle="success" data-offstyle="danger" data-toggle="toggle" 
+                                data-on="Active" data-off="InActive" {{ $materia->estado == 'Habilitado'? 'checked' : '' }}>
+                                <span class="slider round"></span>
+                            </label>
+
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$materia->id}}">
                                 Editar
-                            </button>
-                         </div>
-                        {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$materia->id}}">
-                            Desabilitar
-                        </button> --}}
+                            </button>      
+                        
                     </td>
+        
                 </tr>
 
                      @include('admin.materias.modalEditar')
@@ -75,6 +77,7 @@
     </div>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <div class="modal fade bs-example-modal-lg" id="modalCrear">
@@ -93,7 +96,7 @@
                             <input type="text" name="codigo" class="form-control" id="codigo" required minlength="7" maxlength="15"  
                             onkeypress="return blockNoNumber(event)">
                             <label for="name">Nombre Materia</label>
-                            <input type="text" name="nombre" class="form-control" id="nombre" required minlength="5" maxlength="22"
+                            <input type="text" name="nombre" class="form-control" id="nombre" required minlength="5" maxlength="25"
                             onkeypress="return blockSpecialChar(event)">
                             <label for="name">Carrera</label>
                             <input type="text" name="carrera" class="form-control" id="carrera" required minlength="5" maxlength="15"
@@ -127,20 +130,55 @@
         </div>   
     </div>    
 
-    <script type="text/javascript">
+    <script {{-- type="text/javascript" --}}>
         function blockSpecialChar(e){
             var k;
             document.all ? k = e.keyCode : k = e.which;
             return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32);
-            }
+        }
         function blockNoNumber(e){
             var k;
             document.all ? k = e.keyCode : k = e.which;
             return ( (k >= 48 && k <= 57));
+         }
+         /* try {
+             
+             let refresh = document.getElementById('refresh');
+             if(refresh){
+                refresh.addEventListener('click',() => {
+                                location.reload();
+                            })
+             }
+         } catch (error) {
+             
+         } */
+
+        $(document).ready(function() {
+        $(window).load(function() {
+            $(".cargando").fadeOut(1000);
+        });
+
+            
+  });
+  $('.mi_checkbox').click(function() {
+            console.log($('.mi_checkbox'));
+        //Verifico el estado del checkbox, si esta seleccionado sera igual a 1 de lo contrario sera igual a 0
+        var estatus = $(this).prop('checked') == true ? 'Habilitado' : 'Deshabilitado'; 
+        var id = $(this).data('id'); 
+            console.log(estatus);
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            //url: '/StatusNoticia',
+            url: "{{ url('/statusnoticia') }}",
+            data: {'estatus': estatus, 'id': id},
+            success: function(data){
+                $('#resp' + id).html(data.var); 
+                console.log(data.var)
+            
             }
-        let refresh = document.getElementById('refresh');
-        refresh.addEventListener('click', _ => {
-                location.reload();
+        });
     })
     </script>
 

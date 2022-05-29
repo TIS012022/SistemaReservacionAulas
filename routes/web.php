@@ -132,5 +132,7 @@ Route::post('/materias/store', [App\Http\Controllers\MateriaController::class, '
 Route::post('/materias/{materiaId}/update', [App\Http\Controllers\MateriaController::class, 'update'])
 ->name('admin.materias.update');
 
+Route::get('/statusnoticia', [App\Http\Controllers\MateriaController::class, 'UpdateStatusNoti']);
+
 
 
