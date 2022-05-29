@@ -58,9 +58,9 @@ class MateriaController extends Controller
      */
     public function store(Request $request)
     {
-        $request -> validate([
+        $validator = Validator::make($request->all(),[
             'codigo' => 'required|unique:materias,codigo',
-            'nombre' => 'required|string|max:30|unique:materias,nombre',          
+            'nombre' => 'required|string|max:255|unique:materias,nombre',          
             'carrera' => 'required',
             'tipo' => 'required',
             'nivel' => 'required'  
@@ -74,7 +74,7 @@ class MateriaController extends Controller
         $newMateria->tipo = $request->tipo;
         $newMateria->nivel = $request->nivel;
         $newMateria->estado = $request->estado;
-        $newMateria->save();
+        // $newMateria->save();
 
         $materias = Materia::where('codigo', $request->codigo)->first();
         $materias2 = Materia::where('nombre', $request->nombre)->first();
@@ -86,7 +86,7 @@ class MateriaController extends Controller
         }else{ 
 
             return back()->withErrors([
-                'message' => 'Error, El codigo o nombre registrado ya existen'
+                'message' => 'Error, El codigo o nombre de la materia ya esta registrado en la lista'
             ]);
         }
 
