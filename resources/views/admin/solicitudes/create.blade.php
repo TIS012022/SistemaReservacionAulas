@@ -2,7 +2,7 @@
 @extends('layouts.dashboard.index', ['activePage' => 'nueva solicitud', 'titlePage' => 'Nueva solicitud'])
 @section('main-content')
 <?php
-  
+  $hora_ini   = ['1' => '6:45', '2' => '8:15'];
 ?>
 <div class="container">
         <div class="my-6">
@@ -11,13 +11,17 @@
                   Nueva Solicitud
                 </div> 
                 <div style="margin-top: 1%; display: flex; justify-content: center;">
-    @error('message')
-                   
-    <p class="alert alert-danger ">{{$message}}</p>
-    <button type="button" class="close" onclick="location.reload()" style="margin-bottom: 40px">
-        <span aria-hidden="true" >&times;</span></button>  
-    
-    @enderror 
+     @if ($errors->any())
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Por favor corrige los siguentes errores:</strong>
+      <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+      </ul>
+    </div>
+  @endif
 </div>
 
                 <div class="card-body">
@@ -43,10 +47,10 @@
                                         <div class="input-group">
                                                 <span class="input-group">
                                                     <button class="btn btn-primary" type="button">M</button>
-                                                    <select name="docmateria_id" id="docmateria_id" class="custom-select" value="{{old('materia')}}" required>
+                                                    <select name="docmateria_id" id="docmateria_id" class="custom-select" value="{{old('docmateria_id')}}" required>
                                                         <option value="">Seleccione Materia..</option>
                                                         @foreach ($materiaUnidas as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nombre}}--Grupo {{$item->numero}}</option>
+                                                            <option value="{{ $item->id }}" @if(old('docmateria_id') == $item->id) selected @endif>{{ $item->nombre}}--Grupo {{$item->numero}}</option>
 
                                                         @endforeach
                                                     </select>
@@ -86,21 +90,22 @@
                                                 <button class="btn btn-primary" type="button">H</button>
                                                 {{-- <input type="date" id="birthday" name="hora_ini" class="form-control"> --}}
                                                
-                                                <select name="hora_ini" id="hora_ini" class="form-control" type="date" required>
+                                                <select name="hora_ini" id="hora_ini" class="form-control" type="date" value="{{old('hora_ini')}} " required >
                                                 </span>
                                                     <option value="" >-- Selecciona la hora para la solicitud--</option>
                                                     
-                                                    <option>6:45:00</option>
-                                                    <option>8:15:00</option>
-                                                    <option >9:45:00</option>
-                                                    <option >11:15:00</option>
-                                                    <option>12:45:00</option>
-                                                    <option>14:15:00</option>
-                                                    <option >15:45:00</option>
-                                                    <option >17:15:00</option>
-                                                    <option>18:45:00</option>
-                                                    <option>20:15:00</option>
-                                                    <option >21:45:00</option>                           
+                                                    <option value="6:45:00" @if(old('hora_ini') == '6:45:00') selected @endif>6:45:00</option>
+                                                    <option value="8:15:00" @if(old('hora_ini') == '8:15:00') selected @endif>8:15:00</option>
+                                                    <option value="9:45:00" @if(old('hora_ini') == '9:45:00') selected @endif>9:45:00</option>
+                                                    <option value="11:15:00" @if(old('hora_ini') == '11:15:00') selected @endif>11:15:00</option>
+                                                    <option value="12:45:00" @if(old('hora_ini') == '12:45:00') selected @endif>12:45:00</option>
+                                                    <option value="14:15:00" @if(old('hora_ini') == '14:15:00') selected @endif>14:15:00</option>
+                                                    <option value="15:45:00" @if(old('hora_ini') == '15:45:00') selected @endif>15:45:00</option>
+                                                    <option value="17:15:00" @if(old('hora_ini') == '17:15:00') selected @endif>17:15:00</option>
+                                                    <option value="18:45:00" @if(old('hora_ini') == '18:45:00') selected @endif>18:45:00</option>
+                                                    <option value="20:15:00" @if(old('hora_ini') == '20:15:00') selected @endif>20:15:00</option>
+                                                    <option value="21:45:00" @if(old('hora_ini') == '21:45:00') selected @endif>21:45:00</option>                           
+                         
                                                 </select>   
                                             </div>               
                                         </div>
@@ -115,11 +120,11 @@
                                              <span class="input-group">
                                                 <button class="btn btn-primary" type="button">S</button>
                                                 {{-- <input name="aula" type="name" class="form-control" placeholder="Aula"> --}}
-                                                <select name="sector" id="sector" class="custom-select" required>
+                                                <select name="sector" id="sector" class="custom-select" value="{{old('sector')}}" required >
                                                 </span>
                                                     <option value="">Seleccione sector..</option>
                                                     @foreach ($sectores as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->nombre}}</option>
+                                                        <option value="{{ $item->id }}" >{{ $item->nombre}}</option>
                                                     @endforeach
                                                 </select>
                                               
@@ -139,21 +144,21 @@
                                                 <button class="btn btn-primary" type="button">H</button>
                                                 {{-- <input type="date" id="birthday" name="hora_ini" type="date" class="form-control"> --}}
                                                
-                                                <select name="hora_fin" id="hora_fin" class="form-control" required>
+                                                <select name="hora_fin" id="hora_fin" class="form-control" value="{{old('hora_fin')}}" required>
                                                 </span>
-                                                    <option value="">-- Selecciona la hora para la solicitud--</option>
+                                                    <option value="" >-- Selecciona la hora para la solicitud--</option>
                                                     
-                                                    <option>6:45:00</option>
-                                                    <option>8:15:00</option>
-                                                    <option >9:45:00</option>
-                                                    <option >11:15:00</option>
-                                                    <option>12:45:00</option>
-                                                    <option>14:15:00</option>
-                                                    <option >15:45:00</option>
-                                                    <option >17:15:00</option>
-                                                    <option>18:45:00</option>
-                                                    <option>20:15:00</option>
-                                                    <option >21:45:00</option>                           
+                                                    <option value="6:45:00" @if(old('hora_fin') == '6:45:00') selected @endif>6:45:00</option>
+                                                    <option value="8:15:00" @if(old('hora_fin') == '8:15:00') selected @endif>8:15:00</option>
+                                                    <option value="9:45:00" @if(old('hora_fin') == '9:45:00') selected @endif>9:45:00</option>
+                                                    <option value="11:15:00" @if(old('hora_fin') == '11:15:00') selected @endif>11:15:00</option>
+                                                    <option value="12:45:00" @if(old('hora_fin') == '12:45:00') selected @endif>12:45:00</option>
+                                                    <option value="14:15:00" @if(old('hora_fin') == '14:15:00') selected @endif>14:15:00</option>
+                                                    <option value="15:45:00" @if(old('hora_fin') == '15:45:00') selected @endif>15:45:00</option>
+                                                    <option value="17:15:00" @if(old('hora_fin') == '17:15:00') selected @endif>17:15:00</option>
+                                                    <option value="18:45:00" @if(old('hora_fin') == '18:45:00') selected @endif>18:45:00</option>
+                                                    <option value="20:15:00" @if(old('hora_fin') == '20:15:00') selected @endif>20:15:00</option>
+                                                    <option value="21:45:00" @if(old('hora_fin') == '21:45:00') selected @endif>21:45:00</option>                           
                                                 </select>   
                                             </div>               
                                         </div>
@@ -168,7 +173,7 @@
                                              <span class="input-group">
                                                 <button class="btn btn-primary" type="button">A</button>
                                                 {{-- <input name="aula" type="name" class="form-control" placeholder="Aula"> --}}
-                                                <select name="aula" id="aula" class="custom-select" required>
+                                                <select name="aula" id="aula" class="custom-select" value="{{old('aula')}}" required >
                                                      <option selected>Seleccione N° Aula..</option>
                                                   {{--  @foreach ($aulas as $item)
                                                         <option value="{{ $item->id }}">{{ $item->num_aula}}</option>
@@ -328,7 +333,7 @@
                         $('#aula').empty();
                         $('#aula').append("<option value=''>Selecciona un aula</option>");
                          $.each(aulas, function(index, value){
-                        $('#aula').append("<option value='"+ index +"'>"+ value + "</option>")
+                        $('#aula').append("<option value='"+ index +"' @if(old('aula') == 'index') selected @endif>"+ value + "</option>")
                       
                          })
                         console.log('hola1');
@@ -339,4 +344,6 @@
     })  
 </script>
 
+ 
+ 
 @endsection

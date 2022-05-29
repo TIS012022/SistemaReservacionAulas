@@ -38,7 +38,7 @@
             <td>{{ @$aula->hora_fin }}</td>
             <td>
                 @can('aulaR_destroy')
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminarReservas-{{$aula->id}}">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminarReservas-{{$aula->id}}">
                     Eliminar
                 </button>
                 @endcan

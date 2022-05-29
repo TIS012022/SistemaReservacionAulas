@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Aula;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserCreateRequest extends FormRequest
+class SolicitudCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,19 +24,16 @@ class UserCreateRequest extends FormRequest
      */
     public function rules()
     {
+        
         return [
-            'name' => 'required',
-            'ci' => 'required|unique:users',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'departamento' => 'required',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'El nombre es requerido '
+            
+            // Logic for findOrFail
+            // 'username' => 'unique:users,username,'.$this->user.'|required',
+            'aula' => 'required',
+           
+            //'email' => Rule::unique('users')->where(function ($query) {
+              //      return $query->where('account_id', 1);
+                //    })
         ];
     }
 }

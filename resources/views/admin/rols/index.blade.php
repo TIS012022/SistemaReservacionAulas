@@ -48,7 +48,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$role->id}}">
                     Editar
                 </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$role->id}}">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar-{{$role->id}}">
                     Eliminar
                 </button>
                 

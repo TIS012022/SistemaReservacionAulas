@@ -5,7 +5,7 @@
       ROLES 
   </h2>
   @can('role_create')
-  <a href="{{ route('roles.create') }}" class="btn btn-sm btn-facebook">Añadir nuevo rol</a>
+  <a href="{{ route('roles.create') }}" type="button" class="btn btn-dark" style="background-color: #1D3354; padding-top: 0.8%">Crear Rol</a>
   @endcan
 </div>
 <div style="margin-top: 1%; display: flex; justify-content: center;">
@@ -61,17 +61,13 @@
               </a>
             @endcan
             @can('role_destroy')
-              <form action="{{ route('roles.destroy', $role->id) }}" method="POST"
-                  style="display: inline-block;" onsubmit="return confirm('Seguro?')">
-                  @csrf
-                  @method('DELETE')
-                  <button class="btn btn-danger" type="submit" rel="tooltip">
-                    <i class="material-icons">close</i>
-                  </button>
-                </form>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar-{{$role->id}}">
+              Eliminar
+              </button>
             @endcan
           </td> 
       </tr>
+      @include('roles.modalEliminar')
       @empty
           No existen roles registrados
 
@@ -100,4 +96,8 @@
       }
   }
 </script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 @endsection

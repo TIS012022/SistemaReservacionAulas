@@ -21,9 +21,10 @@
               <div class="row">
                 <label for="name" class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}" autofocus>
+                  <input type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}" autofocus minlength="4" maxlength="20" 
+                  onkeypress="return blockSpecialChar(event)">
                   @if ($errors->has('name'))
-                    <span class="error text-danger" for="input-name">{{ $errors->first('name') }}</span>
+                    <span class="error text-danger" for="input-name" style="font-size: 15px">{{ $errors->first('name') }}</span>
                   @endif
                 </div>
               </div>
@@ -31,40 +32,43 @@
               <div class="row">
                 <label for="email" class="col-sm-2 col-form-label">Correo</label>
                 <div class="col-sm-7">
-                  <input type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}">
+                  <input type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}" minlength="10" maxlength="25"  >
                   @if ($errors->has('email'))
-                    <span class="error text-danger" for="input-email">{{ $errors->first('email') }}</span>
+                    <span class="error text-danger" for="input-email" style="font-size: 15px">{{ $errors->first('email') }}</span>
                   @endif
                 </div>
               </div>
               <div class="row">
                 <label for="password" class="col-sm-2 col-form-label">Contraseña</label>
                 <div class="col-sm-7">
-                  <input type="password" class="form-control" name="password" placeholder="Ingrese la contraseña sólo en caso de modificarla">
+                  <input type="password" class="form-control" name="password" placeholder="Ingrese la contraseña sólo en caso de modificarla" minlength="5" maxlength="15" >
                   @if ($errors->has('password'))
-                    <span class="error text-danger" for="input-password">{{ $errors->first('password') }}</span>
+                    <span class="error text-danger" for="input-password" style="font-size: 15px">{{ $errors->first('password') }}</span>
                   @endif
                 </div>
               </div>
               <div class="row">
                 <label for="departamento" class="col-sm-2 col-form-label">Departamento</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="departamento" value="{{ old('departamento', $user->Departamento) }}" autofocus>
+                  <input type="text" class="form-control" name="departamento" value="{{ old('departamento', $user->Departamento) }}" autofocus minlength="4" maxlength="15" 
+                  onkeypress="return blockSpecialChar(event)">
                   @if ($errors->has('departamento'))
-                    <span class="error text-danger" for="input-departamento">{{ $errors->first('departamento') }}</span>
+                    <span class="error text-danger" for="input-departamento" style="font-size: 15px">{{ $errors->first('departamento') }}</span>
                   @endif
                 </div>
               </div>
-              <div class="form-group">
-                <label for="estadoCuenta">Estado de cuenta</label>
-                <select name="estadoCuenta" id="estadoCuenta" class="form-control" required>
+              <div class="row" >
+                <label for="estadoCuenta"  class="col-sm-2 col-form-label">Estado de cuenta</label>
+                <div class="col-sm-7">
+                  <select name="estadoCuenta" id="estadoCuenta" class="form-control"  required>
                    
                     @foreach($estado as $es)
     
                      <option value="{{$es}}">{{$es}}</option>
     
                     @endforeach
-                </select>                    
+                  </select>   
+                </div>                 
             </div>
               <div class="row">
                 <label for="name" class="col-sm-2 col-form-label">Roles</label>
@@ -113,4 +117,20 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  function blockSpecialChar(e){
+       var k;
+       document.all ? k = e.keyCode : k = e.which;
+       return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32);
+       }
+ function blockNoNumber(e){
+     var k;
+     document.all ? k = e.keyCode : k = e.which;
+     return ( (k >= 48 && k <= 57));
+     }
+ let refresh = document.getElementById('refresh');
+ refresh.addEventListener('click', _ => {
+         location.reload();
+})
+</script>
 @endsection

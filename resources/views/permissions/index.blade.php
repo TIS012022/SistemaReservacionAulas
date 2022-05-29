@@ -6,7 +6,7 @@
         PERMISOS 
     </h2>
     @can('permission_create')
-    <a type="button" class="btn btn-dark" style="background-color: #1D3354" href="{{route('permissions.create')}}" >
+    <a type="button" class="btn btn-dark" style="background-color: #1D3354; padding-top: 0.8%" href="{{route('permissions.create')}}" >
         Añadir permiso
     </a>
     @endcan
@@ -56,17 +56,13 @@
                 </a>
                 @endcan
                 @can('permission_destroy')
-                <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST"
-                    style="display: inline-block;" onsubmit="return confirm('Seguro?')">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger" type="submit" rel="tooltip">
-                      <i class="material-icons">close</i>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar-{{$permission->id}}">
+                    Eliminar
                     </button>
-                  </form>
                 @endcan
             </td> 
         </tr>
+        @include('permissions.modalEliminar')
         @empty
             No existen permisos registrados
 

@@ -6,7 +6,7 @@
         INFORMACIÓN DE USUARIOS 
     </h2>
     @can('user_create')
-    <a type="button" class="btn btn-dark" style="background-color: #1D3354" href="{{ route('admin.usuarios.create')}}">
+    <a type="button" class="btn btn-dark" style="background-color: #1D3354; padding-top: 0.8%" href="{{ route('admin.usuarios.create')}}">
         Nuevo usuario
     </a>
     @endcan
@@ -65,18 +65,14 @@
                 </a>
                 @endcan
                 @can('user_destroy')
-                <form action="{{ route('admin.usuarios.delete', $user->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Seguro?')">
-                    @csrf
-                    @method('DELETE')
-                        <button class="btn btn-danger" type="submit" rel="tooltip">
-                        <i class="material-icons">close</i>
-                        </button>
-                    </form>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar-{{$user->id}}">
+                    Eliminar
+                </button> 
                 @endcan
             </td>
             
         </tr>
-    
+        @include('admin.usuarios.modalEliminar')
     
         @endforeach
        

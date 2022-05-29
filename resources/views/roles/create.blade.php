@@ -20,7 +20,8 @@
                 <label for="name" class="col-sm-2 col-form-label">Nombre del rol</label>
                 <div class="col-sm-7">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="name" autocomplete="off" autofocus>
+                    <input type="text" class="form-control" name="name" autocomplete="off" autofocus minlength="4" maxlength="15" 
+                    onkeypress="return blockSpecialChar(event)">
                   </div>
                 </div>
               </div>
@@ -100,5 +101,21 @@
           }
       }
   }
+</script>
+<script type="text/javascript">
+  function blockSpecialChar(e){
+       var k;
+       document.all ? k = e.keyCode : k = e.which;
+       return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32);
+       }
+ function blockNoNumber(e){
+     var k;
+     document.all ? k = e.keyCode : k = e.which;
+     return ( (k >= 48 && k <= 57));
+     }
+ let refresh = document.getElementById('refresh');
+ refresh.addEventListener('click', _ => {
+         location.reload();
+})
 </script>
 @endsection

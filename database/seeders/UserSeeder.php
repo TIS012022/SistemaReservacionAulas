@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'estadoCuenta' => 'Habilitado',
             'password' => 'admin',
-            'ci' => '123456',
+            'ci' => '1234567',
             'Departamento' => 'Informatica',
         ]);
 
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'email' => 'docente@gmail.com',
             'estadoCuenta' => 'Habilitado',
             'password' => 'docente',
-            'ci' => '543210',
+            'ci' => '5432101',
             'Departamento' => 'Informatica',
         ]);
 
