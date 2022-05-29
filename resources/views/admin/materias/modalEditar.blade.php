@@ -20,19 +20,19 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Nombre Materia</label>
-                        <input type="text" name="nombre" class="form-control" id="nombre" value="{{$materia->nombre}}" required minlength="5" maxlength="22" 
+                        <input type="text" name="nombre" class="form-control" id="nombre" value="{{$materia->nombre}}" required minlength="5" maxlength="25" 
                         onkeypress="return blockSpecialChar(event)">
                     </div>
 
                     <div class="form-group">
                         <label for="carrera">Carrera</label>
-                        <input type="text" name="carrera" class="form-control" id="carrera" value="{{$materia->carrera}}" required minlength="5" maxlength="15"
+                        <input type="text" name="carrera" class="form-control" id="carrera" value="{{$materia->carrera}}" required minlength="5" maxlength="50"
                         onkeypress="return blockSpecialChar(event)">
                     </div>
 
                     <div class="form-group">
                         <label for="name">Nivel</label>
-                            <input type="text" name="nivel" class="form-control" id="nivel" value="{{$materia->nivel}}" required minlength="1" maxlength="2" 
+                            <input type="text" name="nivel" class="form-control" id="nivel" value="{{$materia->nivel}}" required minlength="1" maxlength="1" 
                             onkeypress="return blockSpecialChar(event)">
                     </div>
 

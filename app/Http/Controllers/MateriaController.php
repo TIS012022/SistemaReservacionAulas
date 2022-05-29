@@ -61,7 +61,7 @@ class MateriaController extends Controller
         $validator = Validator::make($request->all(),[
             'codigo' => 'required|unique:materias,codigo',
             'nombre' => 'required|string|max:255|unique:materias,nombre',          
-            'carrera' => 'required',
+            'carrera' => 'required|string|min:1|max:255',
             'tipo' => 'required',
             'nivel' => 'required'  
         ]);

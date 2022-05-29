@@ -99,10 +99,10 @@
                             <input type="text" name="nombre" class="form-control" id="nombre" required minlength="5" maxlength="25"
                             onkeypress="return blockSpecialChar(event)">
                             <label for="name">Carrera</label>
-                            <input type="text" name="carrera" class="form-control" id="carrera" required minlength="5" maxlength="15"
+                            <input type="text" name="carrera" class="form-control" id="carrera" required minlength="5" maxlength="50"
                             onkeypress="return blockSpecialChar(event)">
                             <label for="name">Nivel</label>
-                            <input type="text" name="nivel" class="form-control" id="nivel" required minlength="1" maxlength="2" 
+                            <input type="text" name="nivel" class="form-control" id="nivel" required minlength="1" maxlength="1" 
                             onkeypress="return blockSpecialChar(event)">
                             <label for="tipo">Tipo Materia</label>
                             <select name="tipo" id="tipo" class="form-control" required>
