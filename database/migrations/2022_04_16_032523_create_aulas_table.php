@@ -18,8 +18,11 @@ class CreateAulasTable extends Migration
             $table->integer("codigo");
             $table->string("num_aula");
             $table->integer("capacidad");
-            $table->string("sector");
+           
             $table->string("estado");
+
+            $table->unsignedBigInteger('sector');
+            $table->foreign('sector')->references('id')->on('sectors')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

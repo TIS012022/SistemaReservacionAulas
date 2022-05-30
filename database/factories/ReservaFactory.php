@@ -18,7 +18,6 @@ class ReservaFactory extends Factory
             'aula'      =>$this->faker->numberBetween(1,20),   
             'hora_ini'  =>$this->faker->dateTimeThisCentury->format('Y-m-d'),
             'hora_fin'  =>$this->faker->dateTimeThisCentury->format('Y-m-d'),
-            'periodo'  =>$this->faker->text(100),
             'dia'  =>$this->faker->text(100),
        
         ];

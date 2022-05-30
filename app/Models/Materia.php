@@ -9,7 +9,7 @@ class Materia extends Model
 {
     use HasFactory;
     protected $table = 'materias';
-    protected $fillable = ['codigo', 'nombre', 'carrera'];
+    protected $fillable = ['codigo', 'nombre', 'carrera', 'nivel', 'tipo', 'estado'];
 
     public function docmaterias()
     {
