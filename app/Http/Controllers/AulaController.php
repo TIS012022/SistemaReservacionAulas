@@ -101,6 +101,7 @@ class AulaController extends Controller
            
            return redirect()->back();    
                    
+
     }
 
     public function delete(Request $request, $aulaId)

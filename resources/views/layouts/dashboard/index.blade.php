@@ -67,6 +67,14 @@
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'admin']) }}">
                     <span>{{ __('Aulas Reservadas') }}</span></a>
             </li>
+
+
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('materias', ['tipo'=> 'admin']) }}">
+                    <span>{{ __('Listas Materias') }}</span></a>
+
             <li class="nav-item {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
                     <span>{{ __('Usuarios') }}</span></a>
@@ -75,6 +83,7 @@
                 <a class="nav-link" href="{{route('admin.roles.index')}}" >
                     <span>{{ __('Roles') }}</span></a>
             </li>
+
             </li>
             
             @endif
