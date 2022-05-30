@@ -103,11 +103,21 @@
             </li>
             @endcan
            
-          <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+           <li class="nav-item {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('materias', ['tipo'=> 'admin']) }}">
                     <span>{{ __('Listas Materias') }}</span></a>
 
            </li>
+           
+           <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('admin.docMaterias.index') }}">
+                    <span>{{ __('Materias de Docentes') }}</span></a>
+            </li>
+
+            <!-- <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('admin.grupos.index') }}">
+                    <span>{{ __('Grupos') }}</span></a>
+            </li> -->
 
 
 
