@@ -70,19 +70,21 @@
                     <span>{{ __('Aulas Reservadas') }}</span></a>
             </li>
             @endcan
+            
             @can('user_index')
             <li class="nav-item active {{ Nav::isRoute('usuarios') }}">
                 <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
                     <span>{{ __('Usuarios') }}</span></a>
             </li>
             @endcan
+    
             @can('role_index')
             <li class="nav-item active {{ Nav::isRoute('roles') }}">
                 <a class="nav-link" href="{{ route('roles.index') }}" >
                     <span>{{ __('Roles') }}</span></a>
             </li>
             @endcan
-            </li>
+            
             @can('permission_index')
             <li class="nav-item active {{ Nav::isRoute('permisos') }}">
                 <a class="nav-link" href="{{ route('permissions.index')}}">
@@ -101,7 +103,11 @@
             </li>
             @endcan
            
-          
+          <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('materias', ['tipo'=> 'admin']) }}">
+                    <span>{{ __('Listas Materias') }}</span></a>
+
+           </li>
 
 
 

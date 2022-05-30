@@ -15,8 +15,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Controller;
-
-
+use App\Http\Controllers\MateriaController;
 
 // use App\Http\Controllers\ReservaController;
 
@@ -130,7 +129,25 @@ Route::delete('/aulasR/{aulaId}/deleteReservadas', [App\Http\Controllers\AulaCon
 
 Route::get('/cantidades', [App\Http\Controllers\SolicitudController::class, 'getCantidades']);
 
+
+Route::resource('materias', MateriaController::class, [
+  'names' => [
+    'index' => 'materias'
+  ]
+])->middleware('auth.user');
+
+Route::post('/materias/store', [App\Http\Controllers\MateriaController::class, 'store'])
+->name('admin.materias.store');
+
+Route::post('/materias/{materiaId}/update', [App\Http\Controllers\MateriaController::class, 'update'])
+->name('admin.materias.update');
+
+Route::get('/statusnoticia', [App\Http\Controllers\MateriaController::class, 'UpdateStatusNoti']);
+
+
+
 Route::get('/sectoresaulas', [App\Http\Controllers\SolicitudController::class, 'getAulas']);
+
 
 //usuarios
 Route::get('/usuarios/index', [App\Http\Controllers\UsuariosRController::class, 'index'])
