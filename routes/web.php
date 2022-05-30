@@ -111,6 +111,9 @@ Route::resource('aulas', AulaController::class, [
 Route::post('/aulas/store', [App\Http\Controllers\AulaController::class, 'store'])
 ->name('admin.aulas.store');
 
+Route::get('/aulas/create', [App\Http\Controllers\AulaController::class, 'create'])
+->name('admin.aulas.create');
+
 Route::delete('/aulas/{aulaId}/delete', [App\Http\Controllers\AulaController::class, 'delete'])
 ->name('admin.aulas.delete');
 

@@ -52,13 +52,17 @@
     @endcan
 </div>
 <div style="margin-top: 1%; display: flex; justify-content: center;">
-    @error('message')
-                   
-    <p class="alert alert-danger ">{{$message}}</p>
-    <button type="button" class="close" onclick="location.reload()" style="margin-bottom: 40px">
-        <span aria-hidden="true" >&times;</span></button>  
-    
-    @enderror 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Por favor corrige los siguentes errores:</strong>
+      <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+      </ul>
+    </div>
+  @endif 
 </div>
 
 <!--Tabla de AULAS-->
@@ -138,30 +142,36 @@
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Codigo</label>
-                        <input type="text" name="codigo" class="form-control" id="codigo" required minlength="5" maxlength="15"  
+                        <label for="codigo">Codigo</label>
+                        <input type="text" name="codigo" class="form-control" id="codigo" value="{{old('codigo')}}" required minlength="5" maxlength="15"  
                         onkeypress="return blockNoNumber(event)">
-                        <label for="name">Numero aula</label>
-                        <input type="text" name="num_aula" class="form-control" id="num_aula" required minlength="1" maxlength="6" 
+                        @if ($errors->has('codigo'))
+                    <span class="error text-danger" for="input-codigo" style="font-size: 15px">{{ $errors->first('codigo') }}</span>
+                    @endif
+                        <label for="num_aula">Numero aula</label>
+                        <input type="text" name="num_aula" class="form-control" id="num_aula" value="{{old('num_aula')}}" required minlength="1" maxlength="6" 
                         onkeypress="return blockSpecialChar(event)">
-                        <label for="name">Capacidad</label>
-                        <input type="text" name="capacidad" class="form-control" id="capacidad" required minlength="1" maxlength="3"
+                        @if ($errors->has('num_aula'))
+                    <span class="error text-danger" for="input-num_aula" style="font-size: 15px">{{ $errors->first('num_aula') }}</span>
+                    @endif
+                        <label for="capacidad">Capacidad</label>
+                        <input type="text" name="capacidad" class="form-control" id="capacidad" value="{{old('capacidad')}}" required minlength="1" maxlength="3"
                         onkeypress="return blockNoNumber(event)">
                         <label for="sectores">Sector</label>
-                        <select name="sector" id="sector" class="form-control" required>
+                        <select name="sector" id="sector" class="form-control" value="{{old('sector')}}" required>
                             <option value="">-- Selecciona el sector--</option>
                             
                             @foreach ($sector as $item)
-                                <option value="{{ $item->id }}">{{ $item->nombre}}</option>
+                                <option value="{{ $item->id }}" @if(old('sector') == $item->id) selected @endif>{{ $item->nombre}}</option>
                             @endforeach
                         </select>  
                         <label for="estado">Estado</label>
-                        <select name="estado" id="estado" class="form-control" required>
+                        <select name="estado" id="estado" class="form-control" value="{{old('sector')}}" required>
                             <option value="">-- Selecciona el estado--</option>
                             
-                            <option>Habilitado</option>
-                            <option>Deshabilitado</option>
-                            <option>Mantenimiento</option>
+                            <option value="Habilitado" @if(old('estado') == 'Habilitado') selected @endif>Habilitado</option>
+                            <option value="Deshabilitado" @if(old('estado') == 'Deshabilitado') selected @endif>Deshabilitado</option>
+                            <option value="Mantenimiento" @if(old('estado') == 'Mantenimiento') selected @endif>Mantenimiento</option>
                         </select>
                     </div>
                 </div>

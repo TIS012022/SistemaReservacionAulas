@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use SebastianBergmann\Environment\Console;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\AulaCreateRequest;
+use App\Http\Requests\AulaEditRequest;
 use Alert;
 
 class AulaController extends Controller
@@ -70,7 +72,9 @@ class AulaController extends Controller
      */
     public function create()
     {
-        //
+         abort_if(Gate::denies('aula_create'), 403);
+         $sectors = Sector::all()->pluck('nombre', 'id');
+        return view('admin.aulas.create');
     }
 
     /**
@@ -79,6 +83,7 @@ class AulaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public function store(Request $request)
     {      
         abort_if(Gate::denies('aula_create'), 403);
@@ -97,7 +102,7 @@ class AulaController extends Controller
                 return redirect()->back();
             }else{ 
                 
-                return back()->withErrors([
+                return back()->withInput()->withErrors([
                     'message' => 'Error, el codigo o numero de aula ingresado ya existe'
                 ]);
             }
@@ -193,7 +198,19 @@ class AulaController extends Controller
         $aula->capacidad = $request->capacidad;
         $aula->sector = $request->sector;
         $aula->estado = $request->estado;
-        $aula->save();
+       
+
+        $aula2 = Aula::where('num_aula', $request->num_aula)->first();
+            if(empty($aula2)){    
+                 $aula->save();
+                return redirect()->back();
+            }else{ 
+                
+                return back()->withInput()->withErrors([
+                    'message' => 'Error, El numero de aula ingresado ya existe'
+                ]);
+            }
+           
 
        return redirect()->back();
     }

@@ -21,6 +21,9 @@
                 <div class="col-sm-7">
                   <input type="text" class="form-control" name="name" value="{{ old('name', $role->name) }}" autocomplete="off" autofocus minlength="4" maxlength="15" 
                   onkeypress="return blockSpecialChar(event)">
+                  @if ($errors->has('name'))
+                    <span class="error text-danger" for="input-name" style="font-size: 15px">{{ $errors->first('name') }}</span>
+                  @endif
                 </div>
               </div>
               <div class="row">

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\PermissionCreateRequest;
+use App\Http\Requests\PermissionEditRequest;
+
 
 class PermissionController extends Controller
 {
@@ -39,7 +42,7 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionCreateRequest $request)
     {
         //
         Permission::create($request->only('name'));
@@ -77,7 +80,7 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Permission $permission)
+    public function update(PermissionEditRequest $request, Permission $permission)
     {
         //
         $permission->update($request->only('name'));
