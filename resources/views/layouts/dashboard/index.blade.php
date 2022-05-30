@@ -99,12 +99,7 @@
             </li>
             @endcan
             
-            @can('permission_index')
-            <li class="nav-item active {{ Nav::isRoute('permisos') }}">
-                <a class="nav-link" href="{{ route('permissions.index')}}">
-                    <span>{{ __('Permisos') }}</span></a>
-            </li>
-            @endcan
+           
         
 
            
@@ -123,8 +118,13 @@
                     <span>{{ __('Grupos') }}</span></a>
             </li> -->
 
-
-
+         <!--   @can('permission_index')
+            <li class="nav-item active {{ Nav::isRoute('permisos') }}">
+                <a class="nav-link" href="{{ route('permissions.index')}}">
+                    <span>{{ __('Permisos') }}</span></a>
+            </li>
+            @endcan
+        -->
 
             <!-- Divider -->
             {{-- <hr class="sidebar-divider">

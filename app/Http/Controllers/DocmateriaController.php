@@ -38,7 +38,12 @@ class DocmateriaController extends Controller
     abort_if(Gate::denies('asignar_index'), 403);
       $materias = DB::table('materias')->get();
       $grupos = DB::table('grupos')->get();
-      $users = DB::table('users')->get();
+      $users = DB::table('users')
+      ->where('name', '!=', 'Administrador')
+      ->where('name', '!=', 'Admin')
+      ->where('name', '!=', 'SuperAdministrador')
+      ->where('name', '!=', 'SuperAdmin')
+      ->get();
       $docentesmaterias = DB::table('docmaterias')
      ->join('users', 'docmaterias.docente', '=', 'users.id')
      ->join('materias', 'docmaterias.materia', '=', 'materias.id')

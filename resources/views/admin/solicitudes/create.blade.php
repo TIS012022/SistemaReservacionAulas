@@ -124,7 +124,7 @@
                                                 </span>
                                                     <option value="">Seleccione sector..</option>
                                                     @foreach ($sectores as $item)
-                                                        <option value="{{ $item->id }}" >{{ $item->nombre}}</option>
+                                                        <option value="{{ $item->id }}" @if(old('sector') == $item->id) selected @endif>{{ $item->nombre}}</option>
                                                     @endforeach
                                                 </select>
                                               
@@ -174,7 +174,7 @@
                                                 <button class="btn btn-primary" type="button">A</button>
                                                 {{-- <input name="aula" type="name" class="form-control" placeholder="Aula"> --}}
                                                 <select name="aula" id="aula" class="custom-select" value="{{old('aula')}}" required >
-                                                     <option selected>Seleccione N° Aula..</option>
+                                                     <option value="{{old('aula')}}" selected  >Seleccione N° Aula... {{old('aula')}}</option>
                                                   {{--  @foreach ($aulas as $item)
                                                         <option value="{{ $item->id }}">{{ $item->num_aula}}</option>
                                                     @endforeach--}}
@@ -331,9 +331,9 @@
                     
                     }else{
                         $('#aula').empty();
-                        $('#aula').append("<option value=''>Selecciona un aula</option>");
+                        $('#aula').append("<option value='{{old('aula')}}' >Selecciona un aula</option>");
                          $.each(aulas, function(index, value){
-                        $('#aula').append("<option value='"+ index +"' @if(old('aula') == 'index') selected @endif>"+ value + "</option>")
+                        $('#aula').append("<option value='"+ index +"' >"+ value + "</option>")
                       
                          })
                         console.log('hola1');
