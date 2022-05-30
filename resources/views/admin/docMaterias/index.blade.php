@@ -74,25 +74,34 @@
     <div class="modal-dialog">
         <div class="modal-content ">
             <div class="modal-header">
-                <h4 class="modal-title w-100 text-center">Asignar materia para docente</h4>
+                <h4 class="modal-title w-100 text-center">Asignación materia/docente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
+                    
             </div>
+            
             <form action="{{route('admin.docentesmaterias.store')}}" method="POST">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Materia</label>
-                        <select name="materia" id="materia" class="form-control" required>
+                        <select name="materia" id="materia" class="form-control" required >
+                            @error('materia')
+                                <span class="invalid.feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <option value="">-- Selecciona la materia--</option>
+                            
                             @foreach ($materias as $materia)
-                                <option value="{{ $materia->id }}">{{ $materia->nombre }}
+                                <option value="{{ $materia->id }}" value="{{ old('materia') == $materia->id ? 'selected' : '' }}">
+                                    {{ $materia->nombre }}
 
                                 </option>
                             @endforeach
                         </select>
                         <label for="name">Grupo</label>
-                        <select  name="grupo" class="form-control" id="grupo">
+                        <select  name="grupo" class="form-control" id="grupo" required>
                             <option value="">-- Selecciona el grupo--</option>
                             @foreach ($grupos as $grupo)
                                 <option value="{{ $grupo->id }}">{{ $grupo->codigo }}-{{ $grupo->numero }}
@@ -107,7 +116,7 @@
                             <option>Deshabilitado</option>
                         </select>
                         <label for="name">Docente</label>
-                        <select  name="docente" class="form-control" id="docente">
+                        <select  name="docente" class="form-control" id="docente" required>
                             <option value="">-- Selecciona al docente--</option>
                             @foreach ($users as $docente)
                                 <option value="{{ $docente->id }}">{{ $docente->name }}
@@ -116,17 +125,17 @@
                             @endforeach
                         </select>
                         <label for="name">Inscritos</label>
-                        <input type="text" name="inscritos" class="form-control" id="inscritos" required minlength="2" maxlength="3"  
+                        <input type="text" name="inscritos"  value="{{ old('inscritos') }}" class="form-control" id="inscritos" required minlength="2" maxlength="3"  
                         onkeypress="return blockNoNumber(event)">
                         <label for="name">Gestión</label>
-                        <input type="text" name="gestion" class="form-control" id="gestion" required minlength="5" maxlength="15"  
+                        <input type="text" name="gestion" value="{{ old('gestion') }}" class="form-control" id="gestion" required minlength="5" maxlength="15"  
                         >
                     </div>
                 </div>
 
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="refresh">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                    <button type="submit" class="btn btn-primary" >Aceptar</button>
                 </div>
             </form>
         </div>
@@ -150,6 +159,7 @@
             location.reload();
 })
 </script>
+
  
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

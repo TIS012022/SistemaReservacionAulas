@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Docmateria;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class DocmateriaController extends Controller
 {
@@ -50,6 +51,15 @@ class DocmateriaController extends Controller
 
     public function store(Request $request)
     {      
+        $validator = Validator::make($request->all(), [
+             'materia' => 'required|unique:materias',
+             'grupo' => 'required|unique:grupos',          
+             'estado' => 'required',
+             'docente' => 'required',
+             'inscritos' => 'required',
+             'gestion' => 'required'
+        ]);
+
             $newAsignacion= new Docmateria();
     
             $newAsignacion->inscritos = $request->inscritos;
@@ -59,10 +69,18 @@ class DocmateriaController extends Controller
             $newAsignacion->materia = $request->materia;
             $newAsignacion->docente = $request->docente;
             
-            
+            $materia = Docmateria::where('materia',$request->materia)->first();
+            $grupo = Docmateria::where('grupo',$request->grupo)->first();
 
-
-            $newAsignacion->save();
+            if((empty($materia) && empty($grupo)) || empty($materia) || empty($grupo) ){    
+                $newAsignacion->save();
+                return redirect()->back()->with('success','¡Exitoso!');
+            }else{ 
+                
+                return back()->withErrors([
+                    'message' => 'No se pudo completar la asignación, materia y grupo ya propuestos.'
+                ]);
+            }
 
         
            return redirect()->back();        
@@ -70,6 +88,16 @@ class DocmateriaController extends Controller
 
     public function update(Request $request, $docmateriaId)
     {
+        $validator = Validator::make($request->all(), [
+            'materia' => 'required|unique:materias',
+            'grupo' => 'required|unique:grupos',          
+            'estado' => 'required',
+            'docente' => 'required',
+            'inscritos' => 'required',
+            'gestion' => 'required'
+       ]);
+
+
         $asignacion = Docmateria::find($docmateriaId);
 
         $asignacion->inscritos = $request->inscritos;
@@ -78,7 +106,19 @@ class DocmateriaController extends Controller
         $asignacion->grupo = $request->grupo;
         $asignacion->materia = $request->materia;
         //$asignacion->docente = $request->docente;
-        $asignacion->save();
+
+        $materia = Docmateria::where('materia',$request->materia)->first();
+        $grupo = Docmateria::where('grupo',$request->grupo)->first();
+
+         if((empty($materia) && empty($grupo)) || empty($materia) || empty($grupo) ){    
+                $asignacion->save();
+                return redirect()->back();
+            }else{ 
+                
+                return back()->withErrors([
+                    'message' => 'No se pudo completar la asignación, materia y grupo ya propuestos.'
+                ]);
+            }
 
        return redirect()->back();
     }
