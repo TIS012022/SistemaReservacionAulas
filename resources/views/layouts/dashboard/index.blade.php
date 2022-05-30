@@ -20,6 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Favicon -->
     {{-- <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png"> --}}
 </head>
@@ -36,14 +37,22 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">{{auth()->user()->role}}</div>
+                <div class="sidebar-brand-text mx-3">UMSS</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Solicitudes -->
-            @if(auth()->user()->role === "admin")
+        <?php
+          $roles=DB::table('roles')
+            ->join('users', 'roles.id', '=', 'users.role')
+            ->where('roles.id','=', auth()->user()->role)
+         
+            ->get();
+         //  dd($roles[0]->permiso);
+        ?>
+            @if($roles[0]->permiso === "Full")
             <li class="nav-item {{ Nav::isRoute('solicitudes') }}">
                 <a class="nav-link" href="{{ route('solicitudes') }}">
                     {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
@@ -59,16 +68,27 @@
                     <span>{{ __('Aulas Reservadas') }}</span></a>
             </li>
 
+
             </li>
 
             <li class="nav-item {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('materias', ['tipo'=> 'admin']) }}">
                     <span>{{ __('Listas Materias') }}</span></a>
+
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
+                    <span>{{ __('Usuarios') }}</span></a>
+            </li>
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{route('admin.roles.index')}}" >
+                    <span>{{ __('Roles') }}</span></a>
+            </li>
+
             </li>
             
             @endif
 
-            @if (auth()->user()->role === "docente")
+            @if ($roles[0]->permiso === "User")
             <!-- Nav Item - Notificaciones -->
             <li class="nav-item {{ Nav::isRoute('notificaciones') }}">
                 <a class="nav-link" href="{{ route('notificaciones') }}">
@@ -269,6 +289,7 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+
     @yield('script')
 </body>
 

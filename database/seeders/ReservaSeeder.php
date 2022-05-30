@@ -20,7 +20,6 @@ class ReservaSeeder extends Seeder
                 'aula' => $aulas[rand(0, 3)],
                 'hora_ini' => date("H:i", strtotime("10:52PM")),
                 'hora_fin' => date("H:i", strtotime("10:53PM")),
-                'periodo' => "Uno",
                 'dia' => "2022-04-16",
                 'solicitud' => rand(1, 10),
             ]);

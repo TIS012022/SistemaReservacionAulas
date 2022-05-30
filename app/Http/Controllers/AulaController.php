@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aula;
 use App\Models\Solicitud;
+use App\Models\Sector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,7 @@ class AulaController extends Controller
      */
     public function index(Request $request)
     {
+        
         if ($request->tipo === "reservadas") {
             $aulas = DB::table('solicitudes')
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
@@ -29,26 +31,34 @@ class AulaController extends Controller
            // ->where('docmaterias.docente', Auth::id())
 
             ->where('solicitudes.estado','=','aceptado')
-            ->select('solicitudes.estado','solicitudes.periodo','aulas.num_aula','materias.nombre','solicitudes.dia',
+            ->select('solicitudes.estado','solicitudes.hora_fin','aulas.num_aula','materias.nombre','solicitudes.dia',
             'solicitudes.hora_ini')
 
             ->get();
             return view('admin.aulas.index', compact('aulas'))->with('tipo', "reservadas");
 
         }elseif($request->tipo === "admin"){
+            
             $aulas = DB::table('solicitudes')
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
             ->join('materias', 'docmaterias.materia', '=', 'materias.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
             ->where('solicitudes.estado','=','aceptado')
-            ->select('solicitudes.estado','solicitudes.periodo','aulas.num_aula','materias.nombre','solicitudes.dia',
+            ->select('solicitudes.estado','solicitudes.hora_fin','aulas.num_aula','materias.nombre','solicitudes.dia',
             'solicitudes.hora_ini','solicitudes.id')
             ->get();
             return view('admin.aulasR.index', compact('aulas'))->with('tipo', "admin");
 
         }
-        $aulas = Aula::orderBy('id', 'asc')->get();
-        return view('admin.aulas.index', compact('aulas'))->with('tipo', "all");
+ 
+        $aulas =  DB::table('aulas')
+        ->join('sectors', 'aulas.sector', '=', 'sectors.id')
+        ->select('aulas.*','sectors.nombre')
+        ->orderBy('id','asc')
+        ->get();
+       // dd($aulas);
+        $sector = DB::table('sectors')->get();
+        return view('admin.aulas.index', compact('aulas', 'sector'))->with('tipo', "all");
     }
 
     /**
@@ -69,15 +79,29 @@ class AulaController extends Controller
      */
     public function store(Request $request)
     {      
-            $newAula= new Aula();
-    
+        $newAula= new Aula();
+   
             $newAula->codigo = $request->codigo;
             $newAula->num_aula = $request->num_aula;
             $newAula->capacidad = $request->capacidad;
             $newAula->sector = $request->sector;
             $newAula->estado = $request->estado;
-            $newAula->save();
-           return redirect()->back();        
+
+            $aula = Aula::where('codigo', $request->codigo)->first();
+            $aula2 = Aula::where('num_aula', $request->num_aula)->first();
+            if(empty($aula) && empty($aula2)){    
+                $newAula->save();
+                return redirect()->back();
+            }else{ 
+                
+                return back()->withErrors([
+                    'message' => 'Error, el codigo o numero de aula ingresado ya existe'
+                ]);
+            }
+           
+           return redirect()->back();    
+                   
+
     }
 
     public function delete(Request $request, $aulaId)
@@ -106,11 +130,12 @@ class AulaController extends Controller
             debug_to_console('hola');
          }
        */
+     
        if(empty($solicitudes)){
        
             $aula->delete();
             return redirect()->back();
-        }else{
+        }else{ 
             
             return back()->withErrors([
                 'message' => 'No se puede eliminar el aula '.$aula["num_aula"].' debido a que esta siendo usada en una solicitud'

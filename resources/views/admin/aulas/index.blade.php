@@ -5,16 +5,21 @@
 @if ($tipo === 'reservadas')
 <h2>INFORMACIÓN DE AULAS RESERVADAS</h2>
 
-
-<table class="table">
+<div class="form-group">
+    <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
+        <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
+        <input id="searchTerm" type="text" onkeyup="doSearch2()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
+    </span>
+</div>
+<table class="table" id="aulasR2">
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Numero Aula</th>
+            <th scope="col">Numero Aula</th> 
             <th scope="col">Materia</th>
             <th scope="col">Dia de reserva</th>
             <th scope="col">Horario de reserva</th>
-            <th scope="col">Periodos reservados</th>
+            <th scope="col">Horario fin reserva</th>
             
         </tr>
     </thead>
@@ -27,7 +32,7 @@
             <td>{{ @$aula->dia }}</td>
 
             <td>{{ @$aula->hora_ini }} </td>
-            <td>{{ @$aula->periodo }}</td>
+            <td>{{ @$aula->hora_fin }}</td>
             
 
         </tr>
@@ -55,6 +60,12 @@
 </div>
 
 <!--Tabla de AULAS-->
+<div class="form-group">
+    <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
+        <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
+        <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
+    </span>
+</div>
 <div style="margin-top: 1%" class="table-responsive" >
 <table class="table" id="aulas" >
     <thead>
@@ -70,10 +81,10 @@
     <tbody> 
         @foreach ($aulas as $aula)
         <tr scope="row">
-            <td>{{ @$aula->id }}</td>
+            <td>{{ $loop->index + 1 }}</td>
             <td>{{ @$aula->num_aula }}</td>
             <td>{{ @$aula->capacidad }}</td>
-            <td>{{ @$aula->sector }}</td>
+            <td>{{ @$aula->nombre }}</td>
             <td>
                 @if(@$aula->estado == 'Habilitado' )
                     <span class="badge badge-success">{{ @$aula->estado }}</span>
@@ -95,7 +106,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$aula->id}}">
                     Eliminar
                 </button>
-            </td>
+            </td> 
         </tr>
         @include('admin.aulas.modalEditar')
         @include('admin.aulas.modalEliminar')
@@ -128,15 +139,14 @@
                         <label for="name">Capacidad</label>
                         <input type="text" name="capacidad" class="form-control" id="capacidad" required minlength="1" maxlength="3"
                         onkeypress="return blockNoNumber(event)">
-                        <label for="sector">Sector</label>
+                        <label for="sectores">Sector</label>
                         <select name="sector" id="sector" class="form-control" required>
                             <option value="">-- Selecciona el sector--</option>
                             
-                            <option>edificio nuevo</option>
-                            <option>bloque antiguo</option>
-                            <option >laboratorios</option>
-                            <option >edificio memi</option>
-                        </select>   
+                            @foreach ($sector as $item)
+                                <option value="{{ $item->id }}">{{ $item->nombre}}</option>
+                            @endforeach
+                        </select>  
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" class="form-control" required>
                             <option value="">-- Selecciona el estado--</option>
@@ -175,8 +185,49 @@
 })
 </script>
 @endif
+<script language="javascript">
+            function doSearch() {
+                var tableReg = document.getElementById('aulas');
+                var searchText = document.getElementById('searchTerm').value.toLowerCase();
+                for (var i = 1; i < tableReg.rows.length; i++) {
+                    var cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+                    var found = false;
+                    for (var j = 0; j < cellsOfRow.length && !found; j++) {
+                        var compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                        if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1)) {
+                            found = true;
+                        }
+                    }
+                    if (found) {
+                        tableReg.rows[i].style.display = '';
+                    } else {
+                        tableReg.rows[i].style.display = 'none';
+                    }
+                }
+            }
+</script>
 
-
+<script language="javascript">
+            function doSearch2() {
+                var tableReg = document.getElementById('aulasR2');
+                var searchText = document.getElementById('searchTerm').value.toLowerCase();
+                for (var i = 1; i < tableReg.rows.length; i++) {
+                    var cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+                    var found = false;
+                    for (var j = 0; j < cellsOfRow.length && !found; j++) {
+                        var compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                        if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1)) {
+                            found = true;
+                        }
+                    }
+                    if (found) {
+                        tableReg.rows[i].style.display = '';
+                    } else {
+                        tableReg.rows[i].style.display = 'none';
+                    }
+                }
+            }
+</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

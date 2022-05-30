@@ -19,7 +19,6 @@ class SolicitudFactory extends Factory
             'motivo' =>$this->faker->text(100),
             'hora_ini'=>$this->faker->dateTimeThisCentury->format('Y-m-d'),
             'hora_fin'=>$this->faker->dateTimeThisCentury->format('Y-m-d'),
-            'periodo' =>$this->faker->text(20),
             'dia' =>$this->faker->text(10),
             'grupo' =>$this->faker->numberBetween(1,20),
             'aula' =>$this->faker->numberBetween(1,250),

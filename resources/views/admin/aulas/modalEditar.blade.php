@@ -1,8 +1,9 @@
 <?php
-    $sector = ['edificio nuevo', 'bloque antiguo', 'laboratorios', 'edificio memi'];
-    $sector = array_diff($sector, array("{$aula->sector}"));   
-    $sector = Arr::prepend($sector, "{$aula->sector}");
-    
+    $sectors = DB::table('sectors')->select('nombre')->get();
+   $sectores = DB::table('sectors')->select('nombre')->where('id','=', "{$aula->id}")->get();
+  // $sectors = array_diff($sectors, $sectores);   
+    //$sector = Arr::prepend($sector, "{$aula->nombre}");
+
     $estado = ["Habilitado","Deshabilitado", "Mantenimiento"];
     $estado = array_diff($estado, array("{$aula->estado}"));   
     $estado = Arr::prepend($estado, "{$aula->estado}");
@@ -31,11 +32,10 @@
                     <div class="form-group">
                         <label for="sector">Sector</label>
                         <select name="sector" id="sector" class="form-control" required>
-                      
-                            @foreach($sector as $s)
-            
-                             <option value="{{$s}}">{{$s}}</option>
-            
+                            <option value="">--Seleccione Sector--</option>
+                            @foreach ($sector as $item)
+                             <option value="{{ $item->id}}">{{ $item->nombre}}</option>
+
                             @endforeach
                         </select>                    
                     </div>
