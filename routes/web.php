@@ -104,7 +104,7 @@ Route::resource('aulas', AulaController::class, [
     'index' => 'aulas'
   ]
 ])->middleware('auth.user');
-
+ 
 
 
 Route::post('/aulas/store', [App\Http\Controllers\AulaController::class, 'store'])

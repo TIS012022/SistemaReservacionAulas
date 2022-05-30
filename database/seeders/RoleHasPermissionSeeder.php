@@ -28,7 +28,9 @@ class RoleHasPermissionSeeder extends Seeder
                  substr($permission->name, 0, 11) != 'permission_' &&
                  substr($permission->name, 0, 10) != 'solicitud_' &&
                  substr($permission->name, 0, 5) != 'aula_' &&
-                 substr($permission->name, 0, 6) != 'aulaR_';
+                 substr($permission->name, 0, 6) != 'aulaR_' &&
+                 substr($permission->name, 0, 8) != 'materia_' &&
+                 substr($permission->name, 0, 8) != 'asignar_';
          });
          Role::findOrFail(2)->permissions()->sync($user_permissions);
     }

@@ -59,6 +59,17 @@ class PermissionSeeder extends Seeder
             'aula_destroy',
             'aula_buscar',
 
+            'materia_index',
+            'materia_create',
+            'materia_edit',
+            'materia_estado',
+            'materia_buscar',
+
+            'asignar_index',
+            'asignar_create',
+            'asignar_edit',
+            'asignar_destroy',
+            'asignar_buscar',
             
         ];
 

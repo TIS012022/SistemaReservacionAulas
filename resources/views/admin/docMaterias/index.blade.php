@@ -4,18 +4,33 @@
 
 <div class="d-flex justify-content-between">
     <h2>INFORMACIÓN MATERIAS DE DOCENTES</h2>
+    @can('asignar_create')
     <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalAsignarMat">
         Asignar materia
     </button>
+    @endcan
 </div>
 <div style="margin-top: 1%; display: flex; justify-content: center;">
-    @error('message')
-                   
-    <p class="alert alert-danger ">{{$message}}</p>
-    <button type="button" class="close" onclick="location.reload()" style="margin-bottom: 40px">
-        <span aria-hidden="true" >&times;</span></button>  
-    
-    @enderror 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Por favor corrige los siguentes errores:</strong>
+      <p>
+      @foreach ($errors->all() as $error)
+        <a>{{ $error }}</a>
+      @endforeach
+      </p>
+    </div>
+    @endif
+</div>
+
+<div class="form-group">
+    @can('asignar_buscar')
+    <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
+        <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
+        <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
+    </span>
+    @endcan
 </div>
 
 <div style="margin-top: 1%" class="table-responsive" >
@@ -47,12 +62,16 @@
             
 
             <td>
+                @can('asignar_edit')
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$docentesmateria->id}}">
                     Editar
                 </button>
+                @endcan
+                @can('asignar_destroy')
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$docentesmateria->id}}">
                     Eliminar
                 </button>
+                @endcan
             </td>
 
         </tr>
@@ -94,7 +113,7 @@
                             <option value="">-- Selecciona la materia--</option>
                             
                             @foreach ($materias as $materia)
-                                <option value="{{ $materia->id }}" value="{{ old('materia') == $materia->id ? 'selected' : '' }}">
+                                <option value="{{ $materia->id }}" @if(old('materia') == $materia->id) selected @endif>
                                     {{ $materia->nombre }}
 
                                 </option>
@@ -104,7 +123,7 @@
                         <select  name="grupo" class="form-control" id="grupo" required>
                             <option value="">-- Selecciona el grupo--</option>
                             @foreach ($grupos as $grupo)
-                                <option value="{{ $grupo->id }}">{{ $grupo->codigo }}-{{ $grupo->numero }}
+                                <option value="{{ $grupo->id }}" @if(old('grupo') == $grupo->id) selected @endif>{{ $grupo->codigo }}-{{ $grupo->numero }}
 
                                 </option>
                             @endforeach
@@ -112,14 +131,14 @@
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" class="form-control" required>
                             <option value="">-- Selecciona el estado--</option>
-                            <option>Habilitado</option>
-                            <option>Deshabilitado</option>
+                            <option value="Habilitado" @if(old('estado') == 'Habilitado') selected @endif>Habilitado</option>
+                            <option value="Deshabilitado" @if(old('estado') == 'Deshabilitado') selected @endif>Deshabilitado</option>
                         </select>
                         <label for="name">Docente</label>
                         <select  name="docente" class="form-control" id="docente" required>
                             <option value="">-- Selecciona al docente--</option>
                             @foreach ($users as $docente)
-                                <option value="{{ $docente->id }}">{{ $docente->name }}
+                                <option value="{{ $docente->id }}" @if(old('docente') == $docente->id) selected @endif>{{ $docente->name }}
 
                                 </option>
                             @endforeach
@@ -141,7 +160,27 @@
         </div>
     </div>   
 </div>
-
+<script language="javascript">
+    function doSearch() {
+        var tableReg = document.getElementById('docentematerias');
+        var searchText = document.getElementById('searchTerm').value.toLowerCase();
+        for (var i = 1; i < tableReg.rows.length; i++) {
+            var cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+            var found = false;
+            for (var j = 0; j < cellsOfRow.length && !found; j++) {
+                var compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1)) {
+                    found = true;
+                }
+            }
+            if (found) {
+                tableReg.rows[i].style.display = '';
+            } else {
+                tableReg.rows[i].style.display = 'none';
+            }
+        }
+    }
+</script>
 
 <script type="text/javascript">
     function blockSpecialChar(e){

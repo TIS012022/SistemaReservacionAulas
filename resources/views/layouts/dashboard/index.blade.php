@@ -33,11 +33,11 @@
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #1D3354">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="auth">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">UMSS</div>
+                <div class="sidebar-brand-text mx-3" >UMSS</div>
             </a>
 
             <!-- Divider -->
@@ -71,6 +71,20 @@
             </li>
             @endcan
             
+            @can('materia_index')
+           <li class="nav-item active {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('materias', ['tipo'=> 'admin']) }}">
+                    <span>{{ __('Lista Materias') }}</span></a>
+           </li>
+           @endcan
+           
+           @can('asignar_index')
+           <li class="nav-item active{{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('admin.docMaterias.index') }}">
+                    <span>{{ __('Materias de Docentes') }}</span></a>
+            </li>
+            @endcan
+            
             @can('user_index')
             <li class="nav-item active {{ Nav::isRoute('usuarios') }}">
                 <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
@@ -88,7 +102,7 @@
             @can('permission_index')
             <li class="nav-item active {{ Nav::isRoute('permisos') }}">
                 <a class="nav-link" href="{{ route('permissions.index')}}">
-                    <span>{{ __('Permissions') }}</span></a>
+                    <span>{{ __('Permisos') }}</span></a>
             </li>
             @endcan
         
@@ -102,18 +116,8 @@
                     <span>{{ __('Notificaciones') }}</span></a>
             </li>
             @endcan
-           
-           <li class="nav-item {{ Nav::isRoute('solicitar') }}">
-                <a class="nav-link" href="{{ route('materias', ['tipo'=> 'admin']) }}">
-                    <span>{{ __('Listas Materias') }}</span></a>
 
-           </li>
-           
-           <li class="nav-item {{ Nav::isRoute('solicitar') }}">
-                <a class="nav-link" href="{{ route('admin.docMaterias.index') }}">
-                    <span>{{ __('Materias de Docentes') }}</span></a>
-            </li>
-
+            
             <!-- <li class="nav-item {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('admin.grupos.index') }}">
                     <span>{{ __('Grupos') }}</span></a>

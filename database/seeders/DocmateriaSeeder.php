@@ -41,5 +41,22 @@ class DocmateriaSeeder extends Seeder
             'docente' => "2"
         ]);
 
+        DB::table('docmaterias')->insert([
+            'inscritos' => '40',
+            'gestion' => 'I-2022',
+            'estado' => 'Habilitado',
+            'grupo' => '1',
+            'materia' => '3',
+            'docente' => "3"
+        ]);
+
+        DB::table('docmaterias')->insert([
+            'inscritos' => '50',
+            'gestion' => 'I-2022',
+            'estado' => 'Habilitado',
+            'grupo' => '2',
+            'materia' => '4',
+            'docente' => "3"
+        ]);
     }
 }

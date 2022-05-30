@@ -8,7 +8,7 @@ use App\Models\Materia;
 use App\Models\Solicitud;
 use App\Models\User;
 use App\Models\Docmateria;
-
+use Illuminate\Support\Facades\Gate; 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,6 +35,7 @@ class DocmateriaController extends Controller
     
     public function index2()
     {
+    abort_if(Gate::denies('asignar_index'), 403);
       $materias = DB::table('materias')->get();
       $grupos = DB::table('grupos')->get();
       $users = DB::table('users')->get();
@@ -51,6 +52,7 @@ class DocmateriaController extends Controller
 
     public function store(Request $request)
     {      
+        abort_if(Gate::denies('asignar_create'), 403);
         $validator = Validator::make($request->all(), [
              'materia' => 'required|unique:materias',
              'grupo' => 'required|unique:grupos',          
@@ -77,8 +79,8 @@ class DocmateriaController extends Controller
                 return redirect()->back()->with('success','¡Exitoso!');
             }else{ 
                 
-                return back()->withErrors([
-                    'message' => 'No se pudo completar la asignación, materia y grupo ya propuestos.'
+                return back()->withInput()->withErrors([
+                    'No se pudo completar la asignación, materia y grupo ya propuestos'
                 ]);
             }
 
@@ -88,6 +90,7 @@ class DocmateriaController extends Controller
 
     public function update(Request $request, $docmateriaId)
     {
+        abort_if(Gate::denies('asignar_edit'), 403);
         $validator = Validator::make($request->all(), [
             'materia' => 'required|unique:materias',
             'grupo' => 'required|unique:grupos',          
@@ -125,6 +128,7 @@ class DocmateriaController extends Controller
 
     public function delete(Request $request, $docmateriaId)
     {
+        abort_if(Gate::denies('asignar_destroy'), 403);
         $docmateria = Docmateria::find($docmateriaId);
         $docmateria->delete();
         return redirect()->back();

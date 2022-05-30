@@ -2,23 +2,36 @@
 @section('main-content')
 
     <div class="d-flex justify-content-between">
-        <h2>
+        <h2> 
             LISTA DE CREADAS MATERIAS 
         </h2>
+        @can('materia_create')
         <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalCrear">
             Crear materias
         </button>
+        @endcan
     </div>
     <div style="margin-top: 1%; display: flex; justify-content: center;">
-        @error('message')
-                    
-        <p class="alert alert-danger ">{{$message}}</p>
-        <button type="button" class="close" onclick="location.reload()" style="margin-bottom: 40px">
-            <span aria-hidden="true" >&times;</span></button>  
-        
-        @enderror 
+        @if ($errors->any())
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Por favor corrige los siguentes errores:</strong>
+        <p>
+        @foreach ($errors->all() as $error)
+            <a>{{ $error }}</a>
+        @endforeach
+      </p>
     </div>
-
+    @endif
+    </div>
+    <div class="form-group">
+        @can('materia_buscar')
+        <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
+            <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
+            <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
+        </span>
+        @endcan
+    </div>
     <!--Tabla de Materias-->
         <div style="margin-top: 1%" class="table-responsive" >
         <table class="table" id="materias" >
@@ -54,17 +67,19 @@
                         @endif
                     </td>
                     <td>
+                            @can('materia_estado')
                             <label class="switch">
                                 <input data-id="{{ $materia->id }}" class="mi_checkbox" type="checkbox" 
                                 data-onstyle="success" data-offstyle="danger" data-toggle="toggle" 
                                 data-on="Active" data-off="InActive" {{ $materia->estado == 'Habilitado'? 'checked' : '' }}>
                                 <span class="slider round"></span>
                             </label>
-
+                            @endcan
+                            @can('materia_edit')
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$materia->id}}">
                                 Editar
                             </button>      
-                        
+                            @endcan
                     </td>
         
                 </tr>
@@ -93,30 +108,30 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Codigo</label>
-                            <input type="text" name="codigo" class="form-control" id="codigo" required minlength="7" maxlength="15"  
+                            <input type="text" name="codigo" class="form-control" id="codigo" value="{{old('codigo')}}" required minlength="7" maxlength="15"  
                             onkeypress="return blockNoNumber(event)">
                             <label for="name">Nombre Materia</label>
-                            <input type="text" name="nombre" class="form-control" id="nombre" required minlength="5" maxlength="25"
+                            <input type="text" name="nombre" class="form-control" id="nombre" value="{{old('nombre')}}" required minlength="5" maxlength="25"
                             onkeypress="return blockSpecialChar(event)">
                             <label for="name">Carrera</label>
-                            <input type="text" name="carrera" class="form-control" id="carrera" required minlength="5" maxlength="50"
+                            <input type="text" name="carrera" class="form-control" id="carrera" value="{{old('carrera')}}" required minlength="5" maxlength="50"
                             onkeypress="return blockSpecialChar(event)">
                             <label for="name">Nivel</label>
-                            <input type="text" name="nivel" class="form-control" id="nivel" required minlength="1" maxlength="1" 
+                            <input type="text" name="nivel" class="form-control" id="nivel" value="{{old('nivel')}}" required minlength="1" maxlength="1" 
                             onkeypress="return blockSpecialChar(event)">
                             <label for="tipo">Tipo Materia</label>
                             <select name="tipo" id="tipo" class="form-control" required>
                                 <option value="">-- Selecciona el tipo de materia--</option>
-                                <option>Regular</option>
-                                <option>Electiva</option>
+                                <option value="Regular" @if(old('tipo') == 'Regular') selected @endif>Regular</option>
+                                <option value="Electiva" @if(old('tipo') == 'Electiva') selected @endif>Electiva</option>
                             </select>   
                             
                             <label for="estado">Estado</label>
                             <select name="estado" id="estado" class="form-control" required>
                                 <option value="">-- Selecciona el estado--</option>
                                 
-                                <option>Habilitado</option>
-                                <option>Deshabilitado</option>
+                                <option value="Habilitado" @if(old('estado') == 'Habilitado') selected @endif>Habilitado</option>
+                                <option value="Deshabilitado" @if(old('estado') == 'Deshabilitado') selected @endif>Deshabilitado</option>
                             </select>
                         </div>
                     </div>
@@ -129,7 +144,27 @@
             </div>
         </div>   
     </div>    
-
+    <script language="javascript">
+        function doSearch() {
+            var tableReg = document.getElementById('materias');
+            var searchText = document.getElementById('searchTerm').value.toLowerCase();
+            for (var i = 1; i < tableReg.rows.length; i++) {
+                var cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+                var found = false;
+                for (var j = 0; j < cellsOfRow.length && !found; j++) {
+                    var compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                    if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1)) {
+                        found = true;
+                    }
+                }
+                if (found) {
+                    tableReg.rows[i].style.display = '';
+                } else {
+                    tableReg.rows[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
     <script {{-- type="text/javascript" --}}>
         function blockSpecialChar(e){
             var k;
