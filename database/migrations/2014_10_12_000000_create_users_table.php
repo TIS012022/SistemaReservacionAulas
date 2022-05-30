@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('ci')->unique();
             $table->string('email')->unique();
-            $table->string('estadoCuenta');
+            $table->string('estadoCuenta')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             
@@ -26,8 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('materias_grupos')->nullable();
        
 
-            $table->unsignedBigInteger('role');
-            $table->foreign('role')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
+           
             $table->rememberToken();
             $table->timestamps();
         });

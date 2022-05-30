@@ -1,30 +1,33 @@
-@extends('layouts.dashboard.index')
+@extends('layouts.dashboard.index', ['activePage' => 'users', 'titlePage' => 'Usuarios'])
 @section('main-content')
 
 <div class="d-flex justify-content-between">
     <h2>
         INFORMACIÓN DE USUARIOS 
     </h2>
-    <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalCrearUsuario">
+    @can('user_create')
+    <a type="button" class="btn btn-dark" style="background-color: #1D3354; padding-top: 0.8%" href="{{ route('admin.usuarios.create')}}">
         Nuevo usuario
-    </button>
+    </a>
+    @endcan
 </div>
-<div style="margin-top: 1%; display: flex; justify-content: center;">
-    @error('message')
-                   
-    <p class="alert alert-danger ">{{$message}}</p>
-    <button type="button" class="close" onclick="location.reload()" style="margin-bottom: 40px">
-        <span aria-hidden="true" >&times;</span></button>  
-    
-    @enderror 
+<div class="card-body">
+    @if (session('success'))
+    <div class="alert alert-success" role="success">
+      {{ session('success') }}
+    </div>
+    @endif
 </div>
+
 <div class="form-group" >
+    @can('user_buscar')
     <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto"> 
         <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
         <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
     </span>
+    @endcan
 </div>
-<div style="margin-top: 1%" class="table-responsive" >
+<div style="margin-top: 0%" class="table-responsive" >
 <table class="table" id="usuarios" >
     <thead>
         <tr>
@@ -40,35 +43,45 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($usuarios as $usuario)
+        @foreach ($users as $user)
         <tr scope="row">
-            <td>{{ $loop->index + 1 }}</td>
-            <td>{{ @$usuario->name }}</td>
-            <td>{{ @$usuario->ci }}</td>
-            <td>{{ @$usuario->email }}</td>
-            <td>{{ @$usuario->estadoCuenta }}</td>
-            <td>{{ @$usuario->rol}}</td>
+            <td>{{ @$user->id}}</td>
+            <td>{{ @$user->name }}</td>
+            <td>{{ @$user->ci }}</td>
+            <td>{{ @$user->email }}</td>
+            <td>{{ @$user->estadoCuenta }}</td>
+            <td>
+                @forelse ($user->roles as $role)
+                  <span class="badge badge-info">{{ $role->name }}</span>
+                @empty
+                  <span class="badge badge-danger">No roles</span>
+                @endforelse
+              </td>
         
             <td>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$usuario->id}}">
+                @can('user_edit')
+                <a type="button" class="btn btn-primary" href="{{ route('admin.usuarios.edit', $user->id) }}">
                     Editar
-                </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar-{{$usuario->id}}">
+                </a>
+                @endcan
+                @can('user_destroy')
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar-{{$user->id}}">
                     Eliminar
-                </button>
-                
+                </button> 
+                @endcan
             </td>
             
         </tr>
-    
         @include('admin.usuarios.modalEliminar')
-        @include('admin.usuarios.modalEditar')
+    
         @endforeach
        
     </tbody>
     
 </table>
 </div>
+
+    
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -102,12 +115,25 @@
                         <select name="role" id="role" class="form-control" required>
                             <option value="">-- Selecciona el rol--</option>
                             
-                            @foreach ($roles as $item)
-                                <option value="{{ $item->id }}">{{ $item->rol}}</option>
-                            @endforeach
-            
+                           
                         </select>  
+
                         
+                    </div>
+                    <div class="row">
+                        <label for="roles" class="col-sm-2 col-form-label">Roles</label>
+                        <div class="col-sm-7">
+                            <div class="form-group">
+                                <div class="tab-content">
+                                    <div class="tab-pane active">
+                                        <table class="table">
+                                            
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

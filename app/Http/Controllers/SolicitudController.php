@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Log;
 use App\Models\Aula;
 use App\Models\Sector;
 use App\Models\Docmateria;
@@ -13,8 +13,12 @@ use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Gate; 
+use Illuminate\Validation\Validator;
+use App\Http\Requests\SolicitudCreateRequest;
 
 class SolicitudController extends Controller
 {
@@ -27,6 +31,7 @@ class SolicitudController extends Controller
     {
         // $solicitudes = Solicitud::all();
         // return view('admin.reservas.index', compact('solicitudes'));
+        abort_if(Gate::denies('solicitud_index'), 403);
         $solicitudes = DB::table('solicitudes')
         
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
@@ -52,7 +57,8 @@ class SolicitudController extends Controller
      */
     public function create()
     {
-        
+        abort_if(Gate::denies('crear_reserva'), 403);
+
         $aulas = DB::table('aulas')
         ->where('estado','=','Habilitado')
         ->get();
@@ -99,13 +105,19 @@ class SolicitudController extends Controller
     public function store(Request $request) 
     {
         //
-        
+       /* $validator = Validator::make($request->all(), [
+            'title' => [
+                'required',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    if ($value === 'foo') {
+                        $fail($attribute.' is invalid.');
+                    }
+                },
+            ],
+        ]);*/
         $docmaterias = Docmateria::all();
-        $request-> validate([
-            'cantidad' => 'required|min:1|max:3',
-            'motivo' => 'required',
-            'sector' => 'required'
-        ]);
+       
         
         $solicitud = new Solicitud($request->all());
       
@@ -116,14 +128,15 @@ class SolicitudController extends Controller
         $cantidad = DB::table('aulas')
             ->where('id', $id)
             ->first();
-           
+      
         if(($request->cantidad)>($cantidad->capacidad)){
-            return back()->withErrors([
-                'message' => 'La cantidad de requerida excede la capacidad del aula'
+            return back()->withInput($request->all())->withErrors([
+                'message' => 'La cantidad excede la capacidad del aula'
             ]);
+         
         }else{
            if(strtotime($request->hora_ini)>=strtotime($request->hora_fin)){
-            return back()->withErrors([
+            return back()->withInput()->withErrors([
                 'message' => 'La hora final es igual o mayor al horario de inicio'
             ]);
            }else{
@@ -179,6 +192,9 @@ class SolicitudController extends Controller
     public function update(Request $request, Solicitud $solicitud)
     {
         //
+        /*abort_if(Gate::denies('solicitud_aceptar'), 403);
+        abort_if(Gate::denies('solicitud_rechazar'), 403);
+        abort_if(Gate::denies('solicitud_sugerir'), 403);*/
         $solicitud->fill($request->all());
         $solicitud->save();
 

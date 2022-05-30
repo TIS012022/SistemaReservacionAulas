@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.index')
+@extends('layouts.dashboard.index', ['activePage' => 'solicitudes', 'titlePage' => 'Solicitudes'])
 @section('main-content')
 
 <div class="container">
@@ -6,10 +6,12 @@
         <h2 class="my-3">SOLICITUDES</h2>
         <!-- Button trigger modal -->
         <div class="form-group">
+            @can('solicitud_buscar')
             <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
                 <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
                 <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
             </span>
+            @endcan 
         </div>
         <table class="table table-primary table-striped mt-4" id="solicitudes">
             <thead>
@@ -36,15 +38,21 @@
                     <td>{{ @$solicitud->hora_ini }} </td>
                     <td>{{ @$solicitud->hora_fin }} </td>
                     <td>
+                        @can('solicitud_aceptar')
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAceptar{{$loop->index}}">
                             Aceptar
                         </button>
+                        @endcan
+                        @can('solicitud_rechazar')
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRechazar{{$loop->index}}">
                             Rechazar
                         </button>
+                        @endcan
+                        @can('solicitud_sugerir')
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSugerir{{$loop->index}}">
                             Sugerir
                         </button>
+                        @endcan
                     </td>
                     <div class="modal fade" id="modalAceptar{{$loop->index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">

@@ -21,20 +21,23 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="num_aula">Numero aula</label>
-                        <input type="text" name="num_aula" class="form-control" id="num_aula" value="{{$aula->num_aula}}" required minlength="1" maxlength="6" 
+                        <input type="text" name="num_aula" class="form-control" id="num_aula" value="{{$aula->num_aula}}" value="{{old('num_aula')}}" required minlength="1" maxlength="6" 
                         onkeypress="return blockSpecialChar(event)">
+                        @if ($errors->has('num_aula'))
+                       <span class="error text-danger" for="input-num_aula" style="font-size: 15px">{{ $errors->first('num_aula') }}</span>
+                         @endif
                     </div>
                     <div class="form-group">
                         <label for="capacidad">Capacidad</label>
-                        <input type="text" name="capacidad" class="form-control" id="capacidad" value="{{$aula->capacidad}}" required minlength="1" maxlength="3"
+                        <input type="text" name="capacidad" class="form-control" id="capacidad" value="{{$aula->capacidad}}" value="{{old('capacidad')}}" required minlength="1" maxlength="3"
                         onkeypress="return blockNoNumber(event)">
                     </div>
                     <div class="form-group">
                         <label for="sector">Sector</label>
-                        <select name="sector" id="sector" class="form-control" required>
+                        <select name="sector" id="sector" class="form-control" value="{{old('sector')}}"  required>
                             <option value="">--Seleccione Sector--</option>
                             @foreach ($sector as $item)
-                             <option value="{{ $item->id}}">{{ $item->nombre}}</option>
+                             <option value="{{ $item->id}}" @if(old('sector') == $item->id) selected @endif>{{ $item->nombre}}</option>
 
                             @endforeach
                         </select>                    
@@ -42,10 +45,10 @@
                 
                     <div class="form-group">
                         <label for="estado">Estado</label>
-                        <select name="estado" id="estado" class="form-control" required>
+                        <select name="estado" id="estado" class="form-control" value="{{old('estado')}}"  required>
                             @foreach($estado as $es)
             
-                             <option value="{{$es}}">{{$es}}</option>
+                             <option value="{{$es}}" @if(old('estado') ==$es) selected @endif>{{$es}}</option>
             
                             @endforeach
                         </select>

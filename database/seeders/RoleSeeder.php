@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
@@ -15,17 +16,17 @@ class RoleSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('roles')->insert([
-            'rol' => 'Admin',
-            'permiso' => 'Full',
-        ]);
-        DB::table('roles')->insert([
-            'rol' => 'Docente',
-            'permiso' => 'User',           
-        ]);
-        DB::table('roles')->insert([
-            'rol' => 'Auxiliar',
-            'permiso' => 'User',           
-        ]);
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
+        $roles = [
+            'Admin',
+            'User'
+        ];
+
+        foreach ($roles as $role) {
+            Role::create([
+                'name' => $role
+            ]);
+        }
     }
 }

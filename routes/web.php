@@ -12,6 +12,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MateriaController;
 
@@ -31,6 +33,7 @@ use App\Http\Controllers\MateriaController;
 Route::get('/', function () {
   return view('welcome');
 });
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('/register', [App\Http\Controllers\RegisterController::class, 'store'])
 ->name('register.store');
@@ -70,7 +73,7 @@ Route::get('/docente', [App\Http\Controllers\UserController::class, 'index'])
 ->name('user.index');
 
 Route::get('/auth', function () {
-  return view('layouts.dashboard.index');
+  return view('index');
 })->middleware('auth.user')
 ->name('auth.user');
 
@@ -106,6 +109,9 @@ Route::resource('aulas', AulaController::class, [
 
 Route::post('/aulas/store', [App\Http\Controllers\AulaController::class, 'store'])
 ->name('admin.aulas.store');
+
+Route::get('/aulas/create', [App\Http\Controllers\AulaController::class, 'create'])
+->name('admin.aulas.create');
 
 Route::delete('/aulas/{aulaId}/delete', [App\Http\Controllers\AulaController::class, 'delete'])
 ->name('admin.aulas.delete');
@@ -147,24 +153,36 @@ Route::get('/sectoresaulas', [App\Http\Controllers\SolicitudController::class, '
 Route::get('/usuarios/index', [App\Http\Controllers\UsuariosRController::class, 'index'])
  ->name('admin.usuarios.index');
 
+ Route::get('/usuarios/create', [App\Http\Controllers\UsuariosRController::class, 'create'])
+ ->name('admin.usuarios.create');
+
  Route::post('/usuarios/store', [App\Http\Controllers\UsuariosRController::class, 'store'])
 ->name('admin.usuarios.store');
 
-Route::delete('/usuarios/{usuarioId}/delete', [App\Http\Controllers\UsuariosRController::class, 'delete'])
+Route::delete('/usuarios/{user}', [App\Http\Controllers\UsuariosRController::class, 'destroy'])
 ->name('admin.usuarios.delete');
 
-Route::post('/usuarios/{usuarioId}/update', [App\Http\Controllers\UsuariosRController::class, 'update'])
+Route::get('/usuarios/{user}/edit', [App\Http\Controllers\UsuariosRController::class, 'edit'])
+->name('admin.usuarios.edit');
+
+Route::put('/usuarios/{user}', [App\Http\Controllers\UsuariosRController::class, 'update'])
 ->name('admin.usuarios.update');
 
 //roles
-Route::get('/roles/index', [App\Http\Controllers\RoleController::class, 'index'])
- ->name('admin.roles.index');
+Route::get('/rols/index', [App\Http\Controllers\RoleController::class, 'index'])
+ ->name('admin.rols.index');
 
- Route::post('/roles/store', [App\Http\Controllers\RoleController::class, 'store'])
-->name('admin.roles.store');
+ Route::post('/rols/store', [App\Http\Controllers\RoleController::class, 'store'])
+->name('admin.rols.store');
 
-Route::delete('/roles/{roleId}/delete', [App\Http\Controllers\RoleController::class, 'delete'])
-->name('admin.roles.delete');
+Route::delete('/rols/{roleId}/delete', [App\Http\Controllers\RoleController::class, 'delete'])
+->name('admin.rols.delete');
 
-Route::post('/roles/{roleId}/update', [App\Http\Controllers\RoleController::class, 'update'])
-->name('admin.roles.update');
+Route::post('/rols/{roleId}/update', [App\Http\Controllers\RoleController::class, 'update'])
+->name('admin.rols.update');
+
+//permisos
+Route::group(['middleware' => 'auth'], function() {
+  Route::resource('permissions', App\Http\Controllers\PermissionController::class);
+  Route::resource('roles', App\Http\Controllers\RoleController::class);
+});

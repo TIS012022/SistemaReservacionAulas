@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -16,43 +17,27 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Pedro Perez',
+        
+        $user = User::create([
+            'name' => 'Administrador',
             'email' => 'admin@gmail.com',
             'estadoCuenta' => 'Habilitado',
-            'password' => Hash::make('admin'),
-            'ci' => '123456',
-            'role' => "1"
+            'password' => 'admin',
+            'ci' => '1234567',
+            'Departamento' => 'Informatica',
         ]);
-        DB::table('users')->insert([
+
+        $user->assignRole('Admin');
+       
+        $user2 = User::create([
             'name' => 'Patricia Rodriguez',
             'email' => 'docente@gmail.com',
             'estadoCuenta' => 'Habilitado',
-            'password' => Hash::make('docente'),
-            'ci' => '654321',
-            'role' => "2",
+            'password' => 'docente',
+            'ci' => '5432101',
             'Departamento' => 'Informatica',
-            'materias_grupos' => 'lorem ipsum'
         ]);
-        DB::table('users')->insert([
-            'name' => 'Pablo Montaño',
-            'email' => 'docente2@gmail.com',
-            'estadoCuenta' => 'Deshabilitado',
-            'password' => Hash::make('docente'), 
-            'ci' => '123458',
-            'role' => "2",
-            'Departamento' => 'Informatica',
-            'materias_grupos' => 'lorem ipsum'
-        ]);
-        DB::table('users')->insert([
-            'name' => 'Pablo Alcozer',
-            'email' => 'docente3@gmail.com',
-            'estadoCuenta' => 'Habilitado',
-            'password' => Hash::make('docente'),
-            'ci' => '222122',
-            'role' => "3",
-            'Departamento' => 'Informatica',
-            'materias_grupos' => 'lorem ipsum'
-        ]);
+
+        $user2->assignRole('User');
     }
 }

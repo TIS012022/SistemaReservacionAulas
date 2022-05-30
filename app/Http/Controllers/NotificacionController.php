@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class NotificacionController extends Controller
 {
@@ -19,6 +20,7 @@ class NotificacionController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('notificacion_index'), 403);
         $notificaciones = DB::table('solicitudes')
             ->join('notificaciones', 'solicitudes.id', '=', 'notificaciones.solicitud')
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
@@ -49,9 +51,8 @@ class NotificacionController extends Controller
     public function store(Request $request)
     {
         
-
    
-       $notificacion = new Notificacion();
+        $notificacion = new Notificacion();
         $notificacion->mensaje = $request->mensaje;
     
         $notificacion->email = Auth::user()->email;

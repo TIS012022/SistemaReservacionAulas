@@ -1,13 +1,17 @@
 @extends('layouts.dashboard.index')
 @section('main-content')
-<h2>LISTA DE NOTIFICACIONES</h2>
+<h2>
+   LISTA DE NOTIFICACIONES
+</h2>
 <div class="card-body">
     <div class="table-responsive">
         <div class="form-group">
+            @can('notificacion_buscar')
             <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
                 <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
                 <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
             </span>
+            @endcan
         </div>
         <table class="table caption-top" id="notificaciones">
             <thead>
@@ -35,7 +39,11 @@
                     <td>{{ $notificacion->hora_fin }}</td>
                   {{-- <td>{{ \Illuminate\Support\Str::limit($notificacion->mensaje, 50, $end='...') }}</td>--}}
    
-                    <td><i class="btn btn-primary bi bi-eye-fill" data-bs-toggle="modal" data-bs-target="#modalVer{{$loop->index}}"></i></td>
+                    <td>
+                        @can('notificacion_ver')
+                        <i class="btn btn-primary bi bi-eye-fill" data-bs-toggle="modal" data-bs-target="#modalVer{{$loop->index}}"></i>
+                        @endcan
+                    </td>
 
                     <div class="modal fade" id="modalVer{{$loop->index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
