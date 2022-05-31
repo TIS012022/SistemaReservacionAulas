@@ -17,7 +17,6 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Estado</th>
                     <th>Materia</th>
                     <th>Aula</th>
                     <th>Dia</th>
@@ -31,7 +30,6 @@
                 @foreach ($notificaciones as $notificacion)
                 <tr>
                     <td>{{ $loop->index + 1 }}</td>  
-                    <td>{{ $notificacion->estado }}</td>
                     <td>{{ $notificacion->codigo }} - {{ $notificacion->nombre }}</td>
                     <td>{{ $notificacion->num_aula }}</td>
                     <td>{{ $notificacion->dia }}</td>
