@@ -28,7 +28,7 @@ class NotificacionController extends Controller
             ->join('materias', 'docmaterias.materia', '=', 'materias.id')
             ->where('docmaterias.docente', Auth::id())
             ->get();
-       
+      // dd($notificaciones);
         return view('admin.notificaciones.index', compact('notificaciones'));
     }
 

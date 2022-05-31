@@ -36,11 +36,12 @@ class SolicitudController extends Controller
         
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
             ->join('users', 'docmaterias.docente', '=', 'users.id')
-          
+         
            ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
             // ->join('materias', 'materias.id', '=', 'solicitudes.id')
             
             ->where('solicitudes.estado', '=', 'pendiente')
+            
             // ->join('grupos', 'grupos.id', '=', 'solicitudes.id')
             ->select('name', 'num_aula','solicitudes.*')
             ->get();
@@ -70,7 +71,7 @@ class SolicitudController extends Controller
     
         ->join('materias', 'docmaterias.materia', '=', 'materias.id')
         ->join('grupos', 'docmaterias.grupo', '=', 'grupos.id')
-      
+        ->where('docmaterias.estado', '=', 'Habilitado')
         ->where('docmaterias.docente', '=', Auth::id())
         ->select('docmaterias.*', 'materias.nombre', 'grupos.numero')
         ->get();
