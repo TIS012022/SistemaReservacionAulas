@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Grupo</label>
-                        <select  name="grupo" class="form-control" id="grupo">
+                        <select  name="grupo" class="form-control" id="grupo" required>
                             <option value="">-- Selecciona el grupo--</option>
                             @foreach ($grupos as $grupo)
                                 <option value="{{ $grupo->id }}">{{ $grupo->codigo }}-{{ $grupo->numero }}

@@ -47,7 +47,7 @@ class UsuariosRController extends Controller
         //     'email' => 'required|email|unique:users',
         //     'password' => 'required'
         // ]);
-        $user = User::create($request->only('name', 'ci', 'email','departamento', 'password')
+        $user = User::create($request->only('name', 'ci', 'email','Departamento', 'password')
             + [
                 'estadoCuenta' => "Habilitado",
             ]);
@@ -68,7 +68,7 @@ class UsuariosRController extends Controller
     public function update(UserEditRequest $request, User $user)
     {
         // $user=User::findOrFail($id);
-        $data = $request->only('name', 'email', 'departamento', 'estadoCuenta');
+        $data = $request->only('name', 'email', 'Departamento', 'estadoCuenta');
         $password=$request->input('password');
         if($password)
             $data['password'] = $password;

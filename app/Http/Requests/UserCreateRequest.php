@@ -28,7 +28,7 @@ class UserCreateRequest extends FormRequest
             'ci' => 'required|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'departamento' => 'required',
+            'Departamento' => 'required',
         ];
     }
 

@@ -21,12 +21,12 @@ class RegisterController extends Controller
             'email' => 'required|email',
             'password' => 'required|confirmed',
             'role' => 'required',
-            'departamento' => 'required',
+            'Departamento' => 'required',
             'materias_grupos' =>'required',
 
         ]);
 
-        $user = User::create(request(['name','ci','email','password', 'role', 'departamento', 'materias_grupos']));
+        $user = User::create(request(['name','ci','email','password', 'role', 'Departamento', 'materias_grupos']));
 
         auth()->login($user);
         return redirect()->to('/docente');

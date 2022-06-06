@@ -60,12 +60,12 @@
                 </div>
               </div>
               <div class="row">
-                <label for="departamento" class="col-sm-2 col-form-label">Departamento</label>
+                <label for="Departamento" class="col-sm-2 col-form-label">Departamento</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="departamento" placeholder="Ingrese el departamento al que pertenece" value="{{ old('departamento') }}" autofocus minlength="5" maxlength="15" 
+                  <input type="text" class="form-control" name="Departamento" placeholder="Ingrese el departamento al que pertenece" value="{{ old('Departamento') }}" autofocus minlength="5" maxlength="15" 
                   onkeypress="return blockSpecialChar(event)">
-                  @if ($errors->has('departamento'))
-                    <span class="error text-danger" for="input-departamento" style="font-size: 15px">{{ $errors->first('departamento') }}</span>
+                  @if ($errors->has('Departamento'))
+                    <span class="error text-danger" for="input-Departamento" style="font-size: 15px">{{ $errors->first('Departamento') }}</span>
                   @endif
                 </div>
               </div>

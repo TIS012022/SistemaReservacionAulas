@@ -67,7 +67,7 @@
                                         <div class="form-floating">
                                             <input type="hidden" name="solicitud" value="{{$solicitud->id}}">
                                             <input type="hidden" name="tipo" value="aceptado">
-                                            <textarea name="mensaje" class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
+                                            <textarea name="mensaje" class="form-control" id="floatingTextarea2" style="height: 100px" required></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -91,7 +91,7 @@
                                         <div class="form-floating">
                                             <input type="hidden" name="solicitud" value="{{$solicitud->id}}">
                                             <input type="hidden" name="tipo" value="rechazado">
-                                            <textarea name="mensaje" class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
+                                            <textarea name="mensaje" class="form-control" id="floatingTextarea2" style="height: 100px" required></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -115,7 +115,7 @@
                                         <div class="form-floating">
                                             <input type="hidden" name="tipo" value="sugerido">
                                             <input type="hidden" name="solicitud" value="{{$solicitud->id}}">
-                                            <textarea name="mensaje" class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
+                                            <textarea name="mensaje" class="form-control" id="floatingTextarea2" style="height: 100px" required></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

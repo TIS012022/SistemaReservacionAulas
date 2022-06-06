@@ -19,9 +19,6 @@ class PermissionSeeder extends Seeder
 
         $permissions = [
             'permission_index',
-            'permission_create',
-            'permission_edit',
-            'permission_destroy',
             'permission_buscar',
 
 

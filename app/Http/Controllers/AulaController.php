@@ -202,18 +202,11 @@ class AulaController extends Controller
        
 
         $aula2 = Aula::where('num_aula', $request->num_aula)->first();
-            if(empty($aula2)){    
+             
                  $aula->save();
                 return redirect()->back();
-            }else{ 
-                
-                return back()->withInput()->withErrors([
-                    'message' => 'Error, El numero de aula ingresado ya existe'
-                ]);
-            }
-           
-
-       return redirect()->back();
+            
+        
     }
 
     /**
