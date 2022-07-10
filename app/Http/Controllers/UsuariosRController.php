@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Docmateria;
+
+use App\Models\Solicitud;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserEditRequest;
 use Illuminate\Support\Facades\DB;
@@ -61,6 +64,7 @@ class UsuariosRController extends Controller
     {
         
         $usuario = User::find($usuarioId);
+        
         $usuario->delete();
         return redirect()->back();
     }
@@ -90,12 +94,37 @@ class UsuariosRController extends Controller
     public function destroy(User $user)
     {
         abort_if(Gate::denies('user_destroy'), 403);
+        $docmateria = DB::table('docmaterias')
+        ->join('users', 'docmaterias.docente', 'users.id')
+        ->select('docmaterias.id')
+        ->get();
+   
+  //  dd($docmateria);
+        $solicitudes = DB::table('solicitudes')
+        ->select('docmateria_id')
+        ->get();
+//dd($solicitudes);
+       
+        //dd($interseccion);
+     //  dd($solicitudes);
+     $array1 = json_decode($docmateria);
+     $array2 = json_decode($solicitudes);
+     foreach($docmateria as $obj1){
 
+        foreach ($solicitudes as $obj2) {
+     
+            if ($obj1 == $obj2) {
+     
+                return back()->with('succes', 'HOLA');
+           }     
+     
+        }
+     }
         if (auth()->user()->id == $user->id) {
             return redirect()->route('admin.usuarios.index');
         }
+                    $user->delete();
+                    return back()->with('succes', 'Usuario eliminado correctamente');
 
-        $user->delete();
-        return back()->with('succes', 'Usuario eliminado correctamente');
     }
 }
