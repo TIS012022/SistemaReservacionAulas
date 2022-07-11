@@ -96,35 +96,33 @@ class UsuariosRController extends Controller
         abort_if(Gate::denies('user_destroy'), 403);
         $docmateria = DB::table('docmaterias')
         ->join('users', 'docmaterias.docente', 'users.id')
-        ->select('docmaterias.id')
+        ->join('solicitudes', 'docmaterias.id', 'solicitudes.docmateria_id')
+        ->where('docmaterias.docente','=', $user->id)
         ->get();
    
-  //  dd($docmateria);
-        $solicitudes = DB::table('solicitudes')
-        ->select('docmateria_id')
-        ->get();
-//dd($solicitudes);
-       
+//    dd($docmateria);
+   
+
+
         //dd($interseccion);
      //  dd($solicitudes);
-     $array1 = json_decode($docmateria);
-     $array2 = json_decode($solicitudes);
-     foreach($docmateria as $obj1){
-
-        foreach ($solicitudes as $obj2) {
-     
-            if ($obj1 == $obj2) {
-     
-                return back()->with('succes', 'HOLA');
-           }     
-     
-        }
-     }
+  
         if (auth()->user()->id == $user->id) {
             return redirect()->route('admin.usuarios.index');
+        }else{
+            if(sizeof($docmateria) == 0){
+               // dd("hola");
+                $user->delete();
+                return back()->with('succes', 'Usuario eliminado correctamente');
+                
+            }else{
+               // dd("hola2");
+                return back()->withErrors([
+                    'message' => 'No se pudo eliminar el usuario, ya que este tiene solicitudes o reservas pendientes'
+                ]);
+            }
         }
-                    $user->delete();
-                    return back()->with('succes', 'Usuario eliminado correctamente');
+                   
 
     }
 }

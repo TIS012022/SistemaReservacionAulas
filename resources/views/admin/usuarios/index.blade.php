@@ -11,12 +11,23 @@
     </a>
     @endcan
 </div>
-<div class="card-body">
+<div class="card-body" style="margin-top: 1%; display: flex; justify-content: center;">
     @if (session('success'))
     <div class="alert alert-success" role="success">
       {{ session('success') }}
     </div>
     @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Por favor corrige los siguentes errores:</strong>
+      <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+      </ul>
+    </div>
+  @endif 
 </div>
 
 <div class="form-group" >
