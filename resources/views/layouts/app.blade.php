@@ -14,16 +14,16 @@
     <nav class="navbar navbar-light d-flex justify-content-between">
         <div class="navbar-brand " style="padding-left:5%" href="/" >
           <a href="/">
-          <img src="{{asset('images/logo umss.png')}}" width="42" height="60"  alt="" >
+          <img src="{{asset('images/colcapirhuaEscudo.jpg')}}" width="42" height="60"  alt="" >
           </a>
         </div>
-        
+
         <div class="navbar-brand " style="padding-left:5%" href="/" >
           <a href="/">
-          <img src="{{asset('images/logo fcyt.png')}}" width="50" height="60"  alt="" >
+          <!-- <img src="" width="50" height="60"  alt="" > -->
           </a>
         </div>
-       
+
           <div class="navbar-nav" style="padding-right: 5%">
             @if(auth()->check())
             <li class="nav-item active">
@@ -32,10 +32,10 @@
             <li class="nav-item">
               <a class="nav-link" href="{{route('login.destroy')}}">Logout</a>
             </li>
-            
-                
+
+
             @else
-                
+
             <li class="nav-item active" >
               <a  class="btn btn-dark" style="font-family: 'Times New Roman'; background-color: #1D3354;" href="{{route('login.index')}}">INICIA SESIÓN</a>
             </li>
@@ -47,7 +47,7 @@
             </li>-->
             @endif
           </div>
-        
+
       </nav>
 
     @yield('content')

@@ -37,7 +37,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3" >UMSS</div>
+                <div class="sidebar-brand-text mx-3" >COLCAPIRHUA</div>
             </a>
 
             <!-- Divider -->
@@ -48,7 +48,7 @@
             <li class="nav-item active {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('solicitudes.create') }}">
                     <span>{{ __('Nueva solicitud') }}</span></a>
-                    
+
             </li>
             @endcan
             @can('solicitud_index')
@@ -57,52 +57,48 @@
                     {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
                     {{-- <i class="bi bi-123"></i> --}}
                     <span>{{ __('Solicitudes') }}</span></a>
-            @endcan   
+            @endcan
             @can('aula_index')
             <li class="nav-item active {{ Nav::isRoute('aulas') }}">
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'all' ]) }}">
-                    <span>{{ __('Lista de Aulas') }}</span></a>
+                    <span>{{ __('Lista de Disiplinas') }}</span></a>
             </li>
             @endcan
             @can('aulaR_index')
             <li class="nav-item active {{ Nav::isRoute('aulasR') }}">
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'admin']) }}">
-                    <span>{{ __('Aulas Reservadas') }}</span></a>
+                    <span>{{ __('Cursos Inscritos') }}</span></a>
             </li>
             @endcan
-            
+
             @can('materia_index')
            <li class="nav-item active {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('materias', ['tipo'=> 'admin']) }}">
-                    <span>{{ __('Lista Materias') }}</span></a>
+                    <span>{{ __('Lista de Disciplina') }}</span></a>
            </li>
            @endcan
-           
+
            @can('asignar_index')
            <li class="nav-item active{{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('admin.docMaterias.index') }}">
-                    <span>{{ __('Materias de Docentes') }}</span></a>
+                    <span>{{ __('Asignar Disciplina Entrenador') }}</span></a>
             </li>
             @endcan
-            
+
             @can('user_index')
             <li class="nav-item active {{ Nav::isRoute('usuarios') }}">
                 <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
                     <span>{{ __('Usuarios') }}</span></a>
             </li>
             @endcan
-    
+
             @can('role_index')
             <li class="nav-item active {{ Nav::isRoute('roles') }}">
                 <a class="nav-link" href="{{ route('roles.index') }}" >
                     <span>{{ __('Roles') }}</span></a>
             </li>
             @endcan
-            
-           
-        
 
-           
             <!-- Nav Item - Notificaciones -->
             @can('notificacion_index')
             <li class="nav-item active {{ Nav::isRoute('notificaciones') }}">
@@ -112,7 +108,7 @@
             </li>
             @endcan
 
-            
+
             <!-- <li class="nav-item {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('admin.grupos.index') }}">
                     <span>{{ __('Grupos') }}</span></a>
@@ -259,7 +255,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Evil Genius {{ now()->year }}</span>
+                    <span>Copyright &copy; Gobierno Municipal Colcapirhua {{ now()->year }}</span>
                 </div>
             </div>
         </footer>

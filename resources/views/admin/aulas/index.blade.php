@@ -15,16 +15,16 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Numero Aula</th> 
+            <th scope="col">Numero Aula</th>
             <th scope="col">Materia</th>
             <th scope="col">Dia de reserva</th>
             <th scope="col">Horario de reserva</th>
             <th scope="col">Horario fin reserva</th>
-            
+
         </tr>
     </thead>
     <tbody>
-        @foreach ($aulas as $aula) 
+        @foreach ($aulas as $aula)
         <tr scope="row">
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ @$aula->num_aula }}</td>
@@ -33,7 +33,7 @@
 
             <td>{{ @$aula->hora_ini }} </td>
             <td>{{ @$aula->hora_fin }}</td>
-            
+
 
         </tr>
         @endforeach
@@ -43,11 +43,11 @@
 
 <div class="d-flex justify-content-between">
     <h2>
-        AULAS 
+        Lista de Disiplina
     </h2>
     @can('aula_create')
     <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalCrear">
-        Crear aula
+        Crear Disiplina
     </button>
     @endcan
 </div>
@@ -62,7 +62,7 @@
       @endforeach
       </ul>
     </div>
-  @endif 
+  @endif
 </div>
 
 <!--Tabla de AULAS-->
@@ -79,14 +79,14 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Numero Aula</th>
+            <th scope="col">Nonbre Disiplina</th>
             <th scope="col">Capacidad</th>
-            <th scope="col">Sector</th>
+            <th scope="col">Sub Categoria</th>
             <th scope="col">Estado</th>
             <th scope="col">Acciones</th>
         </tr>
     </thead>
-    <tbody> 
+    <tbody>
         @foreach ($aulas as $aula)
         <tr scope="row">
             <td>{{ $loop->index + 1 }}</td>
@@ -105,7 +105,7 @@
                 @endif
             </td>
 
-            
+
 
             <td>
                 @can('aula_edit')
@@ -118,7 +118,7 @@
                     Eliminar
                 </button>
                 @endcan
-            </td> 
+            </td>
         </tr>
         @include('admin.aulas.modalEditar')
         @include('admin.aulas.modalEliminar')
@@ -129,12 +129,12 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 
+
 <div class="modal fade bs-example-modal-lg" id="modalCrear">
     <div class="modal-dialog">
         <div class="modal-content ">
             <div class="modal-header">
-                <h4 class="modal-title w-100 text-center">Nueva Aula</h4>
+                <h4 class="modal-title w-100 text-center">Nueva Disiplina</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>
@@ -143,13 +143,13 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="codigo">Codigo</label>
-                        <input type="text" name="codigo" class="form-control" id="codigo" value="{{old('codigo')}}" required minlength="5" maxlength="15"  
+                        <input type="text" name="codigo" class="form-control" id="codigo" value="{{old('codigo')}}" required minlength="5" maxlength="15"
                         onkeypress="return blockNoNumber(event)">
                         @if ($errors->has('codigo'))
                     <span class="error text-danger" for="input-codigo" style="font-size: 15px">{{ $errors->first('codigo') }}</span>
                     @endif
-                        <label for="num_aula">Numero aula</label>
-                        <input type="text" name="num_aula" class="form-control" id="num_aula" value="{{old('num_aula')}}" required minlength="1" maxlength="6" 
+                        <label for="num_aula">Nombre Disciplina</label>
+                        <input type="text" name="num_aula" class="form-control" id="num_aula" value="{{old('num_aula')}}" required minlength="1" maxlength="6"
                         onkeypress="return blockSpecialChar(event)">
                         @if ($errors->has('num_aula'))
                     <span class="error text-danger" for="input-num_aula" style="font-size: 15px">{{ $errors->first('num_aula') }}</span>
@@ -157,18 +157,18 @@
                         <label for="capacidad">Capacidad</label>
                         <input type="text" name="capacidad" class="form-control" id="capacidad" value="{{old('capacidad')}}" required minlength="1" maxlength="3"
                         onkeypress="return blockNoNumber(event)">
-                        <label for="sectores">Sector</label>
+                        <label for="sectores">Sub Categoria</label>
                         <select name="sector" id="sector" class="form-control" value="{{old('sector')}}" required>
-                            <option value="">-- Selecciona el sector--</option>
-                            
+                            <option value="">-- Selecciona la Categoria--</option>
+
                             @foreach ($sector as $item)
                                 <option value="{{ $item->id }}" @if(old('sector') == $item->id) selected @endif>{{ $item->nombre}}</option>
                             @endforeach
-                        </select>  
+                        </select>
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" class="form-control" value="{{old('sector')}}" required>
                             <option value="">-- Selecciona el estado--</option>
-                            
+
                             <option value="Habilitado" @if(old('estado') == 'Habilitado') selected @endif>Habilitado</option>
                             <option value="Deshabilitado" @if(old('estado') == 'Deshabilitado') selected @endif>Deshabilitado</option>
                             <option value="Mantenimiento" @if(old('estado') == 'Mantenimiento') selected @endif>Mantenimiento</option>
@@ -182,7 +182,7 @@
                 </div>
             </form>
         </div>
-    </div>   
+    </div>
 </div>
 
 

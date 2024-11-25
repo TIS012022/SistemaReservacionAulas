@@ -32,26 +32,26 @@ align-items: center;">
     <form class="form-signin" method="POST" >
         @csrf
         <div>
-            <h1 class="h3 mb-3 font-weight-normal" style="font-family: 'Times New Roman'; text-align: center; font-size: 40px;">Inicia sesión</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="font-family: 'Times New Roman'; text-align: center; font-size: 40px;">Iniciar sesión</h1>
         </div>
         <div style="padding-top: 8%; width: 300px">
             <input style="font-family: 'Times New Roman';" type="email" id="email" name="email" class="form-control" placeholder="Correo electronico" required autofocus maxlength="255">
 
             <input style="font-family: 'Times New Roman';" type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required minlength="5" maxlength="15">
-            
-            
+
+
         </div>
         <div style="padding-top: 16%" >
-            
-            <input type="submit" value="Ingresar" class="btn btn-dark" 
+
+            <input type="submit" value="Ingresar" class="btn btn-dark"
             style="font-family: 'Times New Roman'; background-color: #1D3354; width: 100%; font-size: 20px; "/>
-      
+
         </div>
 
 
         <div style="padding-top: 8%">
             <a href="/" style=" text-decoration:none;font-family: 'Times New Roman'; text-align: center;">
-                <p  style="color:black;">&copy; Evil Genius S.R.L.</p>
+                <p  style="color:black;">&copy; Gobierno Autonomo Municipal Colcapirhua</p>
             </a>
         </div>
 
@@ -59,7 +59,7 @@ align-items: center;">
             @error('message')
 
                 <p class="alert alert-danger ">{{$message}}</p>
-            
+
             @enderror
             </div>
     </form>
