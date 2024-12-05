@@ -2,12 +2,12 @@
 @section('main-content')
 
     <div class="d-flex justify-content-between">
-        <h2> 
-            LISTA DE CREADAS MATERIAS 
+        <h2>
+            LISTA DE DISCIPLINAS HABILITADAS
         </h2>
         @can('materia_create')
         <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalCrear">
-            Crear materias
+            Crear Disciplina
         </button>
         @endcan
     </div>
@@ -38,16 +38,16 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Materia</th>
-                    <th scope="col">Carrera</th>
-                    <th scope="col">Codigo</th>
-                    <th scope="col">Nivel</th>
+                    <th scope="col">Nombre Disciplina</th>
+                    <th scope="col">Genero</th>
+                    <th scope="col">Edad Años</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <tbody> 
+            <tbody>
                 @foreach ($materias as $materia)
                 <tr scope="row">
                     <td>{{ @$materia->id }}</td>
@@ -56,21 +56,21 @@
                     <td>{{ @$materia->codigo}}</td>
                     <td>{{ @$materia->nivel}}</td>
                     <td>{{ @$materia->tipo}}</td>
-                    
+
                     <td id="resp{{ $materia->id }}">
                         @if(@$materia->estado == 'Habilitado' )
                             <span class="badge badge-success">{{ @$materia->estado }}</span>
-                
+
                         @elseif(@$materia->estado == 'Deshabilitado' )
                             <span class="badge badge-danger">{{ @$materia->estado }}</span>
-                        
+
                         @endif
                     </td>
                     <td>
                             @can('materia_estado')
                             <label class="switch">
-                                <input data-id="{{ $materia->id }}" class="mi_checkbox" type="checkbox" 
-                                data-onstyle="success" data-offstyle="danger" data-toggle="toggle" 
+                                <input data-id="{{ $materia->id }}" class="mi_checkbox" type="checkbox"
+                                data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                 data-on="Active" data-off="InActive" {{ $materia->estado == 'Habilitado'? 'checked' : '' }}>
                                 <span class="slider round"></span>
                             </label>
@@ -78,10 +78,10 @@
                             @can('materia_edit')
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar-{{$materia->id}}">
                                 Editar
-                            </button>      
+                            </button>
                             @endcan
                     </td>
-        
+
                 </tr>
 
                      @include('admin.materias.modalEditar')
@@ -99,7 +99,7 @@
         <div class="modal-dialog">
             <div class="modal-content ">
                 <div class="modal-header">
-                    <h4 class="modal-title w-100 text-center">Asignar materia</h4>
+                    <h4 class="modal-title w-100 text-center">Asignar Disciplina</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
                 </div>
@@ -107,43 +107,43 @@
                     {{ csrf_field() }}
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Codigo</label>
-                            <input type="text" name="codigo" class="form-control" id="codigo" value="{{old('codigo')}}" required minlength="7" maxlength="15"  
+                            <label for="name">Edad Años</label>
+                            <input type="text" name="codigo" class="form-control" id="codigo" value="{{old('codigo')}}" required minlength="1" maxlength="2"
                             onkeypress="return blockNoNumber(event)">
-                            <label for="name">Nombre Materia</label>
-                            <input type="text" name="nombre" class="form-control" id="nombre" value="{{old('nombre')}}" required minlength="5" maxlength="25"
+                            <label for="name">Nombre Disciplina</label>
+                            <input type="text" name="nombre" class="form-control" id="nombre" value="{{old('nombre')}}" required minlength="2" maxlength="25"
                             onkeypress="return blockSpecialChar(event)">
-                            <label for="name">Carrera</label>
+                            <label for="name">Genero</label>
                             <input type="text" name="carrera" class="form-control" id="carrera" value="{{old('carrera')}}" required minlength="5" maxlength="50"
                             onkeypress="return blockSpecialChar(event)">
-                            <label for="name">Nivel</label>
-                            <input type="text" name="nivel" class="form-control" id="nivel" value="{{old('nivel')}}" required minlength="1" maxlength="1" 
+                            <label for="name">Cateegoria</label>
+                            <input type="text" name="nivel" class="form-control" id="nivel" value="{{old('nivel')}}" required minlength="1" maxlength="1"
                             onkeypress="return blockSpecialChar(event)">
-                            <label for="tipo">Tipo Materia</label>
+                            <label for="tipo">Tipo Disciplina</label>
                             <select name="tipo" id="tipo" class="form-control" required>
                                 <option value="">-- Selecciona el tipo de materia--</option>
                                 <option value="Regular" @if(old('tipo') == 'Regular') selected @endif>Regular</option>
                                 <option value="Electiva" @if(old('tipo') == 'Electiva') selected @endif>Electiva</option>
-                            </select>   
-                            
+                            </select>
+
                             <label for="estado">Estado</label>
                             <select name="estado" id="estado" class="form-control" required>
                                 <option value="">-- Selecciona el estado--</option>
-                                
+
                                 <option value="Habilitado" @if(old('estado') == 'Habilitado') selected @endif>Habilitado</option>
                                 <option value="Deshabilitado" @if(old('estado') == 'Deshabilitado') selected @endif>Deshabilitado</option>
                             </select>
                         </div>
                     </div>
-    
+
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-danger" data-dismiss="modal" id="refresh">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Aceptar</button>
                     </div>
                 </form>
             </div>
-        </div>   
-    </div>    
+        </div>
+    </div>
     <script language="javascript">
         function doSearch() {
             var tableReg = document.getElementById('materias');
@@ -177,7 +177,7 @@
             return ( (k >= 48 && k <= 57));
          }
          /* try {
-             
+
              let refresh = document.getElementById('refresh');
              if(refresh){
                 refresh.addEventListener('click',() => {
@@ -185,7 +185,7 @@
                             })
              }
          } catch (error) {
-             
+
          } */
 
         $(document).ready(function() {
@@ -193,13 +193,13 @@
             $(".cargando").fadeOut(1000);
         });
 
-            
+
   });
   $('.mi_checkbox').click(function() {
             console.log($('.mi_checkbox'));
         //Verifico el estado del checkbox, si esta seleccionado sera igual a 1 de lo contrario sera igual a 0
-        var estatus = $(this).prop('checked') == true ? 'Habilitado' : 'Deshabilitado'; 
-        var id = $(this).data('id'); 
+        var estatus = $(this).prop('checked') == true ? 'Habilitado' : 'Deshabilitado';
+        var id = $(this).data('id');
             console.log(estatus);
 
         $.ajax({
@@ -209,9 +209,9 @@
             url: "{{ url('/statusnoticia') }}",
             data: {'estatus': estatus, 'id': id},
             success: function(data){
-                $('#resp' + id).html(data.var); 
+                $('#resp' + id).html(data.var);
                 console.log(data.var)
-            
+
             }
         });
     })

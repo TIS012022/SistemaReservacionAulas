@@ -6,7 +6,7 @@ use App\Models\Materia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Gate; 
+use Illuminate\Support\Facades\Gate;
 
 class MateriaController extends Controller
 {
@@ -22,7 +22,7 @@ class MateriaController extends Controller
         return view('admin.materias.index', compact('materias'))->with('tipo', "all");
     }
 
-    public function UpdateStatusNoti(Request $request){ 
+    public function UpdateStatusNoti(Request $request){
         abort_if(Gate::denies('materia_estado'), 403);
         $NotiUpdate = Materia::find($request->id);/* ->update(['estatus' => $request->estatus]) */
         $NotiUpdate ->estado=$request->estatus;
@@ -37,10 +37,10 @@ class MateriaController extends Controller
                     }
                     return response()->json(['var'=>''.$newStatus.'']);
         }
-        
+
         return response()->json([],401);
 
-    } 
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -62,15 +62,15 @@ class MateriaController extends Controller
     {
         abort_if(Gate::denies('materia_create'), 403);
         $validator = Validator::make($request->all(),[
-            'codigo' => 'required|unique:materias,codigo',
-            'nombre' => 'required|string|max:255|unique:materias,nombre',          
+            'codigo' => 'required',
+            'nombre' => 'required|string|min:1|max:255',
             'carrera' => 'required|string|min:1|max:255',
             'tipo' => 'required',
-            'nivel' => 'required'  
+            'nivel' => 'required'
         ]);
-        
+
         $newMateria = new Materia();
-        
+
         $newMateria ->codigo = $request->codigo;
         $newMateria->nombre = $request->nombre;
         $newMateria->carrera = $request->carrera;
@@ -83,10 +83,10 @@ class MateriaController extends Controller
         $materias2 = Materia::where('nombre', $request->nombre)->first();
         //    dd($request->all());
         //    dd($materias2);
-       if(empty($materias) && empty($materias2) ){    
+       if(empty($materias) && empty($materias2) ){
             $newMateria->save();
             return redirect()->back();
-        }else{ 
+        }else{
 
             return back()->withInput()->withErrors([
                 'message' => 'Error, El codigo o nombre de la materia ya esta registrado en la lista'
@@ -129,7 +129,7 @@ class MateriaController extends Controller
     {
         abort_if(Gate::denies('materia_edit'), 403);
         $materia = Materia::find($materiaId);
-        
+
         $materia->nombre = $request->nombre;
         $materia->carrera = $request->carrera;
         $materia->tipo = $request->tipo;

@@ -1,6 +1,6 @@
 <?php
     $estado = ["Habilitado","Deshabilitado"];
-    $estado = array_diff($estado, array("{$docentesmateria->estado}"));   
+    $estado = array_diff($estado, array("{$docentesmateria->estado}"));
     $estado = Arr::prepend($estado, "{$docentesmateria->estado}");
 ?>
 <div class="modal fade" id="modalEditar-{{$docentesmateria->id}}">
@@ -15,9 +15,9 @@
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Materia</label>
+                        <label for="name">Disciplina</label>
                         <select name="materia" id="materia" class="form-control" required>
-                            <option value="">-- Selecciona la materia--</option>
+                            <option value="">-- Selecciona la Disciplina--</option>
                             @foreach ($materias as $materia)
                                 <option value="{{ $materia->id }}">{{ $materia->nombre }}
 
@@ -26,9 +26,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="name">Grupo</label>
+                        <label for="name">Sub Categoria</label>
                         <select  name="grupo" class="form-control" id="grupo">
-                            <option value="">-- Selecciona el grupo--</option>
+                            <option value="">-- Selecciona el Sub Categoria--</option>
                             @foreach ($grupos as $grupo)
                                 <option value="{{ $grupo->id }}">{{ $grupo->codigo }}-{{ $grupo->numero }}
 
@@ -44,18 +44,18 @@
                                 <option value="{{$status}}">{{$status}}</option>
                             @endforeach
                         </select>
-                    </div>  
+                    </div>
                     <div class="form-group">
                         <label for="name">Inscritos</label>
-                        <input type="text" name="inscritos" class="form-control" id="inscritos" value="{{$docentesmateria->inscritos}}" required minlength="2" maxlength="3"  
+                        <input type="text" name="inscritos" class="form-control" id="inscritos" value="{{$docentesmateria->inscritos}}" required minlength="2" maxlength="3"
                         onkeypress="return blockNoNumber(event)">
-                    </div> 
+                    </div>
                     <div class="form-group">
                         <label for="name">Gestión</label>
-                        <input type="text" name="gestion" class="form-control" id="gestion" value="{{$docentesmateria->gestion}}" required minlength="5" maxlength="15"  
+                        <input type="text" name="gestion" class="form-control" id="gestion" value="{{$docentesmateria->gestion}}" required minlength="5" maxlength="15"
                         >
-                    </div> 
-                    <!-- <div class="form-group">  
+                    </div>
+                    <!-- <div class="form-group">
                         <label for="name">Docente</label>
                         <select  name="docente" class="form-control" id="docente">
                             <option value="">-- Selecciona al docente--</option>

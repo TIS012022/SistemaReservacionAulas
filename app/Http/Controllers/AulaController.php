@@ -24,7 +24,7 @@ class AulaController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         if ($request->tipo === "reservadas") {
             $aulas = DB::table('solicitudes')
             ->join('docmaterias', 'solicitudes.docmateria_id', '=', 'docmaterias.id')
@@ -53,7 +53,7 @@ class AulaController extends Controller
             return view('admin.aulasR.index', compact('aulas'))->with('tipo', "admin");
 
         }
-        
+
         abort_if(Gate::denies('aula_index'), 403);
         $aulas =  DB::table('aulas')
         ->join('sectors', 'aulas.sector', '=', 'sectors.id')
@@ -83,12 +83,12 @@ class AulaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
+
     public function store(Request $request)
-    {      
+    {
         abort_if(Gate::denies('aula_create'), 403);
             $newAula= new Aula();
-   
+
             $newAula->codigo = $request->codigo;
             $newAula->num_aula = $request->num_aula;
             $newAula->capacidad = $request->capacidad;
@@ -97,18 +97,18 @@ class AulaController extends Controller
 
             $aula = Aula::where('codigo', $request->codigo)->first();
             $aula2 = Aula::where('num_aula', $request->num_aula)->first();
-            if(empty($aula) && empty($aula2)){    
+            if(empty($aula) && empty($aula2)){
                 $newAula->save();
                 return redirect()->back();
-            }else{ 
-                
+            }else{
+
                 return back()->withInput()->withErrors([
-                    'message' => 'Error, el codigo o numero de aula ingresado ya existe'
+                    'message' => 'Error, el codigo o numero de la disciplina ingresado ya existe'
                 ]);
             }
-           
-           return redirect()->back();    
-                   
+
+           return redirect()->back();
+
 
     }
 
@@ -119,12 +119,12 @@ class AulaController extends Controller
             $output = $data;
             if (is_array($output))
                 $output = implode(',', $output);
-        
+
             echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
         }
-        
+
         $solicitudes = Solicitud::where('aula', $aulaId)->first();
-    
+
         $aula = Aula::find($aulaId);
         debug_to_console($aula);
         debug_to_console($solicitudes);
@@ -139,20 +139,20 @@ class AulaController extends Controller
             debug_to_console('hola');
          }
        */
-     
+
        if(empty($solicitudes)){
-       
+
             $aula->delete();
             return redirect()->back();
-        }else{ 
-            
+        }else{
+
             return back()->withErrors([
                 'message' => 'No se puede eliminar el aula '.$aula["num_aula"].' debido a que esta siendo usada en una solicitud'
             ]);
 
         }
-        
-        
+
+
     }
     public function deleteReservadas(Request $request, $reservaId)
     {
@@ -161,7 +161,7 @@ class AulaController extends Controller
         $reserva->delete();
         return redirect()->back();
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -199,19 +199,19 @@ class AulaController extends Controller
         $aula->capacidad = $request->capacidad;
         $aula->sector = $request->sector;
         $aula->estado = $request->estado;
-       
+
 
         $aula2 = Aula::where('num_aula', $request->num_aula)->first();
-            if(empty($aula2)){    
+            if(empty($aula2)){
                  $aula->save();
                 return redirect()->back();
-            }else{ 
-                
+            }else{
+
                 return back()->withInput()->withErrors([
                     'message' => 'Error, El numero de aula ingresado ya existe'
                 ]);
             }
-           
+
 
        return redirect()->back();
     }

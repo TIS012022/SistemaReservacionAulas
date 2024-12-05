@@ -3,7 +3,7 @@
 
 
 <div class="d-flex justify-content-between">
-    <h2>INFORMACIÓN MATERIAS DE DOCENTES</h2>
+    <h2>INFORMACIÓN DISCIPLINA DE ENTRENADORES</h2>
     @can('asignar_create')
     <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalAsignarMat">
         Asignar materia
@@ -38,10 +38,10 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Materia</th>   
-            <th scope="col">Grupo</th>
+            <th scope="col">Nombre Disciplina</th>
+            <th scope="col">Categoria</th>
             <th scope="col">Estado</th>
-            <th scope="col">Docente</th>
+            <th scope="col">Entrenador</th>
             <th scope="col">Inscritos</th>
             <th scope="col">Gestión</th>
             <th scope="col">Acciones</th>
@@ -59,7 +59,7 @@
             <td>{{ @$docentesmateria->name }}</td>
             <td>{{ @$docentesmateria->inscritos}}</td>
             <td>{{ @$docentesmateria->gestion}}</td>
-            
+
 
             <td>
                 @can('asignar_edit')
@@ -93,17 +93,17 @@
     <div class="modal-dialog">
         <div class="modal-content ">
             <div class="modal-header">
-                <h4 class="modal-title w-100 text-center">Asignación materia/docente</h4>
+                <h4 class="modal-title w-100 text-center">Asignación Disciplina/Entrenador</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    
+
             </div>
-            
+
             <form action="{{route('admin.docentesmaterias.store')}}" method="POST">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Materia</label>
+                        <label for="name">Disciplina</label>
                         <select name="materia" id="materia" class="form-control" required >
                             @error('materia')
                                 <span class="invalid.feedback" role="alert">
@@ -111,7 +111,7 @@
                                 </span>
                             @enderror
                             <option value="">-- Selecciona la materia--</option>
-                            
+
                             @foreach ($materias as $materia)
                                 <option value="{{ $materia->id }}" @if(old('materia') == $materia->id) selected @endif>
                                     {{ $materia->nombre }}
@@ -119,9 +119,9 @@
                                 </option>
                             @endforeach
                         </select>
-                        <label for="name">Grupo</label>
+                        <label for="name">Sub Categoria</label>
                         <select  name="grupo" class="form-control" id="grupo" required>
-                            <option value="">-- Selecciona el grupo--</option>
+                            <option value="">-- Selecciona el Sub Categoria--</option>
                             @foreach ($grupos as $grupo)
                                 <option value="{{ $grupo->id }}" @if(old('grupo') == $grupo->id) selected @endif>{{ $grupo->codigo }}-{{ $grupo->numero }}
 
@@ -134,9 +134,9 @@
                             <option value="Habilitado" @if(old('estado') == 'Habilitado') selected @endif>Habilitado</option>
                             <option value="Deshabilitado" @if(old('estado') == 'Deshabilitado') selected @endif>Deshabilitado</option>
                         </select>
-                        <label for="name">Docente</label>
+                        <label for="name">Entrenador</label>
                         <select  name="docente" class="form-control" id="docente" required>
-                            <option value="">-- Selecciona al docente--</option>
+                            <option value="">-- Selecciona al Entrenador--</option>
                             @foreach ($users as $docente)
                                 <option value="{{ $docente->id }}" @if(old('docente') == $docente->id) selected @endif>{{ $docente->name }}
 
@@ -144,10 +144,10 @@
                             @endforeach
                         </select>
                         <label for="name">Inscritos</label>
-                        <input type="text" name="inscritos"  value="{{ old('inscritos') }}" class="form-control" id="inscritos" required minlength="2" maxlength="3"  
+                        <input type="text" name="inscritos"  value="{{ old('inscritos') }}" class="form-control" id="inscritos" required minlength="2" maxlength="3"
                         onkeypress="return blockNoNumber(event)">
                         <label for="name">Gestión</label>
-                        <input type="text" name="gestion" value="{{ old('gestion') }}" class="form-control" id="gestion" required minlength="5" maxlength="15"  
+                        <input type="text" name="gestion" value="{{ old('gestion') }}" class="form-control" id="gestion" required minlength="5" maxlength="15"
                         >
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                 </div>
             </form>
         </div>
-    </div>   
+    </div>
 </div>
 <script language="javascript">
     function doSearch() {
@@ -199,7 +199,7 @@
 })
 </script>
 
- 
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

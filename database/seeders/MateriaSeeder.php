@@ -27,10 +27,17 @@ class MateriaSeeder extends Seeder
             "Calculo IV",
             "Algebra I",
             "Algebra Lineal",
+            "Futbol Masculino",
+            "Futbol Femenino",
+            "Basquet Masculino",
+            "Basquet Femenino",
+            "Gimnacia Ritmica",
+            "Judo",
+            "Taekwando",
         ];
         $estado = ["Habilitado", "Deshabilitado"];
         $niveles = ['A','B','C','D','E','F','G', 'H', 'I', 'J', ''];
-        $tipos = ["Regular", "Electiva"];
+        $tipos = ["Femenino", "Masculino"];
 
         for ($i = 0; $i < 10; $i++) {
             DB::table('materias')->insert([

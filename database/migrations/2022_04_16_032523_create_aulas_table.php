@@ -18,7 +18,6 @@ class CreateAulasTable extends Migration
             $table->integer("codigo");
             $table->string("num_aula");
             $table->integer("capacidad");
-           
             $table->string("estado");
 
             $table->unsignedBigInteger('sector');

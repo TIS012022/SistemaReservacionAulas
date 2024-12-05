@@ -24,8 +24,8 @@ class AulaCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigo' => 'required|unique:aulas',
-            'num_aula' => 'required|unique:aulas',
+            'codigo' => 'required',
+            'num_aula' => 'required',
         ];
     }
 

@@ -149,7 +149,7 @@
                     <span class="error text-danger" for="input-codigo" style="font-size: 15px">{{ $errors->first('codigo') }}</span>
                     @endif
                         <label for="num_aula">Nombre Disciplina</label>
-                        <input type="text" name="num_aula" class="form-control" id="num_aula" value="{{old('num_aula')}}" required minlength="1" maxlength="6"
+                        <input type="text" name="num_aula" class="form-control" id="num_aula" value="{{old('num_aula')}}" required minlength="1" maxlength="15"
                         onkeypress="return blockSpecialChar(event)">
                         @if ($errors->has('num_aula'))
                     <span class="error text-danger" for="input-num_aula" style="font-size: 15px">{{ $errors->first('num_aula') }}</span>

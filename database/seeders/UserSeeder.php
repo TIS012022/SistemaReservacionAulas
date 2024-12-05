@@ -17,34 +17,34 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        
+
         $user = User::create([
             'name' => 'Administrador',
             'email' => 'admin@gmail.com',
             'estadoCuenta' => 'Habilitado',
             'password' => 'admin',
             'ci' => '1234567',
-            'Departamento' => 'Informatica',
+            'Departamento' => 'Cochabamba',
         ]);
 
         $user->assignRole('Admin');
-       
+
         $user2 = User::create([
-            'name' => 'Patricia Rodriguez',
-            'email' => 'docente@gmail.com',
+            'name' => 'Jaime Rodriguez',
+            'email' => 'entrenador@gmail.com',
             'estadoCuenta' => 'Habilitado',
-            'password' => 'docente',
+            'password' => 'entrenador',
             'ci' => '5432101',
-            'Departamento' => 'Informatica',
+            'Departamento' => 'Cochabamba',
         ]);
 
         $user2->assignRole('User');
 
         $user3 = User::create([
             'name' => 'Paco Fernandez',
-            'email' => 'docente2@gmail.com',
+            'email' => 'entrenador2@gmail.com',
             'estadoCuenta' => 'Habilitado',
-            'password' => 'docente',
+            'password' => 'entrenador2',
             'ci' => '4232332',
             'Departamento' => 'Sistemas',
         ]);

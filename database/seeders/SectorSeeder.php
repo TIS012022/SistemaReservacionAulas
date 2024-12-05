@@ -16,20 +16,20 @@ class SectorSeeder extends Seeder
     {
         //
         DB::table('sectors')->insert([
-            'nombre' => 'Edificio nuevo',
-            
+            'nombre' => 'A sub 15',
+
         ]);
         DB::table('sectors')->insert([
-            'nombre' => 'bloque antiguo',
-            
+            'nombre' => 'B sub 17',
+
         ]);
         DB::table('sectors')->insert([
-            'nombre' => 'laboratorios',
-            
+            'nombre' => 'A sub 17',
+
         ]);
         DB::table('sectors')->insert([
-            'nombre' => 'edificio memi',
-            
+            'nombre' => 'B sub 13',
+
         ]);
     }
 }
