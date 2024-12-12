@@ -119,11 +119,11 @@
                             <label for="name">Cateegoria</label>
                             <input type="text" name="nivel" class="form-control" id="nivel" value="{{old('nivel')}}" required minlength="1" maxlength="1"
                             onkeypress="return blockSpecialChar(event)">
-                            <label for="tipo">Tipo Disciplina</label>
+                            <label for="tipo">Tipo Categoria</label>
                             <select name="tipo" id="tipo" class="form-control" required>
-                                <option value="">-- Selecciona el tipo de materia--</option>
-                                <option value="Regular" @if(old('tipo') == 'Regular') selected @endif>Regular</option>
-                                <option value="Electiva" @if(old('tipo') == 'Electiva') selected @endif>Electiva</option>
+                                <option value="">-- Selecciona el tipo de categoria--</option>
+                                <option value="Sub-8" @if(old('tipo') == 'Sub-8') selected @endif>Sub-8</option>
+                                <option value="Sub-9" @if(old('tipo') == 'Sub-9') selected @endif>Sub-15</option>
                             </select>
 
                             <label for="estado">Estado</label>

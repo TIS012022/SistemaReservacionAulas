@@ -43,7 +43,7 @@
 
 <div class="d-flex justify-content-between">
     <h2>
-        Lista de Disiplina
+        Lista de Disciplinas
     </h2>
     @can('aula_create')
     <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalCrear">
@@ -157,6 +157,7 @@
                         <label for="capacidad">Capacidad</label>
                         <input type="text" name="capacidad" class="form-control" id="capacidad" value="{{old('capacidad')}}" required minlength="1" maxlength="3"
                         onkeypress="return blockNoNumber(event)">
+
                         <label for="sectores">Sub Categoria</label>
                         <select name="sector" id="sector" class="form-control" value="{{old('sector')}}" required>
                             <option value="">-- Selecciona la Categoria--</option>
@@ -165,6 +166,7 @@
                                 <option value="{{ $item->id }}" @if(old('sector') == $item->id) selected @endif>{{ $item->nombre}}</option>
                             @endforeach
                         </select>
+
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" class="form-control" value="{{old('sector')}}" required>
                             <option value="">-- Selecciona el estado--</option>

@@ -1,18 +1,18 @@
 <?php
     $sectors = DB::table('sectors')->select('nombre')->get();
-   $sectores = DB::table('sectors')->select('nombre')->where('id','=', "{$aula->id}")->get();
-  // $sectors = array_diff($sectors, $sectores);   
+    $sectores = DB::table('sectors')->select('nombre')->where('id','=', "{$aula->id}")->get();
+  // $sectors = array_diff($sectors, $sectores);
     //$sector = Arr::prepend($sector, "{$aula->nombre}");
 
     $estado = ["Habilitado","Deshabilitado", "Mantenimiento"];
-    $estado = array_diff($estado, array("{$aula->estado}"));   
+    $estado = array_diff($estado, array("{$aula->estado}"));
     $estado = Arr::prepend($estado, "{$aula->estado}");
 ?>
 <div class="modal fade" id="modalEditar-{{$aula->id}}">
     <div class="modal-dialog">
         <div class="modal-content bg-default">
             <div class="modal-header">
-                <h4 class="modal-title w-100 text-center">Editar Aula</h4>
+                <h4 class="modal-title w-100 text-center">Editar Disciplina</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>
@@ -20,8 +20,8 @@
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="num_aula">Numero aula</label>
-                        <input type="text" name="num_aula" class="form-control" id="num_aula" value="{{$aula->num_aula}}" value="{{old('num_aula')}}" required minlength="1" maxlength="6" 
+                        <label for="num_aula">Nombre Disciplina</label>
+                        <input type="text" name="num_aula" class="form-control" id="num_aula" value="{{$aula->num_aula}}" value="{{old('num_aula')}}" required minlength="1" maxlength="16"
                         onkeypress="return blockSpecialChar(event)">
                         @if ($errors->has('num_aula'))
                        <span class="error text-danger" for="input-num_aula" style="font-size: 15px">{{ $errors->first('num_aula') }}</span>
@@ -40,16 +40,16 @@
                              <option value="{{ $item->id}}" @if(old('sector') == $item->id) selected @endif>{{ $item->nombre}}</option>
 
                             @endforeach
-                        </select>                    
+                        </select>
                     </div>
-                
+
                     <div class="form-group">
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" class="form-control" value="{{old('estado')}}"  required>
                             @foreach($estado as $es)
-            
+
                              <option value="{{$es}}" @if(old('estado') ==$es) selected @endif>{{$es}}</option>
-            
+
                             @endforeach
                         </select>
                     </div>

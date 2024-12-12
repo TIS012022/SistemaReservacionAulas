@@ -47,7 +47,7 @@
             @can('crear_reserva')
             <li class="nav-item active {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('solicitudes.create') }}">
-                    <span>{{ __('Nueva solicitud') }}</span></a>
+                    <span>{{ __('solicitud de inscripcion') }}</span></a>
 
             </li>
             @endcan
@@ -56,7 +56,7 @@
                 <a class="nav-link" href="{{ route('solicitudes') }}">
                     {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
                     {{-- <i class="bi bi-123"></i> --}}
-                    <span>{{ __('Solicitudes') }}</span></a>
+                    <span>{{ __('Inscripciones') }}</span></a>
             @endcan
             @can('aula_index')
             <li class="nav-item active {{ Nav::isRoute('aulas') }}">
@@ -74,7 +74,7 @@
             @can('materia_index')
            <li class="nav-item active {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('materias', ['tipo'=> 'admin']) }}">
-                    <span>{{ __('Lista de Disciplina') }}</span></a>
+                    <span>{{ __('Disciplinas Habilitadas') }}</span></a>
            </li>
            @endcan
 

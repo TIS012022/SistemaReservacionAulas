@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="my-5">
-        <h2 class="my-3">SOLICITUDES</h2>
+        <h2 class="my-3">ALUMNOS INSCRITOS</h2>
         <!-- Button trigger modal -->
         <div class="form-group">
             @can('solicitud_buscar')
@@ -11,20 +11,20 @@
                 <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
                 <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
             </span>
-            @endcan 
+            @endcan
         </div>
         <table class="table table-primary table-striped mt-4" id="solicitudes">
             <thead>
 
                 <tr>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Nombre Docente</th>
-                    <th scope="col">Motivos</th>
+                    <th scope="col">Nombre Entrenador</th>
+                    <th scope="col">Descripcion</th>
                     <th scope="col">Estudiantes</th>
-                    <th scope="col">Aula</th>
-                    <th scope="col">Hora de reserva</th>
-                    <th scope="col">Hora fin reserva</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col">Disciplina</th>
+                    <th scope="col">Hora inicio clases</th>
+                    <th scope="col">Hora fin clases</th>
+                    <!-- <th scope="col">Acciones</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +37,7 @@
                     <td>{{ @$solicitud->num_aula }}</td>
                     <td>{{ @$solicitud->hora_ini }} </td>
                     <td>{{ @$solicitud->hora_fin }} </td>
-                    <td>
+                    <!-- <td>
                         @can('solicitud_aceptar')
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAceptar{{$loop->index}}">
                             Aceptar
@@ -53,7 +53,7 @@
                             Sugerir
                         </button>
                         @endcan
-                    </td>
+                    </td> -->
                     <div class="modal fade" id="modalAceptar{{$loop->index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -158,7 +158,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 
+
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

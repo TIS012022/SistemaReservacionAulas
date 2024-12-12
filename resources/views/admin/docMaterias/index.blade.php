@@ -6,7 +6,7 @@
     <h2>INFORMACIÓN DISCIPLINA DE ENTRENADORES</h2>
     @can('asignar_create')
     <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalAsignarMat">
-        Asignar materia
+        Asignar Disciplina
     </button>
     @endcan
 </div>
@@ -110,7 +110,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <option value="">-- Selecciona la materia--</option>
+                            <option value="">-- Selecciona la Disciplina--</option>
 
                             @foreach ($materias as $materia)
                                 <option value="{{ $materia->id }}" @if(old('materia') == $materia->id) selected @endif>
@@ -119,6 +119,7 @@
                                 </option>
                             @endforeach
                         </select>
+
                         <label for="name">Sub Categoria</label>
                         <select  name="grupo" class="form-control" id="grupo" required>
                             <option value="">-- Selecciona el Sub Categoria--</option>
@@ -128,6 +129,8 @@
                                 </option>
                             @endforeach
                         </select>
+
+
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" class="form-control" required>
                             <option value="">-- Selecciona el estado--</option>

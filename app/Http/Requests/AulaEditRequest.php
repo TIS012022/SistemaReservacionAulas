@@ -28,10 +28,10 @@ class AulaEditRequest extends FormRequest
 
 
             'codigo' => [
-                'required', 'unique:aulas,codigo,' . request()->route('aula')->id
+                'required' . request()->route('aula')->id
             ],
             'num_aula' => [
-                'required', 'unique:aulas,num_aula,' . request()->route('aula')->id
+                'required' . request()->route('aula')->id
             ],
 
         ];
