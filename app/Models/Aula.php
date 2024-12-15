@@ -9,7 +9,7 @@ class Aula extends Model
 {
     use HasFactory;
     protected $table = 'aulas';
-    protected $fillable = ['num_aula', 'capacidad', 'sector'];
+    protected $fillable = ['codigo', 'num_aula', 'capacidad', 'sector'. 'estado'];
 
     public function solicitudes()
     {

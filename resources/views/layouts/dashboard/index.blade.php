@@ -53,7 +53,13 @@
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'all' ]) }}">
                     <span>{{ __('Lista de Aulas') }}</span></a>
             </li>
+            
+            <li class="nav-item {{ Nav::isRoute('solicitar') }}">
+                <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'admin']) }}">
+                    <span>{{ __('Aulas Reservadas') }}</span></a>
             </li>
+            </li>
+            
             @endif
 
             @if (auth()->user()->role === "docente")
@@ -67,11 +73,14 @@
             <li class="nav-item {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('solicitudes.create') }}">
                     <span>{{ __('Nueva solicitud') }}</span></a>
+                    
             </li>
+            
             <li class="nav-item {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'reservadas' ]) }}">
-                    <span>{{ __('Mis solicitudes') }}</span></a>
+                    <span>{{ __('Aulas Reservadas') }}</span></a>
             </li>
+            
 
             @endif
 
