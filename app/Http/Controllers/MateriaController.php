@@ -6,6 +6,7 @@ use App\Models\Materia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Gate; 
 
 class MateriaController extends Controller
 {
@@ -16,12 +17,13 @@ class MateriaController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(Gate::denies('materia_index'), 403);
         $materias = Materia::orderBy('id', 'asc')->get();
         return view('admin.materias.index', compact('materias'))->with('tipo', "all");
     }
 
     public function UpdateStatusNoti(Request $request){ 
-
+        abort_if(Gate::denies('materia_estado'), 403);
         $NotiUpdate = Materia::find($request->id);/* ->update(['estatus' => $request->estatus]) */
         $NotiUpdate ->estado=$request->estatus;
 
@@ -58,6 +60,7 @@ class MateriaController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(Gate::denies('materia_create'), 403);
         $validator = Validator::make($request->all(),[
             'codigo' => 'required|unique:materias,codigo',
             'nombre' => 'required|string|max:255|unique:materias,nombre',          
@@ -85,7 +88,7 @@ class MateriaController extends Controller
             return redirect()->back();
         }else{ 
 
-            return back()->withErrors([
+            return back()->withInput()->withErrors([
                 'message' => 'Error, El codigo o nombre de la materia ya esta registrado en la lista'
             ]);
         }
@@ -124,6 +127,7 @@ class MateriaController extends Controller
      */
     public function update(Request $request, $materiaId)
     {
+        abort_if(Gate::denies('materia_edit'), 403);
         $materia = Materia::find($materiaId);
         
         $materia->nombre = $request->nombre;

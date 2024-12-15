@@ -9,7 +9,7 @@ class Docmateria extends Model
 {
     use HasFactory;
     protected $table = 'docmaterias';
-    protected $fillable = ['inscritos','gestion','grupo','materia','docente'];
+    protected $fillable = ['inscritos','gestion','estado','grupo','materia','docente'];
 
     
     public function solicitudes()

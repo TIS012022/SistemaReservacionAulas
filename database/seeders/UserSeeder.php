@@ -39,5 +39,16 @@ class UserSeeder extends Seeder
         ]);
 
         $user2->assignRole('User');
+
+        $user3 = User::create([
+            'name' => 'Paco Fernandez',
+            'email' => 'docente2@gmail.com',
+            'estadoCuenta' => 'Habilitado',
+            'password' => 'docente',
+            'ci' => '4232332',
+            'Departamento' => 'Sistemas',
+        ]);
+
+        $user3->assignRole('User');
     }
 }

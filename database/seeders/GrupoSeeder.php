@@ -17,7 +17,7 @@ class GrupoSeeder extends Seeder
     {
         for ($i = 0; $i < 10; $i++) {
             DB::table('grupos')->insert([
-                'codigo' => Str::random(1).rand(1, 9),
+                'codigo' => rand(1000, 9999),
                 'numero' => $i+1,
             ]);
         }
