@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','ci','email','password','role','departamento','materias_grupos',
+        'name','ci','email', 'estadoCuenta', 'password','departamento','materias_grupos',
     ];
 
     /**
@@ -41,9 +42,9 @@ class User extends Authenticatable
     public function setPasswordAttribute($password){
         $this->attributes['password'] = bcrypt($password);
     }
-    public function solicitudes()
+    public function docmaterias()
     {
-        return $this->hasMany(Solicitud::class);
+        return $this->hasMany(Docmateria::class);
     }
    
 }

@@ -14,7 +14,7 @@ class AulaSeeder extends Seeder
      */
     public function run()
     {
-        $sectores = ["edificio nuevo", "bloque antiguo", "laboratorios", "edificio memi"];
+        $sectores = ["1", "2", "3", "4"];
         $letras = ['A','B','C','D','E','F','G', ''];
         $estado = ["Habilitado", "Deshabilitado", "Mantenimiento"];
         for ($i = 0; $i < 10; $i++) {

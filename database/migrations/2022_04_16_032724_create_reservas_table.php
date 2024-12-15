@@ -18,7 +18,7 @@ class CreateReservasTable extends Migration
             $table->string("aula");
             $table->time("hora_ini");
             $table->time("hora_fin");
-            $table->string("periodo");
+            $table->string("periodo")->nullable();
             $table->date("dia");
             $table->unsignedBigInteger('solicitud');
             $table->foreign('solicitud')->references('id')->on('solicitudes')->onUpdate('cascade')->onDelete('cascade');

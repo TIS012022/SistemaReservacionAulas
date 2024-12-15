@@ -18,6 +18,9 @@ class CreateMateriasTable extends Migration
             $table->string("codigo");
             $table->string("nombre");
             $table->string("carrera");
+            $table->string("nivel");
+            $table->string("tipo");
+            $table->string("estado");
             $table->timestamps();
         });
     }

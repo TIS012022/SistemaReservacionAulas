@@ -1,11 +1,11 @@
-@extends('layouts.app')
-
-
-@section('title','Home')
+@extends('layouts.main', ['activePage' => 'dashboard', 'titlePage' => __('Dashboard')])
 
 @section('content')
-
-    <h1 class="text-center">Bienvenido al sistema de asignacion de aulas Docente</h1>
-
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!--Enter code here -->
+        </div>
+    </div>
+</div>
 @endsection
-

@@ -9,10 +9,10 @@ class Materia extends Model
 {
     use HasFactory;
     protected $table = 'materias';
-    protected $fillable = ['codigo', 'nombre', 'carrera'];
+    protected $fillable = ['codigo', 'nombre', 'carrera', 'nivel', 'tipo', 'estado'];
 
-    public function solicitudes()
+    public function docmaterias()
     {
-        return $this->hasMany(Solicitud::class);
+        return $this->hasMany(Docmateria::class);
     }
 }

@@ -11,8 +11,8 @@ class Grupo extends Model
     protected $table = 'grupos';
     protected $fillable = ['codigo', 'numero'];
     
-    public function solicitudes()
+    public function docmaterias()
     {
-        return $this->hasMany(Solicitud::class);
+        return $this->hasMany(Docmateria::class);
     }
 }
