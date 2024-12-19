@@ -3,7 +3,7 @@
 
 <div class="d-flex justify-content-between">
     <h2>
-        INFORMACIÓN DE USUARIOS 
+        INFORMACIÓN DE ENTRENADORES
     </h2>
     @can('user_create')
     <a type="button" class="btn btn-dark" style="background-color: #1D3354; padding-top: 0.8%" href="{{ route('admin.usuarios.create')}}">
@@ -21,7 +21,7 @@
 
 <div class="form-group" >
     @can('user_buscar')
-    <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto"> 
+    <span class="input-group" style="width: 60%; margin-right:auto; margin-left:auto">
         <img src="{{asset('images/search.svg')}}" alt="" style="border-radius: 10px; position: relative; width:100%; max-width:30px; right:8px;">
         <input id="searchTerm" type="text" onkeyup="doSearch()" class="form-control pull-right"  placeholder="Escribe para buscar en la tabla..." />
     </span>
@@ -39,7 +39,7 @@
             <th scope="col">Rol</th>
 
             <th scope="col">Acciones</th>
-            
+
         </tr>
     </thead>
     <tbody>
@@ -57,7 +57,7 @@
                   <span class="badge badge-danger">No roles</span>
                 @endforelse
               </td>
-        
+
             <td>
                 @can('user_edit')
                 <a type="button" class="btn btn-primary" href="{{ route('admin.usuarios.edit', $user->id) }}">
@@ -67,21 +67,21 @@
                 @can('user_destroy')
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar-{{$user->id}}">
                     Eliminar
-                </button> 
+                </button>
                 @endcan
             </td>
-            
+
         </tr>
         @include('admin.usuarios.modalEliminar')
-    
+
         @endforeach
-       
+
     </tbody>
-    
+
 </table>
 </div>
 
-    
+
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -102,7 +102,7 @@
                         <input type="text" name="name" class="form-control" id="name" required minlength="5" maxlength="15"
                         onkeypress="return blockSpecialChar(event)">
                         <label for="name">Carnet de identidad</label>
-                        <input type="text" name="ci" class="form-control" id="ci" required minlength="7" maxlength="10" 
+                        <input type="text" name="ci" class="form-control" id="ci" required minlength="7" maxlength="10"
                         onkeypress="return blockNoNumber(event)">
                         <label for="name">Correo electronico</label>
                         <input type="email" name="email" class="form-control" id="email" required minlength="10" maxlength="25">
@@ -114,11 +114,11 @@
                         <label for="roles">Rol</label>
                         <select name="role" id="role" class="form-control" required>
                             <option value="">-- Selecciona el rol--</option>
-                            
-                           
-                        </select>  
 
-                        
+
+                        </select>
+
+
                     </div>
                     <div class="row">
                         <label for="roles" class="col-sm-2 col-form-label">Roles</label>
@@ -127,7 +127,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active">
                                         <table class="table">
-                                            
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -143,7 +143,7 @@
                 </div>
             </form>
         </div>
-    </div>   
+    </div>
 </div>
 
 <script type="text/javascript">

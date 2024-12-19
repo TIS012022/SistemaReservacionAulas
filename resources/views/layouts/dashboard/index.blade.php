@@ -88,7 +88,7 @@
             @can('user_index')
             <li class="nav-item active {{ Nav::isRoute('usuarios') }}">
                 <a class="nav-link" href="{{route('admin.usuarios.index')}}" >
-                    <span>{{ __('Usuarios') }}</span></a>
+                    <span>{{ __('Entrenadores') }}</span></a>
             </li>
             @endcan
 
