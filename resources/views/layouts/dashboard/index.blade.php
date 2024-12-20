@@ -100,13 +100,13 @@
             @endcan
 
             <!-- Nav Item - Notificaciones -->
-            @can('notificacion_index')
+            <!-- @can('notificacion_index')
             <li class="nav-item active {{ Nav::isRoute('notificaciones') }}">
                 <a class="nav-link" href="{{ route('notificaciones') }}">
                     {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
                     <span>{{ __('Notificaciones') }}</span></a>
             </li>
-            @endcan
+            @endcan -->
 
 
             <!-- <li class="nav-item {{ Nav::isRoute('solicitar') }}">

@@ -17,6 +17,7 @@ class MateriaSeeder extends Seeder
     {
         $carreras = ["Sistemas", "Informatica", "Ing Alimentos", "Electromecanica", "Mecanica", "Ing Civil"];
         $materias = [
+            "Futbol I",
             "Sistemas de Informacion I",
             "Sistemas de Informacion II",
             "Ingenieria de Software",
@@ -27,17 +28,10 @@ class MateriaSeeder extends Seeder
             "Calculo IV",
             "Algebra I",
             "Algebra Lineal",
-            "Futbol Masculino",
-            "Futbol Femenino",
-            "Basquet Masculino",
-            "Basquet Femenino",
-            "Gimnacia Ritmica",
-            "Judo",
-            "Taekwando",
         ];
         $estado = ["Habilitado", "Deshabilitado"];
         $niveles = ['A','B','C','D','E','F','G', 'H', 'I', 'J', ''];
-        $tipos = ["Femenino", "Masculino"];
+        $tipos = ["Sub-8", "Sub-10", "Sub-10"];
 
         for ($i = 0; $i < 10; $i++) {
             DB::table('materias')->insert([
