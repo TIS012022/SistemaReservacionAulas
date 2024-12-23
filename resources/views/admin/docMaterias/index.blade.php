@@ -3,7 +3,7 @@
 
 
 <div class="d-flex justify-content-between">
-    <h2>INFORMACIÓN DISCIPLINA DE ENTRENADORES</h2>
+    <h2>INFORMACIÓN DISCIPLINA Y ENTRENADORES</h2>
     @can('asignar_create')
     <button type="button" class="btn btn-dark" style="background-color: #1D3354" data-toggle="modal" data-target="#modalAsignarMat">
         Asignar Disciplina

@@ -37,7 +37,7 @@ class MateriaSeeder extends Seeder
             DB::table('materias')->insert([
                 'codigo' => Str::random(3) . rand(1, 5)*100,
                 'nombre' => $materias[$i],
-                'carrera' => $carreras[rand(0, 5)],
+                'carrera' => $carreras[rand(0, 2)],
                 'estado' => $estado[rand(0,1)],
                 'nivel' => $niveles[rand(0, 10)],
                 'tipo' => $tipos[rand(0, 1)]

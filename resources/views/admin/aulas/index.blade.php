@@ -173,7 +173,6 @@
 
                             <option value="Habilitado" @if(old('estado') == 'Habilitado') selected @endif>Habilitado</option>
                             <option value="Deshabilitado" @if(old('estado') == 'Deshabilitado') selected @endif>Deshabilitado</option>
-                            <option value="Mantenimiento" @if(old('estado') == 'Mantenimiento') selected @endif>Mantenimiento</option>
                         </select>
                     </div>
                 </div>

@@ -23,13 +23,13 @@
               @endif --}}
               <div class="form-group">
                 <label for="codigo">Codigo</label>
-                <input type="text" name="codigo" class="form-control" id="codigo" required minlength="5" maxlength="15"  
+                <input type="text" name="codigo" class="form-control" id="codigo" required minlength="5" maxlength="15"
                 onkeypress="return blockNoNumber(event)">
                 @if ($errors->has('codigo'))
             <span class="error text-danger" for="input-codigo" style="font-size: 15px">{{ $errors->first('codigo') }}</span>
             @endif
                 <label for="num_aula">Numero aula</label>
-                <input type="text" name="num_aula" class="form-control" id="num_aula" required minlength="1" maxlength="6" 
+                <input type="text" name="num_aula" class="form-control" id="num_aula" required minlength="1" maxlength="6"
                 onkeypress="return blockSpecialChar(event)">
                 @if ($errors->has('num_aula'))
             <span class="error text-danger" for="input-num_aula" style="font-size: 15px">{{ $errors->first('num_aula') }}</span>
@@ -40,18 +40,17 @@
                 <label for="sectores">Sector</label>
                 <select name="sector" id="sector" class="form-control" required>
                     <option value="">-- Selecciona el sector--</option>
-                    
+
                     @foreach ($sectors as $id => $sector)
                         <option value="{{ $sector->id }}">{{ $sector->nombre}}</option>
                     @endforeach
-                </select>  
+                </select>
                 <label for="estado">Estado</label>
                 <select name="estado" id="estado" class="form-control" required>
                     <option value="">-- Selecciona el estado--</option>
-                    
+
                     <option>Habilitado</option>
                     <option>Deshabilitado</option>
-                    <option>Mantenimiento</option>
                 </select>
             </div>
         </div>

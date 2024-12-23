@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Arr;
 
-    $tipo = ['Regular', 'Electiva'];
+    $tipo = ['Sub-8', 'Sub-9', 'Sub-11', 'Sub-16', 'Sub-18'];
     $tipo = array_diff($tipo, array("{$materia->tipo}"));
     $tipo = Arr::prepend($tipo, "{$materia->tipo}");
 

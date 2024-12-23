@@ -1,10 +1,14 @@
 <?php
+
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+
     $sectors = DB::table('sectors')->select('nombre')->get();
     $sectores = DB::table('sectors')->select('nombre')->where('id','=', "{$aula->id}")->get();
   // $sectors = array_diff($sectors, $sectores);
     //$sector = Arr::prepend($sector, "{$aula->nombre}");
 
-    $estado = ["Habilitado","Deshabilitado", "Mantenimiento"];
+    $estado = ["Habilitado","Deshabilitado"];
     $estado = array_diff($estado, array("{$aula->estado}"));
     $estado = Arr::prepend($estado, "{$aula->estado}");
 ?>
