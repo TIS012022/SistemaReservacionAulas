@@ -44,13 +44,14 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Solicitudes -->
-            @can('crear_reserva')
+            <!-- @can('crear_reserva')
             <li class="nav-item active {{ Nav::isRoute('solicitar') }}">
                 <a class="nav-link" href="{{ route('solicitudes.create') }}">
                     <span>{{ __('solicitud de inscripcion') }}</span></a>
 
             </li>
-            @endcan
+            @endcan -->
+
             @can('solicitud_index')
             <li class="nav-item active {{ Nav::isRoute('solicitudes') }}">
                 <a class="nav-link" href="{{ route('solicitudes') }}">
