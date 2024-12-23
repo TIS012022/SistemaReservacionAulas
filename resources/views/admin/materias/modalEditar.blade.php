@@ -1,10 +1,13 @@
 <?php
+
+use Illuminate\Support\Arr;
+
     $tipo = ['Regular', 'Electiva'];
-    $tipo = array_diff($tipo, array("{$materia->tipo}"));   
+    $tipo = array_diff($tipo, array("{$materia->tipo}"));
     $tipo = Arr::prepend($tipo, "{$materia->tipo}");
-    
+
     // $estado = ["Habilitado","Deshabilitado", "Mantenimiento"];
-    // $estado = array_diff($estado, array("{$aula->estado}"));   
+    // $estado = array_diff($estado, array("{$aula->estado}"));
     // $estado = Arr::prepend($estado, "{$aula->estado}");
 ?>
 <div class="modal fade" id="modalEditar-{{$materia->id}}">
@@ -19,42 +22,48 @@
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Nombre Materia</label>
-                        <input type="text" name="nombre" class="form-control" id="nombre" value="{{$materia->nombre}}" required minlength="5" maxlength="25" 
+                        <label for="name">Nombre Disciplina</label>
+                        <input type="text" name="nombre" class="form-control" id="nombre" value="{{$materia->nombre}}" required minlength="5" maxlength="25"
                         onkeypress="return blockSpecialChar(event)">
                     </div>
 
                     <div class="form-group">
-                        <label for="carrera">Carrera</label>
+                        <label for="name">Edad Años</label>
+                        <input type="text" name="codigo" class="form-control" id="codigo" value="{{$materia->codigo}}" required minlength="1" maxlength="100"
+                        onkeypress="return blockNoNumber(event)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="carrera">Genero</label>
                         <input type="text" name="carrera" class="form-control" id="carrera" value="{{$materia->carrera}}" required minlength="5" maxlength="50"
                         onkeypress="return blockSpecialChar(event)">
                     </div>
 
                     <div class="form-group">
-                        <label for="name">Nivel</label>
-                            <input type="text" name="nivel" class="form-control" id="nivel" value="{{$materia->nivel}}" required minlength="1" maxlength="1" 
+                        <label for="name">Categoria</label>
+                            <input type="text" name="nivel" class="form-control" id="nivel" value="{{$materia->nivel}}" required minlength="1" maxlength="1"
                             onkeypress="return blockSpecialChar(event)">
                     </div>
 
                     <div class="form-group">
                         <label for="tipo">Tipo</label>
                         <select name="tipo" id="tipo" class="form-control" required>
-                      
+
                             @foreach($tipo as $t)
-            
+
                              <option value="{{$t}}">{{$t}}</option>
-            
+
                             @endforeach
-                        </select>                    
+                        </select>
                     </div>
-                
+
                     {{-- <div class="form-group">
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" class="form-control" required>
                             @foreach($estado as $es)
-            
+
                              <option value="{{$es}}">{{$es}}</option>
-            
+
                             @endforeach
                         </select>
                     </div> --}}

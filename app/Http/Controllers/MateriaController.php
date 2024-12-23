@@ -130,6 +130,7 @@ class MateriaController extends Controller
         abort_if(Gate::denies('materia_edit'), 403);
         $materia = Materia::find($materiaId);
 
+        $materia->codigo = $request->codigo;
         $materia->nombre = $request->nombre;
         $materia->carrera = $request->carrera;
         $materia->tipo = $request->tipo;
