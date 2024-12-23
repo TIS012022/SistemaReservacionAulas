@@ -7,10 +7,10 @@ use App\Models\User;
 
 class RegisterController extends Controller
 {
-    
+
     public function create(){
         return view('auth.register');
-        
+
     }
 
     public function store(){
@@ -29,6 +29,6 @@ class RegisterController extends Controller
         $user = User::create(request(['name','ci','email','password', 'role', 'departamento', 'materias_grupos']));
 
         auth()->login($user);
-        return redirect()->to('/docente');
+        return redirect()->to('/entrenador');
     }
 }

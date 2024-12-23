@@ -99,6 +99,15 @@
             </li>
             @endcan
 
+            <li class="nav-item active {{ request()->is('reportes')  ? 'active' : ''}}">
+                <a class="nav-link" href="#">
+                    <span>{{ __('Reportes') }}</span></a>
+            </li>
+
+            <li class="nav">
+
+            </li>
+
             <!-- Nav Item - Notificaciones -->
             <!-- @can('notificacion_index')
             <li class="nav-item active {{ Nav::isRoute('notificaciones') }}">

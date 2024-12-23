@@ -96,7 +96,7 @@ class AulaController extends Controller
             $newAula->estado = $request->estado;
 
             $aula = Aula::where('codigo', $request->codigo)->first();
-            $aula2 = Aula::where('num_aula', $request->num_aula)->first();
+            $aula2 = Aula::where('nom_disciplina', $request->nom_disciplina)->first();
             if(empty($aula) && empty($aula2)){
                 $newAula->save();
                 return redirect()->back();
@@ -147,7 +147,7 @@ class AulaController extends Controller
         }else{
 
             return back()->withErrors([
-                'message' => 'No se puede eliminar el aula '.$aula["num_aula"].' debido a que esta siendo usada en una solicitud'
+                'message' => 'No se puede eliminar el aula '.$aula["nom_disciplina"].' debido a que esta siendo usada en una solicitud'
             ]);
 
         }
@@ -195,13 +195,13 @@ class AulaController extends Controller
     {
         abort_if(Gate::denies('aula_edit'), 403);
         $aula = Aula::find($aulaId);
-        $aula->num_aula = $request->num_aula;
+        $aula->nom_disciplina = $request->nom_disciplina;
         $aula->capacidad = $request->capacidad;
         $aula->sector = $request->sector;
         $aula->estado = $request->estado;
 
 
-        $aula2 = Aula::where('num_aula', $request->num_aula)->first();
+        $aula2 = Aula::where('nom_disciplina', $request->nom_disciplina)->first();
             if(empty($aula2)){
                  $aula->save();
                 return redirect()->back();

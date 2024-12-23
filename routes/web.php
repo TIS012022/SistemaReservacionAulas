@@ -104,7 +104,7 @@ Route::resource('aulas', AulaController::class, [
     'index' => 'aulas'
   ]
 ])->middleware('auth.user');
- 
+
 
 
 Route::post('/aulas/store', [App\Http\Controllers\AulaController::class, 'store'])
@@ -215,3 +215,11 @@ Route::post('/grupos/{grupoId}/update', [App\Http\Controllers\GrupoController::c
 
 Route::delete('/grupos/{grupoId}/delete', [App\Http\Controllers\GrupoController::class, 'delete'])
 ->name('admin.grupos.delete');
+
+//Ruta Reportes
+Route::get('/reportes/create', [\App\Http\Controllers\ReporteController::class, 'create'])
+->name('admin.reportes.create');
+
+Route::get('/reportes/generar', [\App\Http\Controllers\ReporteController::class, 'store'])
+    ->name('admin.reportes.store');
+

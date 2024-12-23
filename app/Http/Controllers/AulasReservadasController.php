@@ -20,17 +20,17 @@ class AulasReservadasController extends Controller
      */
     public function index()
     {
-        
+
             $aulas = DB::table('solicitudes')
             ->join('materias', 'solicitudes.materia', '=', 'materias.id')
             ->join('aulas', 'solicitudes.aula', '=', 'aulas.id')
             ->where('solicitudes.docente')
-            ->select('solicitudes.estado','aulas.num_aula','materias.nombre','solicitudes.dia',
+            ->select('solicitudes.estado','aulas.nom_disciplina','materias.nombre','solicitudes.dia',
             'solicitudes.hora_ini','solicitudes.hora_fin')
             ->get();
 
             return view('admin.aulasR.index', compact('aulasR'));
-        
+
     }
 
     /**
@@ -50,18 +50,18 @@ class AulasReservadasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {      
+    {
             $newAula= new Aula();
-    
+
             $newAula->codigo = $request->codigo;
-            $newAula->num_aula = $request->num_aula;
+            $newAula->nom_disciplina = $request->nom_disciplina;
             $newAula->capacidad = $request->capacidad;
             $newAula->sector = $request->sector;
             $newAula->estado = $request->estado;
             $newAula->save();
 
-        
-           return redirect()->back();        
+
+           return redirect()->back();
     }
 
     public function delete(Request $request, $aulaId)
@@ -70,12 +70,12 @@ class AulasReservadasController extends Controller
             $output = $data;
             if (is_array($output))
                 $output = implode(',', $output);
-        
+
             echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
         }
-        
+
         $solicitudes = Solicitud::where('aula', $aulaId)->first();
-    
+
         $aula = Aula::find($aulaId);
         debug_to_console($aula);
         debug_to_console($solicitudes);
@@ -91,18 +91,18 @@ class AulasReservadasController extends Controller
          }
        */
        if(empty($solicitudes)){
-       
+
             $aula->delete();
             return redirect()->back();
         }else{
-            
+
             return back()->withErrors([
-                'message' => 'No se puede eliminar el aula '.$aula["num_aula"].' debido a que esta siendo usada en una reservacion'
+                'message' => 'No se puede eliminar el aula '.$aula["nom_disciplina"].' debido a que esta siendo usada en una reservacion'
             ]);
 
         }
-        
-        
+
+
     }
     /**
      * Display the specified resource.
@@ -136,7 +136,7 @@ class AulasReservadasController extends Controller
     public function update(Request $request, $aulaId)
     {
         $aula = Aula::find($aulaId);
-        $aula->num_aula = $request->num_aula;
+        $aula->nom_disciplina = $request->nom_disciplina;
         $aula->capacidad = $request->capacidad;
         $aula->sector = $request->sector;
         $aula->estado = $request->estado;
