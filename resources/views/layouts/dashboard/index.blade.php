@@ -59,12 +59,12 @@
                     {{-- <i class="bi bi-123"></i> --}}
                     <span>{{ __('Inscripciones') }}</span></a>
             @endcan
-            @can('aula_index')
+            <!-- @can('aula_index')
             <li class="nav-item active {{ Nav::isRoute('aulas') }}">
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'all' ]) }}">
                     <span>{{ __('Lista de Disiplinas') }}</span></a>
             </li>
-            @endcan
+            @endcan -->
             @can('aulaR_index')
             <li class="nav-item active {{ Nav::isRoute('aulasR') }}">
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'admin']) }}">

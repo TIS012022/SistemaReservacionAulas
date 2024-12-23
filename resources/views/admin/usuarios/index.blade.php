@@ -35,6 +35,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Carnet de identidad</th>
             <th scope="col">Email</th>
+            <th scope="col">Cv Entrenador</th>
             <th scope="col">Estado</th>
             <th scope="col">Rol</th>
 
@@ -49,6 +50,7 @@
             <td>{{ @$user->name }}</td>
             <td>{{ @$user->ci }}</td>
             <td>{{ @$user->email }}</td>
+            <td><a href="{{ url('/storage/.$user->pdf') }}" target="_blank">Ver CV</a></td>
             <td>{{ @$user->estadoCuenta }}</td>
             <td>
                 @forelse ($user->roles as $role)
