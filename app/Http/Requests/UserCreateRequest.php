@@ -28,6 +28,7 @@ class UserCreateRequest extends FormRequest
             'ci' => 'required|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required',
+            'pdf' => 'required',
             'departamento' => 'required',
         ];
     }
@@ -35,7 +36,8 @@ class UserCreateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'El nombre es requerido '
+            'name.required' => 'El nombre es requerido ',
+            'pdf.required' => 'El archivo PDF es requerido ',
         ];
     }
 }

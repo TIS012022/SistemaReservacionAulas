@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Gate;    
+use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Role;
 
 class UsuariosRController extends Controller
@@ -23,7 +23,7 @@ class UsuariosRController extends Controller
         return view('admin.usuarios.index', compact('users'));
     }
 
-    
+
     public function create()
     {
         abort_if(Gate::denies('user_create'), 403);
@@ -47,7 +47,13 @@ class UsuariosRController extends Controller
         //     'email' => 'required|email|unique:users',
         //     'password' => 'required'
         // ]);
-        $user = User::create($request->only('name', 'ci', 'email','departamento', 'password')
+
+        $data_all =  $request->all();
+        if($request->hasFile('pdf')) {
+            $data_all['pdf'] = $request->file('pdf')->store('uploads', 'public');
+        }
+
+        $user = User::create($data_all, $request->only('name', 'ci', 'email','pdf','departamento', 'password')
             + [
                 'estadoCuenta' => "Habilitado",
             ]);
@@ -59,16 +65,16 @@ class UsuariosRController extends Controller
 
     public function delete(Request $request, $usuarioId)
     {
-        
+
         $usuario = User::find($usuarioId);
         $usuario->delete();
         return redirect()->back();
     }
-    
+
     public function update(UserEditRequest $request, User $user)
     {
         // $user=User::findOrFail($id);
-        $data = $request->only('name', 'email', 'departamento', 'estadoCuenta');
+        $data = $request->only('name', 'email', 'pdf', 'departamento', 'estadoCuenta');
         $password=$request->input('password');
         if($password)
             $data['password'] = $password;

@@ -24,7 +24,7 @@
               <div class="row">
                 <label for="name" class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="name" placeholder="Ingrese su nombre" value="{{ old('name') }}" autofocus minlength="5" maxlength="15" 
+                  <input type="text" class="form-control" name="name" placeholder="Ingrese su nombre" value="{{ old('name') }}" autofocus minlength="5" maxlength="15"
                   onkeypress="return blockSpecialChar(event)">
                   @if ($errors->has('name'))
                     <span class="error text-danger" for="input-name" style="font-size: 15px">{{ $errors->first('name') }}</span>
@@ -34,7 +34,7 @@
               <div class="row">
                 <label for="ci" class="col-sm-2 col-form-label">ci</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="ci" placeholder="Ingrese carnet de identidad" value="{{ old('ci') }}" minlength="7" maxlength="10"  
+                  <input type="text" class="form-control" name="ci" placeholder="Ingrese carnet de identidad" value="{{ old('ci') }}" minlength="7" maxlength="10"
                   onkeypress="return blockNoNumber(event)">
                   @if ($errors->has('ci'))
                     <span class="error text-danger" for="input-ci" style="font-size: 15px">{{ $errors->first('ci') }}</span>
@@ -59,10 +59,24 @@
                   @endif
                 </div>
               </div>
+
+            <div class="row">
+                <label for="password" class="col-sm-2 col-form-label">Archivo Cv</label>
+                <div class="col-sm-7">
+                <input type="file" accept="application/pdf,application/msword" class="form-control" name="pdf" placeholder="Subir Archivo" value="{{old('pdf')}}" minlength="5" maxlength="15"
+                onkeypress="return blckSpecialChar(event)">
+                @if ($errors->has('password'))
+                    <span class="error text-danger" for="input-password" style="font-size: 15px">{{ $errors->first('password') }}</span>
+                @endif
+                </div>
+            </div>
+
+
+
               <div class="row">
                 <label for="departamento" class="col-sm-2 col-form-label">Departamento</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="departamento" placeholder="Ingrese el departamento al que pertenece" value="{{ old('departamento') }}" autofocus minlength="5" maxlength="15" 
+                  <input type="text" class="form-control" name="departamento" placeholder="Ingrese el departamento al que pertenece" value="{{ old('departamento') }}" autofocus minlength="5" maxlength="15"
                   onkeypress="return blockSpecialChar(event)">
                   @if ($errors->has('departamento'))
                     <span class="error text-danger" for="input-departamento" style="font-size: 15px">{{ $errors->first('departamento') }}</span>
