@@ -62,7 +62,7 @@
             @can('aula_index')
             <li class="nav-item active {{ Nav::isRoute('aulas') }}">
                 <a class="nav-link" href="{{ route('aulas', ['tipo'=> 'all' ]) }}">
-                    <span>{{ __('Lista de Disiplinas') }}</span></a>
+                    <span>{{ __('Lista de Disciplinas') }}</span></a>
             </li>
             @endcan
             @can('aulaR_index')
@@ -99,11 +99,11 @@
                     <span>{{ __('Roles') }}</span></a>
             </li>
             @endcan
-
-            <li class="nav-item active {{ request()->is('reportes')  ? 'active' : ''}}">
+3345567890-5
+            <!-- <li class="nav-item active {{ request()->is('reportes')  ? 'active' : ''}}">
                 <a class="nav-link" href="#">
                     <span>{{ __('Reportes') }}</span></a>
-            </li>
+            </li> -->
 
             <li class="nav">
 
