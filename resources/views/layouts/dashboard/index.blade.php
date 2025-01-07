@@ -99,7 +99,7 @@
                     <span>{{ __('Roles') }}</span></a>
             </li>
             @endcan
-3345567890-5
+
             <!-- <li class="nav-item active {{ request()->is('reportes')  ? 'active' : ''}}">
                 <a class="nav-link" href="#">
                     <span>{{ __('Reportes') }}</span></a>
